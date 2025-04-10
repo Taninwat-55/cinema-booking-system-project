@@ -4,6 +4,9 @@ import LandingPage from './pages/LandingPage';
 import MovieDetailPage from './pages/MovieDetailPage';
 import BookingPage from './pages/BookingPage';
 import BookingConfirmationPage from './pages/BookingConfirmationPage';
+import RegisterPage from './pages/RegisterPage';
+import LoginPage from './pages/LoginPage';
+import MyBookingPage from './pages/MyBookingPage';
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +28,18 @@ export const router = createBrowserRouter([
       {
         path: 'booking-confirmation/:bookingNumber',
         element: <BookingConfirmationPage />,
+      },
+      {
+        path: 'register',
+        element: <RegisterPage />,
+      },
+      {
+        path: 'login',
+        element: <LoginPage />,
+      },
+      {
+        path: 'my-bookings',
+        element: <MyBookingPage />,
       },
     ],
   },
