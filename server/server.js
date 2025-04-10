@@ -6,12 +6,16 @@ const PORT = process.env.PORT || 3001;
 
 const movieRoutes = require('./routes/movieRoutes');
 const showingRoutes = require('./routes/showingRoutes');
+const seatRoutes = require('./routes/seatRoutes');
+const bookingRoutes = require('./routes/bookingRoutes');
 
 app.use(express.json());
 app.use(cors());
 
 app.use('/api/movies', movieRoutes);
 app.use('/api/showings', showingRoutes);
+app.use('/api/seats', seatRoutes);
+app.use('/api/bookings', bookingRoutes);
 
 app.get('/', (req, res) => {
   res.send('Cinema Booking System Backend is running!');

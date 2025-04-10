@@ -3,6 +3,7 @@ import App from './App';
 import LandingPage from './pages/LandingPage';
 import MovieDetailPage from './pages/MovieDetailPage';
 import BookingPage from './pages/BookingPage';
+import BookingConfirmationPage from './pages/BookingConfirmationPage';
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
       {
         path: 'book/:id',
         element: <BookingPage />,
+      },
+      {
+        path: 'booking-confirmation/:bookingNumber',
+        element: <BookingConfirmationPage />,
       },
     ],
   },
