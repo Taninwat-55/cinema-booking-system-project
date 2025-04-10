@@ -7,6 +7,7 @@ import BookingConfirmationPage from './pages/BookingConfirmationPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import MyBookingPage from './pages/MyBookingPage';
+import ProtectedRoute from './components/ProtectedRoute';
 
 export const router = createBrowserRouter([
   {
@@ -39,7 +40,11 @@ export const router = createBrowserRouter([
       },
       {
         path: 'my-bookings',
-        element: <MyBookingPage />,
+        element: (
+          <ProtectedRoute>
+            <MyBookingPage />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
