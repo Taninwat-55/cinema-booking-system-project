@@ -20,8 +20,6 @@ function MovieDetailPage() {
 
   if (!movie) return <p>Loading movie details...</p>;
 
-  console.log('Showings:', showings);
-
   return (
     <div>
       <h1>{movie.title}</h1>
