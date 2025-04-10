@@ -33,15 +33,17 @@ This is a full-stack cinema booking system built with:
 
 ## Features In Progress 🛠️
 
----
-
-## Planned Features 🎯
-
 ### Admin System
 
 - [ ] Admin can create, read, delete movies
 - [ ] Admin can add showings for movies
 - [ ] Admin authentication (optional)
+
+---
+
+## Planned Features 🎯
+
+### Coming Soon
 
 ---
 
@@ -125,7 +127,7 @@ cinema-booking-system-project/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/cinema-booking-system-project.git
+git clone https://github.com/Taninwat-55/cinema-booking-system-project
 cd cinema-booking-system-project
 ```
 
@@ -155,7 +157,7 @@ node seeds/setup.js
 ### 4. Run the Backend Server
 
 ```bash
-npm run dev
+nodemone server.js
 ```
 
 ### 5. Run the Frontend (React Vite)
@@ -172,9 +174,7 @@ npm run dev
 Open in your browser:
 
 ```
-http://localhost:5173
+http://localhost:5173 or http://localhost:5174
 ```
 
 ---
-
-This will allow your teammates to easily clone and set up the project locally.
