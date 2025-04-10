@@ -22,16 +22,16 @@ This is a full-stack cinema booking system built with:
 - [x] Seat Selection — Visual seat map with availability
 - [x] Booking Confirmation — Generate unique booking number
 
+### User Authentication System
+
+- [x] User Registration Page
+- [x] User Login Page
+- [x] Login State Management (Context API)
+- [x] View My Bookings (Upcoming & History)
+
 ---
 
 ## Features In Progress 🛠️
-
-### User Authentication System
-
-- [ ] User Registration Page
-- [ ] User Login Page
-- [ ] Login State Management (Context API)
-- [ ] View My Bookings (Upcoming & History)
 
 ---
 
@@ -65,30 +65,47 @@ This is a full-stack cinema booking system built with:
 cinema-booking-system-project/
 ├── client/               # React Frontend
 │   ├── src/
-│   │   ├── pages/        # All pages
-│   │   ├── BookingConfirmation.jsx
-│   │   ├── BookingPage.jsx
-│   │   ├── LandingPage.jsx
-│   │   └── MovieDetailPage.jsx
-│   │   ├── components/
-│   │   └── Navbar.jsx    # Reusable UI components
+│   │   ├── assets/
+│   │   ├── components/   # Reusable UI components
+│   │   │   ├── Navbar.jsx
+│   │   │   └── ProtectedRoute.jsx
 │   │   ├── context/      # Global state management (for user login later)
-│   │   ├── Router.jsx    # React Router setup with createBrowserRouter
+│   │   │   └── UserContext.jsx
+│   │   ├── pages/        # All pages
+│   │   │   ├── BookingConfirmationPage.jsx
+│   │   │   ├── BookingPage.jsx
+│   │   │   ├── LandingPage.jsx
+│   │   │   ├── LoginPage.jsx
+│   │   │   ├── MovieDetailPage.jsx
+│   │   │   └── MyBookingPage.jsx
+│   │   │   ├── RegisterPage.jsx
+│   │   ├── styles/
+│   │   │   └── App.css
+│   │   │   └── index.css
 │   │   ├── App.jsx       # Main layout with <Outlet />
 │   │   └── main.jsx      # React entry point
+│   │   ├── Router.jsx    # React Router setup with createBrowserRouter
 │
 ├── server/               # Express Backend
 │   ├── routes/           # Route definitions
+│   │   ├── authRoutes.js
+│   │   ├── bookingRoutes.js
 │   │   ├── movieRoutes.js
-│   │   ├── showingRoutes.js
 │   │   ├── seatRoutes.js
-│   │   └── bookingRoutes.js
+│   │   ├── showingRoutes.js
+│   │   └── userRoutes.js
 │   │
 │   ├── controllers/      # Route logic / Handlers
+│   │   ├── authController.js
+│   │   ├── bookingController.js
 │   │   ├── movieController.js
-│   │   ├── showingController.js
 │   │   ├── seatController.js
-│   │   └── bookingController.js
+│   │   ├── showingController.js
+│   │   └── userController.js
+│   │
+│   ├── models/
+│   │   ├── bookingModel.js
+│   │   └── userModel.js
 │   │
 │   ├── seed/             # Database seeding scripts
 │   │   ├── setup.js             # Create tables
@@ -102,3 +119,62 @@ cinema-booking-system-project/
 │   │
 │   └── server.js         # Main server file (Express app setup)
 ```
+
+## Getting Started (Clone & Run)
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/cinema-booking-system-project.git
+cd cinema-booking-system-project
+```
+
+### 2. Install Dependencies
+
+Install both frontend and backend dependencies:
+
+```bash
+# For Backend
+cd server
+npm install
+
+# For Frontend
+cd ../client
+npm install
+```
+
+### 3. Setup the Database
+
+Go to the server folder and run the setup script to create tables and insert seed data:
+
+```bash
+cd ../server
+node seeds/setup.js
+```
+
+### 4. Run the Backend Server
+
+```bash
+npm run dev
+```
+
+### 5. Run the Frontend (React Vite)
+
+In a new terminal:
+
+```bash
+cd ../client
+npm run dev
+```
+
+### 6. Access the Application
+
+Open in your browser:
+
+```
+http://localhost:5173
+```
+
+---
+
+This will allow your teammates to easily clone and set up the project locally.
