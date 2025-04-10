@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 function BookingPage() {
@@ -11,6 +11,8 @@ function BookingPage() {
     child: 0,
     senior: 0,
   });
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:3001/api/showings/${id}`)
@@ -62,7 +64,7 @@ function BookingPage() {
 
     const data = await res.json();
 
-    alert(`Booking successful! Your booking number is ${data.booking_number}`);
+    navigate(`/booking-confirmation/${data.booking_number}`);
   };
 
   const totalPrice =
