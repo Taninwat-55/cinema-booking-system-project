@@ -1,5 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { UserContext } from '../context/UserContext';
+import { useContext } from 'react';
 
 function BookingPage() {
   const { id } = useParams();
@@ -11,6 +13,8 @@ function BookingPage() {
     child: 0,
     senior: 0,
   });
+
+  const { user } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -47,10 +51,20 @@ function BookingPage() {
   };
 
   const handleBooking = async () => {
-    if (selectedSeats.length === 0) {
+    if (!selectedSeats.length) {
       alert('Please select at least one seat!');
       return;
     }
+
+    const ticketDetails = [
+      { ticket_type: 'vuxen', quantity: tickets.adult, price_per_ticket: 120 },
+      { ticket_type: 'barn', quantity: tickets.child, price_per_ticket: 80 },
+      {
+        ticket_type: 'pensionär',
+        quantity: tickets.senior,
+        price_per_ticket: 100,
+      },
+    ].filter((ticket) => ticket.quantity > 0);
 
     const res = await fetch('http://localhost:3001/api/bookings', {
       method: 'POST',
@@ -59,6 +73,8 @@ function BookingPage() {
         showing_id: id,
         total_price: totalPrice,
         selected_seats: selectedSeats,
+        user_id: user.id,
+        ticket_details: ticketDetails,
       }),
     });
 
