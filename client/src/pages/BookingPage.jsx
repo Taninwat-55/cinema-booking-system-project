@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 function BookingPage() {
   const { id } = useParams();
   const [showing, setShowing] = useState(null);
+  const [seats, setSeats] = useState([]);
+  const [selectedSeats, setSelectedSeats] = useState([]);
   const [tickets, setTickets] = useState({
     adult: 1,
     child: 0,
@@ -22,6 +24,11 @@ function BookingPage() {
       .catch((error) => {
         console.error(error);
       });
+
+    fetch(`http://localhost:3001/api/seats/${id}`)
+      .then((res) => res.json())
+      .then((data) => setSeats(data))
+      .catch((error) => console.error(error));
   }, [id]);
 
   if (!showing) return <p>Loading showing details...</p>;
@@ -29,6 +36,14 @@ function BookingPage() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setTickets((prev) => ({ ...prev, [name]: parseInt(value) }));
+  };
+
+  const handleSelect = (seat) => {
+    if (selectedSeats.includes(seat.seat_id)) {
+      setSelectedSeats(selectedSeats.filter((s) => s !== seat.seat_id));
+    } else {
+      setSelectedSeats([...selectedSeats, seat.seat_id]);
+    }
   };
 
   const totalPrice =
@@ -77,7 +92,37 @@ function BookingPage() {
 
       <h3>Total Price: {totalPrice} kr</h3>
 
-      <button>Choose Seats</button>
+      <h3>Choose Seats</h3>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(10, 1fr)',
+          gap: '5px',
+        }}
+      >
+        {seats.map((seat) => (
+          <button
+            key={seat.seat_id}
+            onClick={() => handleSelect(seat)}
+            disabled={!seat.is_available}
+            style={{
+              backgroundColor: selectedSeats.includes(seat.seat_id)
+                ? 'green'
+                : seat.is_available
+                ? 'lightgray'
+                : 'darkgray',
+              padding: '10px',
+            }}
+          >
+            {seat.row_number}-{seat.seat_number}
+          </button>
+        ))}
+      </div>
+
+      <div style={{ marginTop: '20px' }}>
+        <h3>Selected Seats:</h3>
+        <p>{selectedSeats.join(', ') || 'No seats selected'}</p>
+      </div>
     </div>
   );
 }
