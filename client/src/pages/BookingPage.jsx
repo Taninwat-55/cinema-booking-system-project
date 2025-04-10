@@ -31,8 +31,6 @@ function BookingPage() {
       .catch((error) => console.error(error));
   }, [id]);
 
-  if (!showing) return <p>Loading showing details...</p>;
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setTickets((prev) => ({ ...prev, [name]: parseInt(value) }));
@@ -46,8 +44,31 @@ function BookingPage() {
     }
   };
 
+  const handleBooking = async () => {
+    if (selectedSeats.length === 0) {
+      alert('Please select at least one seat!');
+      return;
+    }
+
+    const res = await fetch('http://localhost:3001/api/bookings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        showing_id: id,
+        total_price: totalPrice,
+        selected_seats: selectedSeats,
+      }),
+    });
+
+    const data = await res.json();
+
+    alert(`Booking successful! Your booking number is ${data.booking_number}`);
+  };
+
   const totalPrice =
     tickets.adult * 120 + tickets.child * 80 + tickets.senior * 100;
+
+  if (!showing) return <p>Loading showing details...</p>;
 
   return (
     <div>
@@ -123,6 +144,8 @@ function BookingPage() {
         <h3>Selected Seats:</h3>
         <p>{selectedSeats.join(', ') || 'No seats selected'}</p>
       </div>
+
+      <button onClick={handleBooking}>Confirm Booking</button>
     </div>
   );
 }
