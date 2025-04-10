@@ -38,8 +38,8 @@ function BookingPage() {
     <div>
       <h1>Booking Page</h1>
       <h2>Movie: {showing.title}</h2>
-      <p>Theater: {showing.theater}</p>
-      <p>Time: {new Date(showing.datetime).toLocaleString()}</p>
+      <p>Theater: {showing.theater_id}</p>
+      <p>Time: {new Date(showing.showing_time).toLocaleString()}</p>
 
       <h3>Choose Tickets</h3>
       <label>

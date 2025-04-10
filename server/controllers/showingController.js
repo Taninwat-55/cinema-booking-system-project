@@ -6,10 +6,10 @@ function getShowingsByMovieId(req, res) {
   const showings = db
     .prepare(
       `
-    SELECT showing_id, datetime, theater
+    SELECT showing_id, showing_time, theater_id
     FROM showings
     WHERE movie_id = ?
-    ORDER BY datetime
+    ORDER BY showing_time
   `
     )
     .all(movieId);

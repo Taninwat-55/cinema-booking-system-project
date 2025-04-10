@@ -22,7 +22,7 @@ function LandingPage() {
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
         {movies.map((movie) => (
           <div
-            key={movie.id}
+            key={movie.movie_id}
             style={{
               border: '1px solid #ccc',
               padding: '10px',

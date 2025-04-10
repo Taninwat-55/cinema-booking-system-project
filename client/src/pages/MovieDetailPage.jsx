@@ -40,8 +40,8 @@ function MovieDetailPage() {
         <ul>
           {showings.map((showing) => (
             <li key={showing.showing_id}>
-              Time: {new Date(showing.datetime).toLocaleString()} — Theater:{' '}
-              {showing.theater}
+              Time: {new Date(showing.showing_time).toLocaleString()} — Theater:{' '}
+              {showing.theater_id}
               <br />
               <Link to={`/book/${showing.showing_id}`}>Book This Showing</Link>
             </li>
