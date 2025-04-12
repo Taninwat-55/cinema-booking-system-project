@@ -35,6 +35,7 @@ This is a full-stack cinema booking system built with:
 
 ### Admin System
 
+- [ ] Watchlist feature for logged-in user
 - [ ] Admin can create, read, delete movies
 - [ ] Admin can add showings for movies
 - [ ] Admin authentication (optional)

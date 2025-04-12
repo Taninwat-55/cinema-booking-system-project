@@ -68,6 +68,16 @@ db.exec(`
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   );
 
+  -- Tabell för watchlist (favoritfilmer)
+  CREATE TABLE watchlist (
+    watchlist_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    movie_id INTEGER NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (user_id),
+    FOREIGN KEY (movie_id) REFERENCES movies (movie_id),
+    UNIQUE (user_id, movie_id)
+);
+
   -- Tabell för bokningar
   CREATE TABLE bookings (
     booking_id INTEGER PRIMARY KEY AUTOINCREMENT,
