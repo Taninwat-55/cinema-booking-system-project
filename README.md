@@ -15,6 +15,7 @@ This is a full-stack cinema booking system built with:
 
 - [x] Landing Page — Show all movies
 - [x] Movie Detail Page — Show movie details, trailers, and showings
+- [x] Watchlist feature for logged-in user
 
 ### Booking System
 
@@ -33,9 +34,13 @@ This is a full-stack cinema booking system built with:
 
 ## Features In Progress 🛠️
 
+### Booking System
+
+- [ ] Book a movie without log-in
+
 ### Admin System
 
-- [ ] Watchlist feature for logged-in user
+- [ ] Booking history page
 - [ ] Admin can create, read, delete movies
 - [ ] Admin can add showings for movies
 - [ ] Admin authentication (optional)
@@ -82,6 +87,7 @@ cinema-booking-system-project/
 │   │   │   ├── MovieDetailPage.jsx
 │   │   │   └── MyBookingPage.jsx
 │   │   │   ├── RegisterPage.jsx
+│   │   │   ├── WatchlistPage.jsx
 │   │   ├── styles/
 │   │   │   └── App.css
 │   │   │   └── index.css
@@ -97,6 +103,7 @@ cinema-booking-system-project/
 │   │   ├── seatRoutes.js
 │   │   ├── showingRoutes.js
 │   │   └── userRoutes.js
+│   │   └── watchlistRoutes.js
 │   │
 │   ├── controllers/      # Route logic / Handlers
 │   │   ├── authController.js
@@ -105,10 +112,15 @@ cinema-booking-system-project/
 │   │   ├── seatController.js
 │   │   ├── showingController.js
 │   │   └── userController.js
+│   │   └── watchlistController.js
+│   │
+│   ├── middlewares/
+│   │   ├── authMiddleware.js
 │   │
 │   ├── models/
 │   │   ├── bookingModel.js
 │   │   └── userModel.js
+│   │   └── watchlistModel.js
 │   │
 │   ├── seed/             # Database seeding scripts
 │   │   ├── setup.js             # Create tables
@@ -120,6 +132,7 @@ cinema-booking-system-project/
 │   │   ├── cinema.db
 │   │   └── database.js
 │   │
+│   └── .env
 │   └── server.js         # Main server file (Express app setup)
 ```
 
