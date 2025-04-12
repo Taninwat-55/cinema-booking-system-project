@@ -5,6 +5,7 @@ const {
   createBooking,
   getBookingsByUserId,
 } = require('../controllers/bookingController');
+
 const { requireAuth } = require('../middlewares/authMiddleware');
 
 router.post('/', requireAuth, createBooking);

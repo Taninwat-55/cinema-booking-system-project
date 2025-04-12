@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { useEffect, useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
 
 function LandingPage() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     fetch('http://localhost:3001/api/movies')
@@ -18,6 +20,11 @@ function LandingPage() {
 
   return (
     <div>
+      {user && (
+        <div style={{ marginBottom: '20px' }}>
+          <Link to="/watchlist">Go to My Watchlist</Link>
+        </div>
+      )}
       <h1>All Movies</h1>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
         {movies.map((movie) => (
