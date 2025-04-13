@@ -19,7 +19,7 @@ This is a full-stack cinema booking system built with:
 
 ### Booking System
 
-- [x] Booking Page — Select ticket types (Adult, Child, Senior)
+- [x] Booking Page — Select ticket types (Adult, Child, Senior) + calculated total price
 - [x] Seat Selection — Visual seat map with availability
 - [x] Booking Confirmation — Generate unique booking number
 - [x] Book a movie without log-in
@@ -29,18 +29,14 @@ This is a full-stack cinema booking system built with:
 - [x] User Registration Page
 - [x] User Login Page
 - [x] Login State Management (Context API)
+- [x] View My Bookings (Upcoming & History)
 
 ---
 
 ## Features In Progress 🛠️
 
-### User Authentication System
-
-- [ ] View My Bookings (Upcoming & History)
-
 ### Admin System
 
-- [ ] Booking history page
 - [ ] Admin can create, read, delete movies
 - [ ] Admin can add showings for movies
 - [ ] Admin authentication (optional)
@@ -82,6 +78,7 @@ cinema-booking-system-project/
 │   │   │   └── UserContext.jsx
 │   │   ├── pages/        # All pages
 │   │   │   ├── BookingConfirmationPage.jsx
+│   │   │   ├── BookingHistory.jsx
 │   │   │   ├── BookingPage.jsx
 │   │   │   ├── LandingPage.jsx
 │   │   │   ├── LoginPage.jsx
