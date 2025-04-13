@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 .header-container {
   height: 12vh;
@@ -55,7 +55,7 @@
 }
 
 .navbar-container.flipped .navbar-front {
-  transform: rotateX(180deg);
+  transform: rotateX(-180deg);
   z-index: 1;
 }
 
@@ -83,7 +83,7 @@
 }
 
 .menu-header h1 {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .navbar-front h1,
