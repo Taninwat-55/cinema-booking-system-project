@@ -55,7 +55,6 @@ const MyBookingsPage = () => {
       ) : (
         bookings.map((booking) => (
           <div key={booking.booking_id}>
-            <h3>Booking Number: {booking.booking_number}</h3>
             {booking.poster_url && (
               <img
                 src={booking.poster_url}
@@ -67,6 +66,7 @@ const MyBookingsPage = () => {
                 }}
               />
             )}
+            <h3>Booking Number: {booking.booking_number}</h3>
             <p>Movie: {booking.movie_title}</p>
             <p>Time: {new Date(booking.showing_time).toLocaleString()}</p>
             <p>Total Price: {booking.total_price} kr</p>
