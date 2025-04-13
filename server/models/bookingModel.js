@@ -24,13 +24,17 @@ function getBookingsByUserId(userId) {
     SELECT 
       bookings.booking_id,
       bookings.booking_number,
+      bookings.total_price,
+      bookings.booking_time,
       showings.showing_id,
+      showings.showing_time, -- this is full TIMESTAMP
       movies.title AS movie_title,
-      showings.showing_time
+      movies.poster_url
     FROM bookings
     JOIN showings ON bookings.showing_id = showings.showing_id
     JOIN movies ON showings.movie_id = movies.movie_id
     WHERE bookings.user_id = ?
+    ORDER BY showings.showing_time ASC
   `
     )
     .all(userId);

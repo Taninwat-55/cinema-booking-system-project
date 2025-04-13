@@ -62,18 +62,19 @@ const Navbar = () => {
           </div>
 
           <ul className="menu-options">
-            <li>PawnStorm</li>
-            <li
-              onClick={() => {
-                if (!user) {
-                  alert('You need to sign in to access Watchlist');
-                } else {
-                  window.location.href = '/watchlist';
-                }
-              }}
-            >
-              Watchlist
-            </li>
+            {user && (
+              <>
+                <li>
+                  <Link to="/watchlist">Watchlist</Link>
+                </li>
+                <li>
+                  <Link to="/my-bookings">My Bookings</Link>
+                </li>
+                <li>
+                  <Link to="/booking-history">Booking History</Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

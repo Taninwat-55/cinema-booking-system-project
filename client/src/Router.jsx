@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage';
 import MyBookingPage from './pages/MyBookingPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import WatchlistPage from './pages/WatchlistPage';
+import BookingHistoryPage from './pages/BookingHistoryPage';
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +53,14 @@ export const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <WatchlistPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/booking-history',
+        element: (
+          <ProtectedRoute>
+            <BookingHistoryPage />
           </ProtectedRoute>
         ),
       },
