@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
 import Navbar from "../components/Navbar";
 import HeroMovies from "../components/HeroMovies";
 import "../styles/LandingPage.css";
@@ -6,6 +8,7 @@ import "../styles/LandingPage.css";
 function LandingPage() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     fetch("http://localhost:3001/api/movies")
@@ -25,6 +28,13 @@ function LandingPage() {
   return (
     <div className="landing-page-contianer">
       <Navbar />
+      
+    {user && (
+        <div style={{ margin: '20px' }}>
+          <Link to="/watchlist">Go to My Watchlist</Link>
+        </div>
+      )}
+
       {loading ? <p>Loading movies...</p> : <HeroMovies movies={movies} />}
     </div>
   );

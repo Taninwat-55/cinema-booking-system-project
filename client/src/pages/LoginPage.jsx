@@ -24,10 +24,14 @@ const LoginPage = () => {
     const data = await res.json();
 
     if (res.ok) {
-      setUser(data.user);
+      const userData = {
+        ...data.user, // user_id, email, name
+        token: data.token, // ADD token to userData
+      };
+
+      localStorage.setItem('user', JSON.stringify(userData)); // Save to localStorage
+      setUser(userData); // Save to Context
       navigate('/');
-    } else {
-      setMessage(data.error);
     }
   };
 

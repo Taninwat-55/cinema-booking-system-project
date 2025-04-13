@@ -8,6 +8,7 @@ import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import MyBookingPage from './pages/MyBookingPage';
 import ProtectedRoute from './components/ProtectedRoute';
+import WatchlistPage from './pages/WatchlistPage';
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,14 @@ export const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <MyBookingPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/watchlist',
+        element: (
+          <ProtectedRoute>
+            <WatchlistPage />
           </ProtectedRoute>
         ),
       },
