@@ -5,7 +5,12 @@ import '../styles/Navbar.css';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    setUser(null);
+  };
 
   return (
     <header className="header-container">
@@ -25,12 +30,20 @@ const Navbar = () => {
           </div>
 
           <ul className="menu-options">
-            <li>
-              <Link to="/login">Sign In</Link>
-            </li>
-            <li>
-              <Link to="/register">Sign Up</Link>
-            </li>
+            {!user ? (
+              <>
+                <li>
+                  <Link to="/login">Sign In</Link>
+                </li>
+                <li>
+                  <Link to="/register">Sign Up</Link>
+                </li>
+              </>
+            ) : (
+              <li onClick={handleLogout} style={{ cursor: 'pointer' }}>
+                Logout
+              </li>
+            )}
           </ul>
         </div>
 

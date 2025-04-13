@@ -1,6 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 .hero-movies-section-container {
   height: 90%;
@@ -23,10 +23,9 @@
 
 .movies-wrapper {
   width: 75%;
-
   height: 100%;
   display: grid;
-  gap: 3%;
+  gap: 2rem;
   grid-template-columns: 1fr 1fr 1fr;
 }
 
@@ -47,13 +46,14 @@
   background: linear-gradient(
     to right,
     #7f8181 0%,
-    /* Mörkare startfärg */ #727474 20%,
+    #727474 20%,
     #656767 35%,
     #5a5c5c 50%,
     #525454 65%,
     #4d4f4f 80%,
     #494b4b 100%
   );
+  padding: 15px;
 }
 
 .movie-card-image-container {
@@ -62,6 +62,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 10px;
 }
 
 .movie-card-image-container img {
@@ -91,7 +92,7 @@
 .movie-name-container-landing-page h2 {
   font-size: 18px;
   color: white;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
 
   font-weight: 400;
 }
@@ -130,7 +131,7 @@
 .imdb-box-landing-page h3 {
   color: black;
   font-size: 13px;
-  font-family: "Anton", sans-serif;
+  font-family: 'Anton', sans-serif;
   font-weight: 400;
   font-style: normal;
 }
@@ -146,7 +147,7 @@
 .rating-number-container-landing-page p {
   color: white;
   font-size: 18px;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .movie-information-container-landing-page {
@@ -165,7 +166,7 @@
 
 .movie-information-wrapper-landing-page {
   color: white;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 15px;
 
   font-weight: 400;
@@ -208,7 +209,7 @@
 .heart-icon {
   height: 25px;
   width: 25px;
-  color: orange;
+  transition: color 0.3s ease;
 }
 
 .watch-list-container {
@@ -221,10 +222,11 @@
 }
 
 .watch-list-container h3 {
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 12px;
   font-weight: 400;
   color: orange;
+  transition: color 0.3s ease;
 }
 
 /*Circle*/
@@ -275,4 +277,12 @@
   background-image: linear-gradient(45deg, #fbda61 0%, #ff5acd 100%);
 
   border-radius: 50%;
+}
+
+.heart-icon.saved {
+  color: gray;
+}
+
+.watch-list-container.saved h3 {
+  color: gray;
 }
