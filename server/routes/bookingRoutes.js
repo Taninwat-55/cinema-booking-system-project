@@ -8,7 +8,7 @@ const {
 
 const { requireAuth } = require('../middlewares/authMiddleware');
 
-router.post('/', requireAuth, createBooking);
+router.post('/', createBooking);
 router.get('/user/:id', getBookingsByUserId);
 
 module.exports = router;

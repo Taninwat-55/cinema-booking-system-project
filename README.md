@@ -75,6 +75,7 @@ cinema-booking-system-project/
 │   ├── src/
 │   │   ├── assets/
 │   │   ├── components/   # Reusable UI components
+│   │   │   ├── HeroMovies.jsx
 │   │   │   ├── Navbar.jsx
 │   │   │   └── ProtectedRoute.jsx
 │   │   ├── context/      # Global state management (for user login later)
@@ -90,7 +91,10 @@ cinema-booking-system-project/
 │   │   │   ├── WatchlistPage.jsx
 │   │   ├── styles/
 │   │   │   └── App.css
+│   │   │   └── HeroMovies.css
 │   │   │   └── index.css
+│   │   │   └── LandingPage.css
+│   │   │   └── Navbar.css
 │   │   ├── App.jsx       # Main layout with <Outlet />
 │   │   └── main.jsx      # React entry point
 │   │   ├── Router.jsx    # React Router setup with createBrowserRouter

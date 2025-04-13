@@ -18,6 +18,8 @@ function BookingPage() {
 
   const navigate = useNavigate();
 
+  const totalTickets = tickets.adult + tickets.child + tickets.senior;
+
   useEffect(() => {
     fetch(`http://localhost:3001/api/showings/${id}`)
       .then((res) => {
@@ -39,10 +41,35 @@ function BookingPage() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setTickets((prev) => ({ ...prev, [name]: parseInt(value) }));
+    const updatedTickets = { ...tickets, [name]: parseInt(value) };
+    const totalTickets =
+      updatedTickets.adult + updatedTickets.child + updatedTickets.senior;
+
+    console.log('Total tickets allowed:', totalTickets);
+    console.log('Selected seats:', selectedSeats);
+
+    if (selectedSeats.length > totalTickets) {
+      alert('Selected seats exceed total tickets. Seats will be cleared.');
+      setSelectedSeats([]);
+    }
+
+    setTickets(updatedTickets);
   };
 
   const handleSelect = (seat) => {
+    console.log('Trying to select seat:', seat.seat_id);
+    console.log('Currently selected seats:', selectedSeats);
+    console.log('Total tickets allowed:', totalTickets);
+
+    if (
+      !selectedSeats.includes(seat.seat_id) &&
+      selectedSeats.length + 1 > totalTickets
+    ) {
+      console.log('Exceeded ticket limit!');
+      alert('You cannot select more seats than tickets!');
+      return;
+    }
+
     if (selectedSeats.includes(seat.seat_id)) {
       setSelectedSeats(selectedSeats.filter((s) => s !== seat.seat_id));
     } else {
@@ -56,6 +83,11 @@ function BookingPage() {
       return;
     }
 
+    if (selectedSeats.length < totalTickets) {
+      alert('You must select seats equal to the number of tickets!');
+      return;
+    }
+
     const ticketDetails = [
       { ticket_type: 'vuxen', quantity: tickets.adult, price_per_ticket: 120 },
       { ticket_type: 'barn', quantity: tickets.child, price_per_ticket: 80 },
@@ -66,6 +98,14 @@ function BookingPage() {
       },
     ].filter((ticket) => ticket.quantity > 0);
 
+    console.log('Booking with data:', {
+      showing_id: id,
+      total_price: totalPrice,
+      selected_seats: selectedSeats,
+      user_id: user ? user.user_id : null,
+      ticket_details: ticketDetails,
+    });
+
     const res = await fetch('http://localhost:3001/api/bookings', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -73,7 +113,7 @@ function BookingPage() {
         showing_id: id,
         total_price: totalPrice,
         selected_seats: selectedSeats,
-        user_id: user.id,
+        user_id: user ? user.user_id : null,
         ticket_details: ticketDetails,
       }),
     });
