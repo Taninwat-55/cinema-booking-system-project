@@ -1,0 +1,136 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+.header-container {
+  height: 12vh;
+  width: 100vw;
+  margin-bottom: 5%;
+  z-index: 10;
+  margin-top: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.navbar-container {
+  width: 100%;
+  height: 60px;
+  perspective: 1000px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 10px 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.navbar-front,
+.navbar-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: transform 0.6s ease;
+  transform-style: preserve-3d;
+  border-radius: 15px;
+  padding: 0;
+}
+
+.navbar-front {
+  transform: rotateX(0deg);
+  z-index: 2;
+}
+
+.navbar-back {
+  transform: rotateX(180deg);
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.2);
+  border-top-left-radius: 14px;
+  border-bottom-left-radius: 14px;
+  border-top-right-radius: 14px;
+  border-bottom-right-radius: 14px;
+}
+
+.navbar-container.flipped .navbar-front {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+.navbar-container.flipped .navbar-back {
+  transform: rotateX(0deg);
+  z-index: 2;
+}
+
+.menu-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  cursor: pointer;
+  margin-left: 20px;
+  z-index: 3;
+}
+
+.menu-bar {
+  width: 100%;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+}
+
+.menu-header h1 {
+  font-family: "Roboto", sans-serif;
+}
+
+.navbar-front h1,
+.navbar-back h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 0 20px;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 20px;
+}
+
+.profile-icon {
+  font-size: 24px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.username {
+  font-size: 16px;
+  font-weight: 500;
+  color: #e0e0e0;
+}
+
+.menu-options {
+  list-style: none;
+  padding: 0;
+  margin: 0 20px 0 0;
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.menu-options li a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.menu-options li a:hover {
+  color: #e0e0e0;
+}
