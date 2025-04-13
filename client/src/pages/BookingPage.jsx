@@ -57,15 +57,10 @@ function BookingPage() {
   };
 
   const handleSelect = (seat) => {
-    console.log('Trying to select seat:', seat.seat_id);
-    console.log('Currently selected seats:', selectedSeats);
-    console.log('Total tickets allowed:', totalTickets);
-
     if (
       !selectedSeats.includes(seat.seat_id) &&
       selectedSeats.length + 1 > totalTickets
     ) {
-      console.log('Exceeded ticket limit!');
       alert('You cannot select more seats than tickets!');
       return;
     }
