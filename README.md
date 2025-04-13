@@ -22,21 +22,21 @@ This is a full-stack cinema booking system built with:
 - [x] Booking Page — Select ticket types (Adult, Child, Senior)
 - [x] Seat Selection — Visual seat map with availability
 - [x] Booking Confirmation — Generate unique booking number
+- [x] Book a movie without log-in
 
 ### User Authentication System
 
 - [x] User Registration Page
 - [x] User Login Page
 - [x] Login State Management (Context API)
-- [x] View My Bookings (Upcoming & History)
 
 ---
 
 ## Features In Progress 🛠️
 
-### Booking System
+### User Authentication System
 
-- [ ] Book a movie without log-in
+- [ ] View My Bookings (Upcoming & History)
 
 ### Admin System
 
