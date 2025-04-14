@@ -1,0 +1,18 @@
+h1 {
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+.btn{
+    margin-top: 1rem;
+    border: solid 1px black;
+    padding: 0.7rem;
+    border-radius: 0.5rem;
+}
+
+#booking-number {
+    color: #FBBF24;
+}

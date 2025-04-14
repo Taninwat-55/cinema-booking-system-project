@@ -1,16 +1,17 @@
 import { Link, useParams } from 'react-router-dom';
+import "../styles/BookingConfirmation.css";
 
 export default function BookingConfirmationPage() {
   const { bookingNumber } = useParams();
 
   return (
     <div>
-      <h2>Booking Successful!</h2>
-      <p>Your booking number is:</p>
-      <h3>{bookingNumber}</h3>
+      <h1>Booking Successful!</h1>
+      <h2>Your booking number is:</h2>
+      <h2 id="booking-number">{bookingNumber}</h2>
 
       <Link to="/">
-        <button>Back to Home</button>
+        <button className="btn">Back to Home</button>
       </Link>
     </div>
   );
