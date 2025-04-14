@@ -73,6 +73,11 @@ const Navbar = () => {
                 <li>
                   <Link to="/booking-history">Booking History</Link>
                 </li>
+                {user.is_admin === 1 && (
+                  <li>
+                    <Link to="/admin/dashboard">Admin Dashboard</Link>
+                  </li>
+                )}
               </>
             )}
           </ul>

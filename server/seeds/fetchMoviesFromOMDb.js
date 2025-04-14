@@ -22,9 +22,22 @@ async function fetchAndInsertMovie(id) {
     const title = data.Title;
     const description = data.Plot;
     const poster_url = data.Poster;
+    const imdb_rating = data.imdbRating;
     const trailer_url = ''; // Optional for now
+    const release_year = data.Year;
+    const length_minutes = data.Runtime; // it's like "136 min"
+    const genre = data.Genre;
 
-    movieModel.createMovie(title, description, poster_url, trailer_url);
+    movieModel.createMovie(
+      title,
+      description,
+      poster_url,
+      trailer_url,
+      imdb_rating,
+      release_year,
+      length_minutes,
+      genre
+    );
     console.log(`Movie inserted: ${title}`);
   } catch (err) {
     console.error(`Error fetching movie ${id}: ${err.message}`);
