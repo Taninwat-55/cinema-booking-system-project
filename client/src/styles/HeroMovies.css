@@ -1,9 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
 .hero-movies-section-container {
-  height: 90%;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -12,21 +15,14 @@
 
 .movies-container {
   width: 100%;
-  /* height: 75%; */
   min-height: 75%;
   height: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 3%;
-}
-
-.movies-wrapper {
-  width: 75%;
-  height: 100%;
   display: grid;
   gap: 2rem;
   grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 3%;
 }
 
 .movie-card-container {
@@ -38,8 +34,7 @@
 }
 
 .movie-card {
-  height: 100%;
-  width: 93%;
+  height: 30rem;
   display: flex;
   flex-direction: column;
   border-radius: 20px;
@@ -56,67 +51,30 @@
   padding: 15px;
 }
 
-.movie-card-image-container {
-  height: 55%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.movie-card-image-container img {
+.movie-card img {
   width: 60%;
-  height: 90%;
+  height: auto;
   border-radius: 10px;
+  margin: 0 auto 10px;
 }
 
-.movie-name-container-landing-page {
-  width: 100%;
-  height: 10%;
-  display: flex;
-  align-items: center;
-
-  justify-content: center;
-  margin-bottom: 2%;
-}
-
-.movie-name-wrapper-landing-page {
-  height: 100%;
-  width: 80%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-.movie-name-container-landing-page h2 {
+.movie-card h2 {
   font-size: 18px;
   color: white;
   font-family: 'Inter', sans-serif;
-
   font-weight: 400;
+  text-align: center;
+  margin-bottom: 2%;
 }
 
 .movie-rating-container-landing-page {
   height: 12%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.movie-rating-wrapper-landing-page {
-  height: 100%;
   width: 25%;
   display: flex;
   flex-direction: row;
-}
-
-.imdb-box-container-landing-page {
-  height: 100%;
-  width: 55%;
-  display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
 }
 
 .imdb-box-landing-page {
@@ -136,56 +94,21 @@
   font-style: normal;
 }
 
-.rating-number-container-landing-page {
-  height: 100%;
-  width: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.rating-number-container-landing-page p {
+.movie-rating-container-landing-page p {
   color: white;
   font-size: 18px;
   font-family: 'Roboto', sans-serif;
+  margin-left: 10px;
 }
 
-.movie-information-container-landing-page {
-  height: 13%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.movie-information-wrapper-landing-page {
-  height: 100%;
-  width: 60%;
-  display: flex;
-  justify-content: center;
-}
-
-.movie-information-wrapper-landing-page {
+.movie-card > p {
   color: white;
   font-family: 'Inter', sans-serif;
   font-size: 15px;
-
   font-weight: 400;
-}
-
-.add-to-list-container {
-  width: 100%;
-  height: 7%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.add-to-list-wrapper {
-  height: 100%;
-  width: 35%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+  width: 60%;
 }
 
 .add-to-list {
@@ -196,14 +119,9 @@
   flex-direction: row;
   border: 1px solid black;
   cursor: pointer;
-}
-
-.heart-icon-container {
-  height: 100%;
-  width: 25%;
-  display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 .heart-icon {
@@ -212,40 +130,40 @@
   transition: color 0.3s ease;
 }
 
-.watch-list-container {
-  height: 100%;
-  width: 70%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-}
-
-.watch-list-container h3 {
+.add-to-list h3 {
   font-family: 'Inter', sans-serif;
   font-size: 12px;
   font-weight: 400;
   color: orange;
   transition: color 0.3s ease;
+  margin-left: 5px;
 }
 
-/*Circle*/
+/* Circle */
 
-.circle-one-container {
+.circle-one {
   position: fixed;
   top: -2rem;
   right: -5rem;
   width: 30rem;
   height: 30rem;
   z-index: 1;
+  background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+  border-radius: 50%;
   animation: float 4s ease-in-out infinite;
 }
 
-.circle-one {
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+.circle-two {
+  position: fixed;
+  bottom: -2rem;
+  left: -5rem;
+  width: 25rem;
+  height: 25rem;
+  z-index: 1;
+  background-color: #fbda61;
+  background-image: linear-gradient(45deg, #fbda61 0%, #ff5acd 100%);
   border-radius: 50%;
+  animation: float 4s ease-in-out infinite;
 }
 
 @keyframes float {
@@ -260,29 +178,10 @@
   }
 }
 
-.circle-two-container {
-  position: fixed;
-  bottom: -2rem;
-  left: -5rem;
-  width: 25rem;
-  height: 25rem;
-  z-index: 1;
-  animation: float 4s ease-in-out infinite;
-}
-
-.circle-two {
-  width: 100%;
-  height: 100%;
-  background-color: #fbda61;
-  background-image: linear-gradient(45deg, #fbda61 0%, #ff5acd 100%);
-
-  border-radius: 50%;
-}
-
 .heart-icon.saved {
   color: gray;
 }
 
-.watch-list-container.saved h3 {
+.add-to-list.saved h3 {
   color: gray;
 }
