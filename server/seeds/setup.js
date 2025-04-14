@@ -23,6 +23,7 @@ db.exec(`
     poster_url TEXT,
     trailer_url TEXT,
     genre TEXT,
+    imdb_rating REAL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   );

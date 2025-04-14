@@ -28,7 +28,7 @@ const HeroMovies = ({ movies }) => {
           <div className="movie-card-container" key={movie.imdb_id}>
             <Link
               to={`/movies/${movie.movie_id}`}
-              style={{ textDecoration: "none", color: "inherit" }}
+              style={{ textDecoration: 'none', color: 'inherit' }}
             >
               <div className="movie-card">
                 <img src={movie.poster_url} alt={movie.title} />
@@ -37,10 +37,10 @@ const HeroMovies = ({ movies }) => {
                   <div className="imdb-box-landing-page">
                     <h3>imdb</h3>
                   </div>
-                  <p>{movie.imdbRating || "N/A"}</p>
+                  <p>{movie.imdb_rating || 'N/A'}</p>
                 </div>
                 <p>
-                  {movie.release_year} | {movie.length_minutes} min |{" "}
+                  {movie.release_year} | {movie.length_minutes} min |{' '}
                   {movie.genre}
                 </p>
                 <div
@@ -49,17 +49,17 @@ const HeroMovies = ({ movies }) => {
                     e.preventDefault();
                     e.stopPropagation();
                     if (!user) {
-                      alert("You need to sign in to add to Watchlist");
+                      alert('You need to sign in to add to Watchlist');
                       return;
                     }
 
                     const isInWatchlist = watchlist.includes(movie.movie_id);
-                    const method = isInWatchlist ? "DELETE" : "POST";
+                    const method = isInWatchlist ? 'DELETE' : 'POST';
 
-                    fetch("http://localhost:3001/api/watchlist", {
+                    fetch('http://localhost:3001/api/watchlist', {
                       method,
                       headers: {
-                        "Content-Type": "application/json",
+                        'Content-Type': 'application/json',
                         Authorization: `Bearer ${user.token}`,
                       },
                       body: JSON.stringify({
@@ -85,8 +85,8 @@ const HeroMovies = ({ movies }) => {
                     className="heart-icon"
                     style={{
                       color: watchlist.includes(movie.movie_id)
-                        ? "orange"
-                        : "gray",
+                        ? 'orange'
+                        : 'gray',
                     }}
                   />
                   <h3>Watchlist</h3>

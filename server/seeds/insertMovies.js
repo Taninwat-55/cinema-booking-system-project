@@ -26,7 +26,7 @@ const rawMovies = [
     ],
     Trailer_url: 'https://youtu.be/PLl99DlL6b4?si=yPk1dch7uUHOPKwG',
     Metascore: '82',
-    imdbRating: '9.3',
+    imdb_rating: '9.3',
     imdbVotes: '3,015,278',
     imdbID: 'tt0111161',
     Type: 'movie',
@@ -59,7 +59,7 @@ const rawMovies = [
     ],
     Trailer_url: 'https://youtu.be/YoHD9XEInc0?si=4s_9RpCE_959DMYL',
     Metascore: '74',
-    imdbRating: '8.8',
+    imdb_rating: '8.8',
     imdbVotes: '2,658,716',
     imdbID: 'tt1375666',
     Type: 'movie',
@@ -92,7 +92,7 @@ const rawMovies = [
     ],
     Trailer_url: 'https://youtu.be/W_H7_tDHFE8?si=gZvRQqgnrP1wWwQJ',
     Metascore: '73',
-    imdbRating: '7.3',
+    imdb_rating: '7.3',
     imdbVotes: '493,848',
     imdbID: 'tt0317219',
     Type: 'movie',
@@ -125,7 +125,7 @@ const rawMovies = [
     ],
     Trailer_url: 'https://youtu.be/UaVTIH8mujA?si=IXUn1M7AwP6a4251',
     Metascore: '100',
-    imdbRating: '9.2',
+    imdb_rating: '9.2',
     imdbVotes: '2,108,592',
     imdbID: 'tt0068646',
     Type: 'movie',
@@ -158,7 +158,7 @@ const rawMovies = [
     ],
     Trailer_url: 'https://youtu.be/EXeTwQWrcwY?si=KrmiZgsxsz11js2L',
     Metascore: '84',
-    imdbRating: '9.0',
+    imdb_rating: '9.0',
     imdbVotes: '2,997,696',
     imdbID: 'tt0468569',
     Type: 'movie',
@@ -191,7 +191,7 @@ const rawMovies = [
     ],
     Trailer_url: 'https://youtu.be/Mj9IA9tTfio?si=rp8nQB_ufr2WDQwm',
     Metascore: '82',
-    imdbRating: '8.8',
+    imdb_rating: '8.8',
     imdbVotes: '2,342,884',
     imdbID: 'tt0109830',
     Type: 'movie',
@@ -217,11 +217,12 @@ const movies = rawMovies.map((movie) => ({
       movie.Title
     )}+trailer`,
   genre: movie.Genre,
+  imdb_rating: parseFloat(movie.imdb_rating),
 }));
 
 const stmt = db.prepare(`
-    INSERT INTO movies (imdb_id, title, description, length_minutes, release_year, director, poster_url, trailer_url, genre)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO movies (imdb_id, title, description, length_minutes, release_year, director, poster_url, trailer_url, genre, imdb_rating)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
 
 movies.forEach((movie) => {
@@ -234,7 +235,8 @@ movies.forEach((movie) => {
     movie.director,
     movie.poster_url,
     movie.trailer_url,
-    movie.genre
+    movie.genre,
+    movie.imdb_rating
   );
 });
 
