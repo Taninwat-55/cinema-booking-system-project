@@ -25,12 +25,13 @@ const LoginPage = () => {
 
     if (res.ok) {
       const userData = {
-        ...data.user, // user_id, email, name
-        token: data.token, // ADD token to userData
+        ...data.user,
+        token: data.token,
+        expiry: new Date().getTime() + 60 * 60 * 1000, // 60 min expiry
       };
 
-      localStorage.setItem('user', JSON.stringify(userData)); // Save to localStorage
-      setUser(userData); // Save to Context
+      localStorage.setItem('user', JSON.stringify(userData));
+      setUser(userData);
       navigate('/');
     }
   };
