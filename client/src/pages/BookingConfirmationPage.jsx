@@ -1,13 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useContext } from 'react';
-import { UserContext } from '../context/UserContext';
 
 export default function BookingConfirmationPage() {
   const { bookingNumber } = useParams();
   const [booking, setBooking] = useState(null);
-
-  const { user } = useContext(UserContext);
 
   useEffect(() => {
     fetch(`http://localhost:3001/api/bookings/confirmation/${bookingNumber}`)
