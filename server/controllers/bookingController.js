@@ -59,4 +59,30 @@ function getBookingsByUserId(req, res) {
   res.json(bookingsWithSeats);
 }
 
-module.exports = { createBooking, getBookingsByUserId };
+function getBookingByBookingNumber(req, res) {
+  const bookingNumber = req.params.bookingNumber;
+
+  const booking = db
+    .prepare(
+      `
+    SELECT bookings.*, movies.title AS movie_title, movies.poster_url, showings.showing_time
+    FROM bookings
+    JOIN showings ON bookings.showing_id = showings.showing_id
+    JOIN movies ON showings.movie_id = movies.movie_id
+    WHERE bookings.booking_number = ?
+  `
+    )
+    .get(bookingNumber);
+
+  if (!booking) return res.status(404).json({ error: 'Booking not found' });
+
+  const seats = bookingModel.getSeatsByBookingId(booking.booking_id);
+
+  res.json({ ...booking, seats: seats.map((s) => s.seat_label) });
+}
+
+module.exports = {
+  createBooking,
+  getBookingsByUserId,
+  getBookingByBookingNumber,
+};
