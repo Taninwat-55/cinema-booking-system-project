@@ -35,9 +35,9 @@ const HeroMovies = ({ movies }) => {
                 <h2>{movie.title}</h2>
                 <div className="movie-rating-container-landing-page">
                   <div className="imdb-box-landing-page">
-                    <h3>imdb</h3>
+                    <h3>IMDb</h3>
                   </div>
-                  <p>{movie.imdb_rating || 'N/A'}</p>
+                  <span>{movie.imdb_rating || 'N/A'}</span>
                 </div>
                 <p>
                   {movie.release_year} | {movie.length_minutes} min |{' '}

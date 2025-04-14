@@ -28,6 +28,10 @@ db.exec(`
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   );
 
+  ALTER TABLE movies ADD COLUMN release_year TEXT;
+  ALTER TABLE movies ADD COLUMN length_minutes TEXT;
+  ALTER TABLE movies ADD COLUMN genre TEXT;
+
   -- Tabell för biografsalonger
   CREATE TABLE theaters (
     theater_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -68,6 +72,9 @@ db.exec(`
     name TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   );
+
+  ALTER TABLE users
+  ADD COLUMN is_admin INTEGER DEFAULT 0;
 
   -- Tabell för watchlist (favoritfilmer)
   CREATE TABLE watchlist (
