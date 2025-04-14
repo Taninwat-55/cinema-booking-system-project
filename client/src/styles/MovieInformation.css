@@ -1,0 +1,256 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+
+.movie-information-container {
+  height: 100%;
+  width: 80%;
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: center;
+
+  position: relative;
+}
+
+.movie-information-wrapper-image {
+  height: 65%;
+  width: 65%;
+  display: flex;
+  justify-content: center;
+  margin-top: 3%;
+}
+
+.movie-information-wrapper-image img {
+  height: 100%;
+  width: 100%;
+  border-radius: 15px;
+}
+
+.movie-information-container-text {
+  position: absolute;
+  bottom: 0;
+  height: 41%;
+  width: 100%;
+  display: flex;
+
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 10;
+}
+
+.movie-information-wrapper-text {
+  height: 75%;
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+
+  background-color: transparent;
+
+  box-shadow: inset 0 400px 600px rgba(211, 211, 211, 0.257);
+  border-radius: 15px;
+  border: 1px solid rgb(178, 176, 176);
+  gap: 2%;
+}
+
+.movie-name-container {
+  display: flex;
+  justify-content: center;
+  height: 27%;
+  width: 100%;
+  margin: 0;
+}
+
+.movie-name-wrapper {
+  height: 100%;
+  width: 35%;
+  display: flex;
+  flex-direction: row;
+}
+
+.movie-name-text {
+  height: 100%;
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.movie-name-text h1 {
+  font-family: "Roboto", sans-serif;
+  color: white;
+  font-size: 47px;
+  font-size: 200;
+}
+
+.movie-rating-container {
+  height: 100%;
+  width: 30%;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.imdb-box-container {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imdb-box {
+  height: 25px;
+  width: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(227, 185, 35);
+}
+
+.imdb-box h3 {
+  color: black;
+  font-size: 13px;
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.rating-number-container {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rating-number-container p {
+  color: white;
+  font-size: 20px;
+  font-family: "Roboto", sans-serif;
+}
+
+.movie-genre {
+  height: 13%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.movie-genre-wrapper {
+  height: 100%;
+  width: 25%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.movie-genre-wrapper p {
+  color: white;
+  font-size: 13px;
+  font-family: "Roboto", sans-serif;
+}
+
+.story-line-header-container {
+  height: 15%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.story-line-header-wrapper {
+  height: 100%;
+  width: 25%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.story-line-header-wrapper h2 {
+  color: white;
+  font-size: 22px;
+  font-family: "Roboto", sans-serif;
+}
+
+.story-line-text-container {
+  height: 35%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.story-line-text-wrapper {
+  width: 70%;
+  height: 100%;
+}
+
+.story-line-text-wrapper p {
+  color: white;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  font-family: "Roboto", sans-serif;
+}
+
+.buy-ticket-button-container {
+  position: absolute;
+  bottom: 0;
+  height: 10%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.buy-ticket-button-wrapper {
+  height: 100%;
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buy-ticket-button-wrapper button {
+  height: 45px;
+  width: 180px;
+  border: none;
+  border-radius: 15px;
+  background-color: yellow;
+
+  cursor: pointer;
+  color: black;
+}
+
+@media screen and (max-width: 1500px) {
+  .movie-genre-wrapper {
+    width: 35%;
+  }
+}
+
+@media screen and (width: 1470px) and (height: 930px) {
+  .movie-information-wrapper-image {
+    height: 70%;
+    width: 70%;
+  }
+
+  .movie-name-text h1 {
+    font-size: 40px;
+  }
+
+  .movie-name-wrapper {
+    width: 45%;
+  }
+
+  .movie-genre-wrapper {
+    width: 40%;
+  }
+  .story-line-text-wrapper p {
+    letter-spacing: 0px;
+  }
+}
+
+@media screen and (width: 1280px) and (height: 800px) {
+  .movie-genre-wrapper {
+    width: 45%;
+  }
+}
