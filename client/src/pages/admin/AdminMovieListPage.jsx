@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const AdminMovieListPage = () => {
   const [movies, setMovies] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedGenre, setSelectedGenre] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -10,6 +12,16 @@ const AdminMovieListPage = () => {
       .then((res) => res.json())
       .then((data) => setMovies(data));
   }, []);
+
+  const genres = [
+    ...new Set(movies.flatMap((movie) => movie.genre.split(', '))),
+  ];
+
+  const filteredMovies = movies.filter(
+    (movie) =>
+      movie.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      (selectedGenre ? movie.genre.includes(selectedGenre) : true)
+  );
 
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm(
@@ -33,8 +45,26 @@ const AdminMovieListPage = () => {
   return (
     <div style={{ padding: '2rem' }}>
       <h1>Manage Movies</h1>
+      <input
+        type="text"
+        placeholder="Search by title..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+
+      <select
+        value={selectedGenre}
+        onChange={(e) => setSelectedGenre(e.target.value)}
+      >
+        <option value="">All Genres</option>
+        {genres.map((genre, idx) => (
+          <option key={idx} value={genre}>
+            {genre}
+          </option>
+        ))}
+      </select>
       <ul>
-        {movies.map((movie) => (
+        {filteredMovies.map((movie) => (
           <li key={movie.movie_id} style={{ marginBottom: '1rem' }}>
             {movie.title}{' '}
             <button
