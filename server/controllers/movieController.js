@@ -1,16 +1,14 @@
-const db = require('../db/database');
+const movieModel = require('../models/movieModel');
 
 function getAllMovies(req, res) {
-  const movies = db.prepare('SELECT * FROM movies').all();
+  const movies = movieModel.getAllMovies();
   res.json(movies);
 }
 
 function getMovieById(req, res) {
   const movieId = req.params.id;
 
-  const movie = db
-    .prepare('SELECT * FROM movies WHERE movie_id = ?')
-    .get(movieId);
+  const movie = movieModel.getMovieById(movieId);
 
   if (!movie) {
     return res.status(404).json({ error: 'Movie not found' });
