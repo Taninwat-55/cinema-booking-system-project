@@ -9,7 +9,7 @@ function getAllMovies(req, res) {
 function createMovie(req, res) {
   const { title, description, poster_url, trailer_url } = req.body;
 
-  if (!title || !description || !poster_url || !trailer_url) {
+  if (!title || !description || !poster_url) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
@@ -57,4 +57,25 @@ function createShowing(req, res) {
   res.status(201).json({ message: 'Showing created successfully' });
 }
 
-module.exports = { getAllMovies, createMovie, deleteMovie, createShowing };
+function updateMovie(req, res) {
+  const id = req.params.id;
+  const { title, description, poster_url, trailer_url } = req.body;
+
+  db.prepare(
+    `
+      UPDATE movies
+      SET title = ?, description = ?, poster_url = ?, trailer_url = ?
+      WHERE movie_id = ?
+    `
+  ).run(title, description, poster_url, trailer_url, id);
+
+  res.json({ message: 'Movie updated successfully' });
+}
+
+module.exports = {
+  getAllMovies,
+  createMovie,
+  deleteMovie,
+  createShowing,
+  updateMovie,
+};
