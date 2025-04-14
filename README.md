@@ -15,12 +15,14 @@ This is a full-stack cinema booking system built with:
 
 - [x] Landing Page — Show all movies
 - [x] Movie Detail Page — Show movie details, trailers, and showings
+- [x] Watchlist feature for logged-in user
 
 ### Booking System
 
-- [x] Booking Page — Select ticket types (Adult, Child, Senior)
+- [x] Booking Page — Select ticket types (Adult, Child, Senior) + calculated total price
 - [x] Seat Selection — Visual seat map with availability
 - [x] Booking Confirmation — Generate unique booking number
+- [x] Book a movie without log-in
 
 ### User Authentication System
 
@@ -69,21 +71,27 @@ cinema-booking-system-project/
 │   ├── src/
 │   │   ├── assets/
 │   │   ├── components/   # Reusable UI components
+│   │   │   ├── HeroMovies.jsx
 │   │   │   ├── Navbar.jsx
 │   │   │   └── ProtectedRoute.jsx
 │   │   ├── context/      # Global state management (for user login later)
 │   │   │   └── UserContext.jsx
 │   │   ├── pages/        # All pages
 │   │   │   ├── BookingConfirmationPage.jsx
+│   │   │   ├── BookingHistory.jsx
 │   │   │   ├── BookingPage.jsx
 │   │   │   ├── LandingPage.jsx
 │   │   │   ├── LoginPage.jsx
 │   │   │   ├── MovieDetailPage.jsx
 │   │   │   └── MyBookingPage.jsx
 │   │   │   ├── RegisterPage.jsx
+│   │   │   ├── WatchlistPage.jsx
 │   │   ├── styles/
 │   │   │   └── App.css
+│   │   │   └── HeroMovies.css
 │   │   │   └── index.css
+│   │   │   └── LandingPage.css
+│   │   │   └── Navbar.css
 │   │   ├── App.jsx       # Main layout with <Outlet />
 │   │   └── main.jsx      # React entry point
 │   │   ├── Router.jsx    # React Router setup with createBrowserRouter
@@ -96,6 +104,7 @@ cinema-booking-system-project/
 │   │   ├── seatRoutes.js
 │   │   ├── showingRoutes.js
 │   │   └── userRoutes.js
+│   │   └── watchlistRoutes.js
 │   │
 │   ├── controllers/      # Route logic / Handlers
 │   │   ├── authController.js
@@ -104,10 +113,15 @@ cinema-booking-system-project/
 │   │   ├── seatController.js
 │   │   ├── showingController.js
 │   │   └── userController.js
+│   │   └── watchlistController.js
+│   │
+│   ├── middlewares/
+│   │   ├── authMiddleware.js
 │   │
 │   ├── models/
 │   │   ├── bookingModel.js
 │   │   └── userModel.js
+│   │   └── watchlistModel.js
 │   │
 │   ├── seed/             # Database seeding scripts
 │   │   ├── setup.js             # Create tables
@@ -119,6 +133,7 @@ cinema-booking-system-project/
 │   │   ├── cinema.db
 │   │   └── database.js
 │   │
+│   └── .env
 │   └── server.js         # Main server file (Express app setup)
 ```
 

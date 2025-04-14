@@ -1,7 +1,6 @@
 const db = require('../db/database');
 const bookingModel = require('../models/bookingModel');
 
-// Create Booking (POST /api/bookings)
 function createBooking(req, res) {
   const { showing_id, total_price, selected_seats, user_id, ticket_details } =
     req.body;
@@ -47,7 +46,6 @@ function createBooking(req, res) {
   res.json({ message: 'Booking successfully!', booking_number });
 }
 
-// Get Bookings by User ID (GET /api/users/:id/bookings)
 function getBookingsByUserId(req, res) {
   const userId = req.params.id;
 

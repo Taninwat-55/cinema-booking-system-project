@@ -5,9 +5,10 @@ const {
   createBooking,
   getBookingsByUserId,
 } = require('../controllers/bookingController');
+
 const { requireAuth } = require('../middlewares/authMiddleware');
 
-router.post('/', requireAuth, createBooking);
-router.get('/user/:id', getBookingsByUserId);
+router.post('/', createBooking);
+router.get('/user/:id', requireAuth ,getBookingsByUserId);
 
 module.exports = router;
