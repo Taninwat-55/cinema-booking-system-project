@@ -14,7 +14,11 @@ const AdminMovieListPage = () => {
   }, []);
 
   const genres = [
-    ...new Set(movies.flatMap((movie) => movie.genre.split(', '))),
+    ...new Set(
+      movies
+        .filter((movie) => movie.genre)
+        .flatMap((movie) => movie.genre.split(', '))
+    ),
   ];
 
   const filteredMovies = movies.filter(
