@@ -1,4 +1,4 @@
-const db = require('../db/database');
+const db = require("../db/database");
 
 // Drop tables if they exist
 db.exec(`
@@ -12,25 +12,22 @@ db.exec(`
   DROP TABLE IF EXISTS movies;
 
   -- Tabell för filmer
-  CREATE TABLE movies (
-    movie_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    imdb_id TEXT NOT NULL,
-    title TEXT NOT NULL,
-    description TEXT,
-    length_minutes INTEGER,
-    release_year INTEGER,
-    director TEXT,
-    poster_url TEXT,
-    trailer_url TEXT,
-    genre TEXT,
-    imdb_rating REAL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-  );
-
-  ALTER TABLE movies ADD COLUMN release_year TEXT;
-  ALTER TABLE movies ADD COLUMN length_minutes TEXT;
-  ALTER TABLE movies ADD COLUMN genre TEXT;
+ CREATE TABLE movies (
+  movie_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  imdb_id TEXT NOT NULL,
+  title TEXT NOT NULL,
+  description TEXT,
+  length_minutes INTEGER,
+  release_year INTEGER,
+  director TEXT,
+  poster_url TEXT,
+  trailer_url TEXT,
+  genre TEXT,
+  imdb_rating REAL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+  
 
   -- Tabell för biografsalonger
   CREATE TABLE theaters (
@@ -131,4 +128,4 @@ db.exec(`
   END;
 `);
 
-console.log('✅ Tables created and initial data inserted!');
+console.log("✅ Tables created and initial data inserted!");
