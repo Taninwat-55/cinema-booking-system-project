@@ -1,6 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../context/UserContext';
-import { useNavigate } from 'react-router-dom';
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
+import "../styles/BookingPages.css";
 
 const BookingHistoryPage = () => {
   const { user } = useContext(UserContext);
@@ -10,7 +11,7 @@ const BookingHistoryPage = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
 
@@ -33,7 +34,7 @@ const BookingHistoryPage = () => {
         setBookings(history);
       } else {
         setBookings([]);
-        console.error('Expected array but got:', data);
+        console.error("Expected array but got:", data);
       }
 
       setLoading(false);
@@ -45,31 +46,31 @@ const BookingHistoryPage = () => {
   if (loading) return <p>Loading bookings...</p>;
 
   return (
-    <div>
+    <div className="booking-confirmation-container">
       <h1>Booking History</h1>
       {bookings.length === 0 ? (
         <p>No past bookings.</p>
       ) : (
         bookings.map((booking) => (
-          <div key={booking.booking_id}>
-            <h3>Booking Number: {booking.booking_number}</h3>
-            <p>Movie: {booking.movie_title}</p>
-            <p>Time: {new Date(booking.showing_time).toLocaleString()}</p>
-            <p>Total Price: {booking.total_price} kr</p>
-            <p>
-              Seats: {booking.seats ? booking.seats.join(', ') : 'No seats'}
-            </p>
+          <div className="booking-details-wrapper" key={booking.booking_id}>
             {booking.poster_url && (
               <img
                 src={booking.poster_url}
                 alt={booking.movie_title}
-                style={{
-                  width: '150px',
-                  borderRadius: '8px',
-                  marginTop: '0.5rem',
-                }}
+                className="booking-poster"
               />
             )}
+            <div className="booking-info">
+              <h2>Booking Number:</h2>
+              <h2 className="booking-number">{booking.booking_number}</h2>
+
+              <h2>{booking.movie_title}</h2>
+              <p>Time: {new Date(booking.showing_time).toLocaleString()}</p>
+              <p>
+                Seats: {booking.seats ? booking.seats.join(", ") : "No seats"}
+              </p>
+              <p>Total Price: {booking.total_price} kr</p>
+            </div>
           </div>
         ))
       )}

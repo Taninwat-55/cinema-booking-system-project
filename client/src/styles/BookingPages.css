@@ -1,18 +1,20 @@
-.booking-confirmation-container {
-  padding: 20px;
+h1 {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .booking-details-wrapper {
   display: flex;
   gap: 20px;
   align-items: flex-start;
-  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .booking-poster {
   width: 250px;
   height: auto;
   border-radius: 8px;
+  margin-bottom: 20px;
 }
 
 .booking-info {
