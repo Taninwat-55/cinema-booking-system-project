@@ -1,21 +1,58 @@
 const db = require('../db/database');
 const movieModel = require('../models/movieModel');
 const showingModel = require('../models/showingModel');
+const fetch = require('node-fetch');
+require('dotenv').config();
 
 function getAllMovies(req, res) {
   const movies = movieModel.getAllMovies();
   res.json(movies);
 }
 
-function createMovie(req, res) {
-  const { title, description, poster_url, trailer_url } = req.body;
+async function createMovie(req, res) {
+  const { title } = req.body;
 
-  if (!title || !description || !poster_url) {
-    return res.status(400).json({ error: 'Missing required fields' });
+  if (!title) {
+    return res.status(400).json({ error: 'Title is required' });
   }
 
-  movieModel.createMovie(title, description, poster_url, trailer_url);
-  res.status(201).json({ message: 'Movie created successfully' });
+  try {
+    const apiKey = process.env.OMDB_API_KEY;
+    const response = await fetch(
+      `https://www.omdbapi.com/?t=${encodeURIComponent(title)}&apikey=${apiKey}`
+    );
+    const data = await response.json();
+
+    if (data.Response === 'False') {
+      return res.status(404).json({ error: 'Movie not found in OMDb API' });
+    }
+
+    const description = data.Plot;
+    const poster_url = data.Poster;
+    const trailer_url = ''; // Optional or static for now
+    const release_year = data.Year;
+    const length_minutes = data.Runtime;
+    const genre = data.Genre;
+    const imdb_rating = data.imdbRating;
+
+    movieModel.createMovie(
+      title,
+      description,
+      poster_url,
+      trailer_url,
+      imdb_rating,
+      release_year,
+      length_minutes,
+      genre
+    );
+
+    res
+      .status(201)
+      .json({ message: 'Movie created successfully with OMDb data' });
+  } catch (error) {
+    console.error('Create Movie Error:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 }
 
 function deleteMovie(req, res) {

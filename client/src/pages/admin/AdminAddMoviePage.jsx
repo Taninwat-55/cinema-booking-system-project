@@ -4,28 +4,16 @@ import { useNavigate } from 'react-router-dom';
 const AdminAddMoviePage = () => {
   const navigate = useNavigate();
 
-  const [movie, setMovie] = useState({
-    title: '',
-    description: '',
-    poster_url: '',
-    trailer_url: '',
-  });
-
-  const handleChange = (e) => {
-    setMovie({
-      ...movie,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const [title, setTitle] = useState('');
+  const [trailerUrl, setTrailerUrl] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(movie);
     const res = await fetch('http://localhost:3001/api/admin/movies', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(movie),
+      body: JSON.stringify({ title, trailer_url: trailerUrl }),
     });
 
     if (res.ok) {
@@ -44,25 +32,8 @@ const AdminAddMoviePage = () => {
           type="text"
           name="title"
           placeholder="Movie Title"
-          value={movie.title}
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <textarea
-          name="description"
-          placeholder="Movie Description"
-          value={movie.description}
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <input
-          type="text"
-          name="poster_url"
-          placeholder="Poster URL"
-          value={movie.poster_url}
-          onChange={handleChange}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           required
         />
         <br />
@@ -70,8 +41,8 @@ const AdminAddMoviePage = () => {
           type="text"
           name="trailer_url"
           placeholder="Trailer URL (optional)"
-          value={movie.trailer_url}
-          onChange={handleChange}
+          value={trailerUrl}
+          onChange={(e) => setTrailerUrl(e.target.value)}
         />
         <br />
         <button type="submit">Add Movie</button>
