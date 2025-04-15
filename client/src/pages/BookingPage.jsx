@@ -195,7 +195,14 @@ function BookingPage() {
 
       <div style={{ marginTop: '20px' }}>
         <h3>Selected Seats:</h3>
-        <p>{selectedSeats.join(', ') || 'No seats selected'}</p>
+        <p>
+          {selectedSeats.length > 0
+            ? selectedSeats
+                .slice()
+                .sort((a, b) => a - b)
+                .join(', ')
+            : 'No seats selected'}
+        </p>
       </div>
 
       <button onClick={handleBooking}>Confirm Booking</button>
