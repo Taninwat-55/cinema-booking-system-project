@@ -126,7 +126,7 @@
   }
   
   /* Circle animations */
-  .circle-one,
+.circle-one,
 .circle-two {
   width: clamp(300px, 3vw, 30px); /* Smaller, responsive */
   height: clamp(300px, 3vw, 30px);
