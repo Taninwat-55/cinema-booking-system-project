@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "../styles/bookingConfirmation.css";
+
 export default function BookingConfirmationPage() {
   const { bookingNumber } = useParams();
   const [booking, setBooking] = useState(null);

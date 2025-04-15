@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Link} from 'react-router-dom';
+import '../styles/RegisterPage.css'; 
 
 const RegisterPage = () => {
   const [form, setForm] = useState({ email: '', password: '', name: '' });
@@ -33,20 +35,38 @@ const RegisterPage = () => {
   };
 
   return (
-    <div>
-      <h1>Register</h1>
-      <form onSubmit={handleSubmit}>
-        <input name="name" placeholder="Name" onChange={handleChange} />
-        <input name="email" placeholder="Email" onChange={handleChange} />
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          onChange={handleChange}
-        />
-        <button type="submit">Register</button>
-      </form>
-      {message && <p>{message}</p>}
+
+  <div className="auth-container">
+      <div className="auth-form">
+        <h1>Sign Up</h1>
+        <form onSubmit={handleSubmit} className="form-inputs">
+          <input
+            name="name"
+            placeholder="Name"
+            onChange={handleChange}
+            className="input-field"
+          />
+          <input
+            name="email"
+            placeholder="Email"
+            onChange={handleChange}
+            className="input-field"
+          />
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            onChange={handleChange}
+            className="input-field"
+          />
+          <button type="submit" className="submit-btn">
+            Register
+          </button>
+        </form>
+        {message && <p className="form-message">{message}</p>}
+      </div>
+      <img src="/src/assets/popcorn.png.png" className="auth-bg"></img>
+      <p>Already have an account? <Link to="/login">Login</Link></p>
     </div>
   );
 };

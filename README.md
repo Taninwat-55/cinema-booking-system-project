@@ -23,6 +23,7 @@ This is a full-stack cinema booking system built with:
 - [x] Seat Selection — Visual seat map with availability
 - [x] Booking Confirmation — Generate unique booking number
 - [x] Book a movie without log-in
+- [x] Auto Delete Old Bookings
 
 ### User Authentication System
 
@@ -31,15 +32,17 @@ This is a full-stack cinema booking system built with:
 - [x] Login State Management (Context API)
 - [x] View My Bookings (Upcoming & History)
 
+### Admin System
+
+- [x] Admin can create, read, delete movies
+- [x] Admin can add showings for movies
+- [x] Search & Filter in manage movies
+- [x] Admin Dashboard Stats
+- [x] Admin authentication (optional)
+
 ---
 
 ## Features In Progress 🛠️
-
-### Admin System
-
-- [ ] Admin can create, read, delete movies
-- [ ] Admin can add showings for movies
-- [ ] Admin authentication (optional)
 
 ---
 

@@ -53,4 +53,36 @@ function getSeatsByBookingId(bookingId) {
     .all(bookingId);
 }
 
-module.exports = { getBookingsByUserId, getSeatsByBookingId, createBooking };
+function deletePastBookings() {
+  const oldBookings = db
+    .prepare(
+      `
+    SELECT booking_id FROM bookings 
+    WHERE booking_time < CURRENT_TIMESTAMP
+  `
+    )
+    .all();
+
+  const deleteBookedSeats = db.prepare(`
+    DELETE FROM booked_seats WHERE booking_id = ?
+  `);
+  const deleteBookingDetails = db.prepare(`
+    DELETE FROM booking_details WHERE booking_id = ?
+  `);
+  const deleteBooking = db.prepare(`
+    DELETE FROM bookings WHERE booking_id = ?
+  `);
+
+  for (const { booking_id } of oldBookings) {
+    deleteBookedSeats.run(booking_id);
+    deleteBookingDetails.run(booking_id);
+    deleteBooking.run(booking_id);
+  }
+}
+
+module.exports = {
+  getBookingsByUserId,
+  getSeatsByBookingId,
+  createBooking,
+  deletePastBookings,
+};

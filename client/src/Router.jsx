@@ -10,6 +10,12 @@ import MyBookingPage from './pages/MyBookingPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import WatchlistPage from './pages/WatchlistPage';
 import BookingHistoryPage from './pages/BookingHistoryPage';
+import AdminDashboardPage from './pages/admin/AdminDashboardPage';
+import AdminProtectedRoute from './components/AdminProtectedRoute';
+import AdminAddMoviePage from './pages/admin/AdminAddMoviePage';
+import AdminAddShowingPage from './pages/admin/AdminAddShowingPage';
+import AdminMovieListPage from './pages/admin/AdminMovieListPage';
+import AdminEditMoviePage from './pages/admin/AdminEditMoviePage';
 
 export const router = createBrowserRouter([
   {
@@ -62,6 +68,46 @@ export const router = createBrowserRouter([
           <ProtectedRoute>
             <BookingHistoryPage />
           </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'admin/dashboard',
+        element: (
+          <AdminProtectedRoute>
+            <AdminDashboardPage />
+          </AdminProtectedRoute>
+        ),
+      },
+      {
+        path: 'admin/add-movie',
+        element: (
+          <AdminProtectedRoute>
+            <AdminAddMoviePage />
+          </AdminProtectedRoute>
+        ),
+      },
+      {
+        path: 'admin/add-showing',
+        element: (
+          <AdminProtectedRoute>
+            <AdminAddShowingPage />
+          </AdminProtectedRoute>
+        ),
+      },
+      {
+        path: 'admin/manage-movies',
+        element: (
+          <AdminProtectedRoute>
+            <AdminMovieListPage />
+          </AdminProtectedRoute>
+        ),
+      },
+      {
+        path: 'admin/edit-movie/:id',
+        element: (
+          <AdminProtectedRoute>
+            <AdminEditMoviePage />
+          </AdminProtectedRoute>
         ),
       },
     ],
