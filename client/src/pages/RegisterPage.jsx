@@ -1,10 +1,12 @@
-import { useState } from 'react';
-import { Link} from 'react-router-dom';
-import '../styles/RegisterPage.css'; 
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import "../styles/RegisterPage.css";
 
 const RegisterPage = () => {
-  const [form, setForm] = useState({ email: '', password: '', name: '' });
-  const [message, setMessage] = useState('');
+  const [form, setForm] = useState({ email: "", password: "", name: "" });
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -13,9 +15,9 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch('http://localhost:3001/api/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("http://localhost:3001/api/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
 
@@ -28,15 +30,14 @@ const RegisterPage = () => {
     const data = await res.json();
 
     if (res.ok) {
-      setMessage('Registered successfully! Please login.');
+      setMessage("Registered successfully! Please login.");
     } else {
       setMessage(data.error);
     }
   };
 
   return (
-
-  <div className="auth-container">
+    <div className="auth-container">
       <div className="auth-form">
         <h1>Sign Up</h1>
         <form onSubmit={handleSubmit} className="form-inputs">
@@ -63,10 +64,24 @@ const RegisterPage = () => {
             Register
           </button>
         </form>
+
+        <div className="login-link-container">
+          <p className="register-link-text">
+            Already have an account? <Link to="/login">Log In</Link>
+          </p>
+        </div>
+        <button
+          type="button"
+          className="home-btn"
+          onClick={() => navigate("/")}
+        >
+          Home
+        </button>
         {message && <p className="form-message">{message}</p>}
       </div>
-      <img src="/src/assets/popcorn.png.png" className="auth-bg"></img>
-      <p>Already have an account? <Link to="/login">Login</Link></p>
+
+      <div className="circle-one"></div>
+      <div className="circle-two"></div>
     </div>
   );
 };
