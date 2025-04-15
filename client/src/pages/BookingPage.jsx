@@ -20,6 +20,11 @@ function BookingPage() {
 
   const totalTickets = tickets.adult + tickets.child + tickets.senior;
 
+  const getSeatLabel = (row, seat) => {
+    const rowLetter = String.fromCharCode(64 + row); // 1 → A, 2 → B, etc.
+    return `${rowLetter}${seat}`;
+  };
+
   useEffect(() => {
     fetch(`http://localhost:3001/api/showings/${id}`)
       .then((res) => {
@@ -57,18 +62,23 @@ function BookingPage() {
   };
 
   const handleSelect = (seat) => {
+    const seatLabel = getSeatLabel(seat.row_number, seat.seat_number);
+
     if (
-      !selectedSeats.includes(seat.seat_id) &&
+      !selectedSeats.find((s) => s.id === seat.seat_id) &&
       selectedSeats.length + 1 > totalTickets
     ) {
       alert('You cannot select more seats than tickets!');
       return;
     }
 
-    if (selectedSeats.includes(seat.seat_id)) {
-      setSelectedSeats(selectedSeats.filter((s) => s !== seat.seat_id));
+    if (selectedSeats.find((s) => s.id === seat.seat_id)) {
+      setSelectedSeats(selectedSeats.filter((s) => s.id !== seat.seat_id));
     } else {
-      setSelectedSeats([...selectedSeats, seat.seat_id]);
+      setSelectedSeats([
+        ...selectedSeats,
+        { id: seat.seat_id, label: seatLabel },
+      ]);
     }
   };
 
@@ -96,7 +106,7 @@ function BookingPage() {
     console.log('Booking with data:', {
       showing_id: id,
       total_price: totalPrice,
-      selected_seats: selectedSeats,
+      selected_seats: selectedSeats.map((s) => s.id),
       user_id: user ? user.user_id : null,
       ticket_details: ticketDetails,
     });
@@ -107,7 +117,7 @@ function BookingPage() {
       body: JSON.stringify({
         showing_id: id,
         total_price: totalPrice,
-        selected_seats: selectedSeats,
+        selected_seats: selectedSeats.map((s) => s.id),
         user_id: user ? user.user_id : null,
         ticket_details: ticketDetails,
       }),
@@ -180,7 +190,7 @@ function BookingPage() {
             onClick={() => handleSelect(seat)}
             disabled={!seat.is_available}
             style={{
-              backgroundColor: selectedSeats.includes(seat.seat_id)
+              backgroundColor: selectedSeats.find((s) => s.id === seat.seat_id)
                 ? 'green'
                 : seat.is_available
                 ? 'lightgray'
@@ -188,7 +198,7 @@ function BookingPage() {
               padding: '10px',
             }}
           >
-            {seat.row_number}-{seat.seat_number}
+            {getSeatLabel(seat.row_number, seat.seat_number)}
           </button>
         ))}
       </div>
@@ -198,8 +208,9 @@ function BookingPage() {
         <p>
           {selectedSeats.length > 0
             ? selectedSeats
+                .map((s) => s.label)
                 .slice()
-                .sort((a, b) => a - b)
+                .sort((a, b) => a.localeCompare(b))
                 .join(', ')
             : 'No seats selected'}
         </p>
