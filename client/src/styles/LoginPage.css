@@ -148,3 +148,25 @@
     transform: rotate(-360deg) translateX(clamp(40px, 5vw, 60px)) rotate(360deg);
   }
 }
+
+
+
+.Home-btn {
+    padding: clamp(8px, 1.5vw, 12px) clamp(14px, 2vw, 24px);
+    border-radius: clamp(6px, 1vw, 10px);
+    margin-top: clamp(0.75rem, 2vw, 1.5rem);
+    border: none;
+    background-color: #ffd500;
+    color: #000;
+    cursor: pointer;
+    font-size: clamp(12px, 1.8vw, 16px);
+    position: relative;
+    z-index: 2;
+  }
+  
+  .Home-btn:hover {
+    transition: all 0.3s ease-out;
+    box-shadow: 0 clamp(4px, 1vw, 6px) 12px rgba(0, 0, 0, 0.3);
+    border-radius: clamp(6px, 1vw, 10px);
+  }
+  

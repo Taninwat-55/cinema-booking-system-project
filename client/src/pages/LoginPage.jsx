@@ -60,13 +60,14 @@ const LoginPage = () => {
           Login
         </button>
       </form>
-  
-      {/* This goes under the button */}
       <div className="login-link">
         <p className="register-link">
           Don't have an account? <Link to="/register">Register</Link>
         </p>
       </div>
+      <button type="button" className="Home-btn" onClick={() => navigate("/")}>
+          Home
+      </button>
   
       {message && <p className="login-message">{message}</p>}
     </div>
