@@ -49,6 +49,8 @@ function createBooking(req, res) {
 function getBookingsByUserId(req, res) {
   const userId = req.params.id;
 
+  bookingModel.deletePastBookings();
+
   const bookings = bookingModel.getBookingsByUserId(userId);
 
   const bookingsWithSeats = bookings.map((booking) => {

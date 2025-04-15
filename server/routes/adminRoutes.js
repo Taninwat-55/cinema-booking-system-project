@@ -7,7 +7,10 @@ const {
   deleteMovie,
   createShowing,
   updateMovie,
+  getDashboardStats,
 } = require('../controllers/adminController');
+
+const { requireAuth } = require('../middlewares/authMiddleware');
 
 router.get('/movies', getAllMovies);
 
@@ -18,5 +21,7 @@ router.delete('/movies/:id', deleteMovie);
 router.post('/showings', createShowing);
 
 router.put('/movies/:id', updateMovie);
+
+router.get('/dashboard/stats', requireAuth, getDashboardStats);
 
 module.exports = router;

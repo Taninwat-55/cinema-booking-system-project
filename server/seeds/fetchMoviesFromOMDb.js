@@ -1,11 +1,11 @@
-const fetch = require('node-fetch'); // Remember to use node-fetch@2
+const fetch = require('node-fetch'); 
 const db = require('../db/database');
 const movieModel = require('../models/movieModel');
 require('dotenv').config();
 
 const apiKey = process.env.OMDB_API_KEY;
 
-const imdbIds = process.argv.slice(2); // Accept multiple ids
+const imdbIds = process.argv.slice(2); 
 
 async function fetchAndInsertMovie(id) {
   try {
@@ -25,7 +25,7 @@ async function fetchAndInsertMovie(id) {
     const imdb_rating = data.imdbRating;
     const trailer_url = ''; // Optional for now
     const release_year = data.Year;
-    const length_minutes = data.Runtime; // it's like "136 min"
+    const length_minutes = data.Runtime; 
     const genre = data.Genre;
 
     movieModel.createMovie(

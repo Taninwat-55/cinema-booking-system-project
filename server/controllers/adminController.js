@@ -1,3 +1,4 @@
+const db = require('../db/database');
 const movieModel = require('../models/movieModel');
 const showingModel = require('../models/showingModel');
 
@@ -72,10 +73,49 @@ function updateMovie(req, res) {
   res.json({ message: 'Movie updated successfully' });
 }
 
+function getDashboardStats(req, res) {
+  try {
+    const totalMovies = db
+      .prepare('SELECT COUNT(*) AS count FROM movies')
+      .get();
+    const totalShowings = db
+      .prepare('SELECT COUNT(*) AS count FROM showings')
+      .get();
+    const totalBookings = db
+      .prepare('SELECT COUNT(*) AS count FROM bookings')
+      .get();
+
+    const popularMovie = db
+      .prepare(
+        `
+        SELECT movies.title, COUNT(bookings.booking_id) AS bookings_count
+        FROM bookings
+        JOIN showings ON bookings.showing_id = showings.showing_id
+        JOIN movies ON showings.movie_id = movies.movie_id
+        GROUP BY movies.title
+        ORDER BY bookings_count DESC
+        LIMIT 1
+      `
+      )
+      .get();
+
+    res.json({
+      total_movies: totalMovies.count,
+      total_showings: totalShowings.count,
+      total_bookings: totalBookings.count,
+      popular_movie: popularMovie?.title || 'No bookings yet',
+    });
+  } catch (error) {
+    console.error('Dashboard Stats Error:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
 module.exports = {
   getAllMovies,
   createMovie,
   deleteMovie,
   createShowing,
   updateMovie,
+  getDashboardStats,
 };
