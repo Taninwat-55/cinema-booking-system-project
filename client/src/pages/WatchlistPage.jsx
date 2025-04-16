@@ -1,7 +1,8 @@
-import { useEffect, useState, useContext } from 'react';
-import { UserContext } from '../context/UserContext';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState, useContext } from "react";
+import { UserContext } from "../context/UserContext";
+import { Link, useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
+import "../styles/WatchlistPage.css"; // if your CSS is in this file
 
 function WatchlistPage() {
   const [watchlist, setWatchlist] = useState([]);
@@ -17,41 +18,75 @@ function WatchlistPage() {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log('Watchlist API response:', data);
-
           if (data.error) {
-            console.log('Invalid token - forcing logout');
-            localStorage.removeItem('user');
+            localStorage.removeItem("user");
             setUser(null);
-            navigate('/login'); // redirect
+            navigate("/login");
             return;
           }
-
           setWatchlist(data);
         });
     }
-  }, [user, navigate, setWatchlist]);
+  }, [user, navigate, setUser]);
 
-  if (!user) return <p>You need to log in to see your watchlist.</p>;
+  if (!user)
+    return (
+      <p className="watchlist-page">
+        You need to log in to see your watchlist.
+      </p>
+    );
 
   return (
-    <div>
-      <h1>My Watchlist</h1>
+    <>
+      <Navbar />
+      <div className="watchlist-page">
+        {!Array.isArray(watchlist) ? (
+          <p>Loading or something went wrong...</p>
+        ) : watchlist.length === 0 ? (
+          <div className="empty-watchlist">
+            <p>Your watchlist is empty.</p>
+            <Link to="/" className="back-to-home">
+              Back to Home
+            </Link>
+          </div>
+        ) : (
+          <div className="movie-list">
+            {watchlist.map((movie) => (
+              <div key={movie.movie_id} className="movie-card">
+                <div className="movie-info">
+                  <img src={movie.poster_url} alt={movie.title} />
 
-      {!Array.isArray(watchlist) ? (
-        <p>Loading or something went wrong...</p>
-      ) : watchlist.length === 0 ? (
-        <p>Your watchlist is empty.</p>
-      ) : (
-        <ul>
-          {watchlist.map((movie) => (
-            <li key={movie.movie_id}>
-              <Link to={`/movies/${movie.movie_id}`}>{movie.title}</Link>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+                  <div>
+                    <p className="movie-title">{movie.title}</p>
+                  </div>
+
+                  <div className="movie-meta">
+                    <span className="rating">{movie.rating || "N/A"}</span>
+                    <span className="year">{movie.year}</span>
+                    <span className="duration">{movie.duration}</span>
+                  </div>
+
+                  <p className="genres-text">
+                    {movie.genres?.length
+                      ? movie.genres.join(", ")
+                      : "Genre Unknown"}
+                  </p>
+
+                  <Link
+                    to={`/movies/${movie.movie_id}`}
+                    className="watchlist-btn"
+                  >
+                    View Details
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      <div className="circle-one"></div>
+      <div className="circle-two"></div>
+    </>
   );
 }
 
