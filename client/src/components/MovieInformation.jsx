@@ -4,7 +4,7 @@ import "../styles/MovieInformation.css";
 
 const MovieInformation = ({
   movie,
-  showings,
+  // showings,
   user,
   isInWatchlist,
   handleAddWatchlist,
