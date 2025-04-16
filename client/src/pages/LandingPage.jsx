@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 // import { Link } from 'react-router-dom';
 // import { UserContext } from '../context/UserContext';
-import Navbar from '../components/Navbar';
-import HeroMovies from '../components/HeroMovies';
-import '../styles/LandingPage.css';
+import Navbar from "../components/Navbar";
+import HeroMovies from "../components/HeroMovies";
+import "../styles/LandingPage.css";
 
 function LandingPage() {
   const [movies, setMovies] = useState([]);
@@ -11,9 +11,9 @@ function LandingPage() {
   // const { user } = useContext(UserContext);
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/movies')
+    fetch("http://localhost:3001/api/movies")
       .then((res) => {
-        if (!res.ok) throw new Error('Nätverksfel eller ogiltigt svar');
+        if (!res.ok) throw new Error("Nätverksfel eller ogiltigt svar");
         return res.json();
       })
       .then((data) => {
@@ -21,7 +21,7 @@ function LandingPage() {
         setLoading(false);
       })
       .catch((error) => {
-        console.error('❌ Fel vid hämtning av filmer:', error.message);
+        console.error("❌ Fel vid hämtning av filmer:", error.message);
       });
   }, []);
 
