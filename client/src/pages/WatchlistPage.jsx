@@ -1,8 +1,8 @@
-import { useEffect, useState, useContext } from "react";
-import { UserContext } from "../context/UserContext";
-import { Link, useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import "../styles/WatchlistPage.css"; // if your CSS is in this file
+import { useEffect, useState, useContext } from 'react';
+import { UserContext } from '../context/UserContext';
+import { Link, useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+import '../styles/WatchlistPage.css'; // if your CSS is in this file
 
 function WatchlistPage() {
   const [watchlist, setWatchlist] = useState([]);
@@ -19,9 +19,9 @@ function WatchlistPage() {
         .then((res) => res.json())
         .then((data) => {
           if (data.error) {
-            localStorage.removeItem("user");
+            localStorage.removeItem('user');
             setUser(null);
-            navigate("/login");
+            navigate('/login');
             return;
           }
           setWatchlist(data);
@@ -38,7 +38,9 @@ function WatchlistPage() {
 
   return (
     <>
-      <Navbar />
+      <div className="navbar">
+        <Navbar />
+      </div>
       <div className="watchlist-page">
         {!Array.isArray(watchlist) ? (
           <p>Loading or something went wrong...</p>
@@ -61,15 +63,15 @@ function WatchlistPage() {
                   </div>
 
                   <div className="movie-meta">
-                    <span className="rating">{movie.rating || "N/A"}</span>
+                    <span className="rating">{movie.rating || 'N/A'}</span>
                     <span className="year">{movie.year}</span>
                     <span className="duration">{movie.duration}</span>
                   </div>
 
                   <p className="genres-text">
                     {movie.genres?.length
-                      ? movie.genres.join(", ")
-                      : "Genre Unknown"}
+                      ? movie.genres.join(', ')
+                      : 'Genre Unknown'}
                   </p>
 
                   <Link
