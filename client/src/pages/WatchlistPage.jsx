@@ -84,6 +84,8 @@ function WatchlistPage() {
           </div>
         )}
       </div>
+      <div className="circle-one"></div>
+      <div className="circle-two"></div>
     </>
   );
 }
