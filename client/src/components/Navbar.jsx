@@ -1,16 +1,24 @@
-import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import '../styles/Navbar.css';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, setUser } = useContext(UserContext);
+  const location = useLocation();
 
   const handleLogout = () => {
     localStorage.removeItem('user');
     setUser(null);
   };
+
+  // Automatically open menu on route change if user is logged in
+  useEffect(() => {
+    if (user) {
+      setIsMenuOpen(true);
+    }
+  }, [location.pathname, user]);
 
   return (
     <header className="header-container">
@@ -88,3 +96,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
