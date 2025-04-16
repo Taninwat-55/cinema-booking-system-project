@@ -1,134 +1,268 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 
 :root {
-  --selected-color: #FBBF24;
+  --selected-color: #fbbf24;
   --occupied-color: #e74c3c;
-  --available-color: #fff;
-}
-
-* {
-  box-sizing: border-box;
+  --available-color: #4b5563;
+  --main-color: #222831;
 }
 
 body {
   font-family: "Lato", sans-serif;
-  background-color: #242333;
-  color: white;
+  background-color: var(--main-color);
+  color: var(--text-color);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   min-height: 100vh;
-  padding: 30px;
+  margin: 0;
 }
 
-.booking-information {
-  margin-top: 20px;
-  margin-bottom: 20px;
+.Navbar {
+  margin-top: -5rem;
 }
 
-.movie-container {
-  margin: 20px 0;
+.booking-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.movie-container select {
-  background-color: #fff;
-  border: 0;
+.booking-details-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.showing-poster {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  object-fit: contain;
   border-radius: 5px;
-  font-size: 14px;
-  margin-left: 10px;
-  padding: 5px 15px 5px 15px;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
 }
 
-.container {
-  perspective: 1000px;
-  margin-bottom: 3px;
+/* Grid-layout för desktop */
+.booking-grid-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* Vänstra kolumnen */
+.left-side {
+  display: flex;
+  flex-direction: column;
+  margin-top: -2.5rem;
+  background-color: var(--main-color);
+  border-right: 1px solid #fff;
+  margin-left: 50px;
+}
+
+.left-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.tickets {
+  margin-right: 50px;
+  flex: 1;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.tickets label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.tickets input {
+  margin-left: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #d1d5db;
+}
+
+/* Högra kolumnen */
+.right-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -3rem;
+  margin-right: 5rem;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .booking-grid-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .right-side,
+  .left-side {
+    width: 100%;
+    align-items: center;
+  }
+
+  .booking-information {
+    text-align: center;
+  }
+
+  .tickets {
+    text-align: center;
+  }
+
+  .left-side {
+    flex-direction: column;
+  }
+}
+
+/*Seating & Screen*/
+.seat-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.screen {
+  background-color: #2d3748;
+  color: #e2e8f0;
+  height: 2rem;
+  width: 25rem;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom: 3px solid var(--available-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Lato", sans-serif;
+  font-size: 0.75em;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 15px auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .screen {
+    height: 2rem;
+    max-width: 100%;
+  }
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(30px, 1fr));
+  gap: 5px;
+  margin-bottom: 10px;
 }
 
 .seat {
-  background-color: #444451;
-  height: 25px;
+  background-color: var(--available-color);
+  height: 30px;
   width: 30px;
-  margin: 3px;
-  border: 1px solid white;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-radius: 5px;
   font-size: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-    transform: scale(1.2); /* Alla säten, även occupied */
-
+  cursor: pointer;
+  transition: transform 0.2s;
 }
 
 .seat.selected {
   background-color: var(--selected-color);
+  transform: scale(1.1);
 }
 
 .seat.occupied {
   background-color: var(--occupied-color);
-    cursor: not-allowed; /* Visuellt visar att man inte kan klicka */
-
-}
-
-.seat:nth-of-type(2),
-.seat:nth-last-of-type(2) {
-  margin: 3px; 
-}
-
-.seat:not(.occupied) {
-  cursor: pointer;
-  transform: scale(1.2);
-}
-
-.showcase .seat:not(.occupied) {
-  cursor: default;
+  cursor: not-allowed;
   transform: scale(1);
 }
 
-.showcase {
-  background-color: rgba(0, 0, 0, 0.1);
-  padding: 5px 10px;
+.seat:hover:not(.occupied) {
+  transform: scale(1.1);
+}
+
+button {
+  background-color: var(--selected-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
   border-radius: 5px;
-  color: #777;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: var(--selected-color);
+}
+
+/*Showcase*/
+.showcase {
+  padding: 10px;
+  border-radius: 5px;
+  color: #d1d5db;
   list-style-type: none;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  width: 300px;
+  margin-top: -0.8rem;
 }
 
 .showcase li {
   display: flex;
   align-items: center;
-  justify-content: center;
   margin: 0 10px;
 }
 
-.showcase li small {
-  margin-left: 2px;
-}
-
-.row {
+.showcase .seat {
+  height: 20px;
+  width: 20px;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  margin-right: 5px;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
 }
 
-
-.screen {
-  background-color: #fff;
-  height: 15rem;
-  width: 90%;
-  margin: 15px auto;
-  transform: rotateX(-45deg);
-  box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
+.showcase .seat.selected {
+  background-color: var(--selected-color);
 }
 
-
-p.text {
-  margin: 5px 0;
+.showcase .seat.occupied {
+  background-color: var(--occupied-color);
 }
 
-.selected-seats-text {
-  color: var(--selected-color);
+.showcase small {
+  font-size: 12px;
+  color: #d1d5db;
+}
+
+/* Responsive design för vänstersidan */
+@media (min-width: 769px) {
+  .left-side {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .left-content {
+    width: 50%;
+  }
+
+  .tickets {
+    width: 40%;
+  }
 }

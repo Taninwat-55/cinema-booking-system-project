@@ -8,10 +8,13 @@
   margin-top: 1rem;
   padding-left: 1rem;
   padding-right: 1rem;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
 }
 
 .navbar-container {
-  width: 100%;
+  width: 95%;
   height: 60px;
   perspective: 1000px;
   background: rgba(255, 255, 255, 0.1);
