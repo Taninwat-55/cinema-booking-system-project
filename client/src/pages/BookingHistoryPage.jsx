@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import "../styles/BookingPages.css";
+import Navbar from "../components/Navbar";
+
 
 const BookingHistoryPage = () => {
   const { user } = useContext(UserContext);
@@ -47,6 +49,9 @@ const BookingHistoryPage = () => {
 
   return (
     <div className="booking-confirmation-container">
+      <div className="navbar">
+        <Navbar />
+      </div>
       <h1>Booking History</h1>
       {bookings.length === 0 ? (
         <p>No past bookings.</p>

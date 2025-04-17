@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "../styles/BookingPages.css";
+import Navbar from "../components/Navbar";
 
 export default function BookingConfirmationPage() {
   const { bookingNumber } = useParams();
@@ -19,10 +20,18 @@ export default function BookingConfirmationPage() {
 
   return (
     <div className="booking-confirmation-container">
+      <div className="navbar">
+        <Navbar />
+      </div>
+    
       <h1>Booking Successful!</h1>
       <div className="booking-details-wrapper">
         {booking.poster_url ? (
-          <img src={booking.poster_url} alt={booking.movie_title} className="booking-poster" />
+          <img
+            src={booking.poster_url}
+            alt={booking.movie_title}
+            className="booking-poster"
+          />
         ) : (
           <p>No Poster Available</p>
         )}
