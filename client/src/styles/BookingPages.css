@@ -1,9 +1,12 @@
-.navbar{
-  margin-top: -1rem;
-}
 h1 {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+/* Ni kan ta bort den här. Den gör att filmen ligger i mitten av sidan. */
+.booking-confirmation-container {
+  padding-top: 115px; 
+  text-align: center;
 }
 
 .booking-details-wrapper {
@@ -26,14 +29,14 @@ h1 {
 }
 
 .booking-number {
-    color: #FBBF24;
+  color: #fbbf24;
 }
 
 .booking-btn {
-    background-color: #FBBF24;
-    border: none;
+  background-color: #fbbf24;
+  border: none;
 
-    padding: 0.5rem;
-    border-radius: 5px;
-    margin-top: 1rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  margin-top: 1rem;
 }

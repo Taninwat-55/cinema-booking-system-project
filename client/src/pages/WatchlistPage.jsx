@@ -38,9 +38,7 @@ function WatchlistPage() {
 
   return (
     <>
-      <div className="navbar">
-        <Navbar />
-      </div>
+      <Navbar />
       <div className="watchlist-page">
         {!Array.isArray(watchlist) ? (
           <p>Loading or something went wrong...</p>

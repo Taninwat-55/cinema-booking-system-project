@@ -146,6 +146,9 @@ const Navbar = () => {
             {user && (
               <>
                 <li>
+                  <Link to="/">Home</Link>
+                </li>
+                <li>
                   <Link to="/watchlist">Watchlist</Link>
                 </li>
                 <li>
@@ -153,9 +156,6 @@ const Navbar = () => {
                 </li>
                 <li>
                   <Link to="/booking-history">Booking History</Link>
-                </li>
-                <li>
-                  <Link to="/">Home</Link>
                 </li>
                 {user.is_admin === 1 && (
                   <li>

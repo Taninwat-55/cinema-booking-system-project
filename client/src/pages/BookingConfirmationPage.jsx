@@ -20,9 +20,7 @@ export default function BookingConfirmationPage() {
 
   return (
     <div className="booking-confirmation-container">
-      <div className="navbar">
         <Navbar />
-      </div>
     
       <h1>Booking Successful!</h1>
       <div className="booking-details-wrapper">

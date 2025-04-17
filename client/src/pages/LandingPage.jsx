@@ -25,7 +25,7 @@ function LandingPage() {
   }, []);
 
   return (
-    <div className="landing-page-contianer">
+    <div className="landing-page-container">
       <Navbar />
 
       {loading ? (
