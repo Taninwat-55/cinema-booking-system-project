@@ -1,6 +1,18 @@
 const db = require('../db/database');
 
-function getAllMovies() {
+// function getAllMovies() {
+//   return db.prepare('SELECT * FROM movies').all();
+// }
+
+function getAllMovies(searchTerm = '') {
+  if (searchTerm) {
+    const lower = searchTerm.toLowerCase();
+    console.log('Searching for:', lower); // 👈 Add this
+    return db
+      .prepare('SELECT * FROM movies WHERE LOWER(title) LIKE ?')
+      .all(`%${lower}%`);
+  }
+
   return db.prepare('SELECT * FROM movies').all();
 }
 
