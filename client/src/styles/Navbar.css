@@ -3,27 +3,33 @@
 .header-container {
   height: 12vh;
   width: 100vw;
+  margin-top: 1rem;
   margin-bottom: 5%;
   z-index: 10;
-  margin-top: 1rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
+
   display: flex;
   justify-content: center;
-  justify-items: center;
+  align-items: center;
+  padding: 0; /* remove side gaps */
 }
 
 .navbar-container {
-  width: 95%;
+  width: 100%;
+  max-width: 1200px; /* Optional: keep it centered with a max size */
   height: 60px;
-  perspective: 1000px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  border-radius: 15px;
-  padding: 10px 20px;
+  border-radius: 16px;
+  padding: 0 20px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.558);
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
+
 
 .navbar-front,
 .navbar-back {
@@ -38,7 +44,7 @@
   justify-content: space-between;
   transition: transform 0.6s ease;
   transform-style: preserve-3d;
-  border-radius: 15px;
+  border-radius: 16px;
   padding: 0;
 }
 
@@ -51,10 +57,7 @@
   transform: rotateX(180deg);
   z-index: 1;
   background: rgba(255, 255, 255, 0.2);
-  border-top-left-radius: 14px;
-  border-bottom-left-radius: 14px;
-  border-top-right-radius: 14px;
-  border-bottom-right-radius: 14px;
+  border-radius: 15px;
 }
 
 .navbar-container.flipped .navbar-front {
@@ -123,7 +126,7 @@
   margin: 0 20px 0 0;
   display: flex;
   gap: 20px;
-  width: 100%;
+  width: auto;
   justify-content: flex-end;
 }
 
@@ -135,5 +138,56 @@
 }
 
 .menu-options li a:hover {
+  color: #e0e0e0;
+}
+
+/* LEFT SECTION (Back Side Layout) */
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 20px;
+}
+
+/* SEARCH STYLES */
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-input {
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  outline: none;
+  width: 160px;
+  transition: all 0.3s ease;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.search-input:focus {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-color: #fff;
+}
+
+.search-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 4px 6px;
+  transition: color 0.2s ease;
+}
+
+.search-button:hover {
   color: #e0e0e0;
 }
