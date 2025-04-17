@@ -2,12 +2,14 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import '../styles/Navbar.css';
+import { SearchContext } from '../context/SearchContext';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, setUser } = useContext(UserContext);
   const location = useLocation();
-  const [searchTerm, setSearchTerm] = useState('');
+  const { searchTerm, setSearchTerm, setSearchResults, setHasSearched } =
+    useContext(SearchContext);
 
   const handleLogout = () => {
     localStorage.removeItem('user');
@@ -16,17 +18,20 @@ const Navbar = () => {
 
   const handleSearch = async () => {
     if (!searchTerm.trim()) return;
-  
+
     try {
-      const response = await fetch(`http://localhost:3001/api/search?query=${encodeURIComponent(searchTerm)}`);
+      const response = await fetch(
+        `http://localhost:3001/api/movies?search=${encodeURIComponent(
+          searchTerm
+        )}`
+      );
       const data = await response.json();
-  
-      console.log('Search results:', data);
+      setSearchResults(data);
+      setHasSearched(true); // ✅
     } catch (error) {
       console.error('Error fetching search results:', error);
     }
-  }; 
-  
+  };
 
   useEffect(() => {
     if (user) {
@@ -34,29 +39,69 @@ const Navbar = () => {
     }
   }, [location.pathname, user]);
 
+  useEffect(() => {
+    if (!searchTerm.trim()) {
+      setSearchResults([]);
+      setHasSearched(false);
+    }
+  }, [searchTerm]);
+
   return (
     <header className="header-container">
       <div className={`navbar-container ${isMenuOpen ? 'flipped' : ''}`}>
         {/* FRONT SIDE */}
         <div className="navbar-front">
-          <div className="menu-icon" onClick={(e) => {
-            e.stopPropagation();
-            setIsMenuOpen(!isMenuOpen);
-          }}>
-            <span className="menu-bar"></span>
-            <span className="menu-bar"></span>
-            <span className="menu-bar"></span>
+          <div className="left-section">
+            <div
+              className="menu-icon"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsMenuOpen(!isMenuOpen);
+              }}
+            >
+              <span className="menu-bar"></span>
+              <span className="menu-bar"></span>
+              <span className="menu-bar"></span>
+            </div>
+
+            <div className="search-container">
+              <span className="search-icon">🔍</span>
+              <input
+                type="text"
+                className="search-input with-icon"
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setSearchTerm(value);
+                  if (value.trim()) {
+                    handleSearch(value);
+                  } else {
+                    setSearchResults([]);
+                    setHasSearched(false);
+                  }
+                }}
+              />
+            </div>
           </div>
 
           <ul className="menu-options">
             {!user ? (
               <>
-                <li><Link to="/login">Sign In</Link></li>
-                <li><Link to="/register">Sign Up</Link></li>
-                <li><Link to="/">Home</Link></li>
+                <li>
+                  <Link to="/login">Sign In</Link>
+                </li>
+                <li>
+                  <Link to="/register">Sign Up</Link>
+                </li>
+                <li>
+                  <Link to="/">Home</Link>
+                </li>
               </>
             ) : (
-              <li onClick={handleLogout} style={{ cursor: 'pointer' }}>Logout</li>
+              <li onClick={handleLogout} style={{ cursor: 'pointer' }}>
+                Logout
+              </li>
             )}
           </ul>
         </div>
@@ -64,36 +109,58 @@ const Navbar = () => {
         {/* BACK SIDE */}
         <div className="navbar-back">
           <div className="left-section">
-            <div className="menu-icon" onClick={(e) => {
-              e.stopPropagation();
-              setIsMenuOpen(!isMenuOpen);
-            }}>
+            <div
+              className="menu-icon"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsMenuOpen(!isMenuOpen);
+              }}
+            >
               <span className="menu-bar"></span>
               <span className="menu-bar"></span>
               <span className="menu-bar"></span>
             </div>
 
             <div className="search-container">
+              <span className="search-icon">🔍</span>
               <input
                 type="text"
-                className="search-input"
+                className="search-input with-icon"
                 placeholder="Search..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setSearchTerm(value);
+                  if (value.trim()) {
+                    handleSearch(value);
+                  } else {
+                    setSearchResults([]);
+                    setHasSearched(false);
+                  }
+                }}
               />
-              <button className="search-button" onClick={handleSearch}>🔍</button>
             </div>
           </div>
 
           <ul className="menu-options">
             {user && (
               <>
-                <li><Link to="/watchlist">Watchlist</Link></li>
-                <li><Link to="/my-bookings">My Bookings</Link></li>
-                <li><Link to="/booking-history">Booking History</Link></li>
-                <li><Link to="/">Home</Link></li>
+                <li>
+                  <Link to="/watchlist">Watchlist</Link>
+                </li>
+                <li>
+                  <Link to="/my-bookings">My Bookings</Link>
+                </li>
+                <li>
+                  <Link to="/booking-history">Booking History</Link>
+                </li>
+                <li>
+                  <Link to="/">Home</Link>
+                </li>
                 {user.is_admin === 1 && (
-                  <li><Link to="/admin/dashboard">Admin Dashboard</Link></li>
+                  <li>
+                    <Link to="/admin/dashboard">Admin Dashboard</Link>
+                  </li>
                 )}
               </>
             )}

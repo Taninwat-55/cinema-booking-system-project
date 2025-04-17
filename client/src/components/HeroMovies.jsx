@@ -1,8 +1,8 @@
-import React, { useContext, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import "../styles/HeroMovies.css";
-import { CiHeart } from "react-icons/ci";
-import { UserContext } from "../context/UserContext";
+import React, { useContext, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import '../styles/HeroMovies.css';
+import { CiHeart } from 'react-icons/ci';
+import { UserContext } from '../context/UserContext';
 
 const HeroMovies = ({ movies }) => {
   const { user } = useContext(UserContext);
@@ -28,7 +28,7 @@ const HeroMovies = ({ movies }) => {
           <div className="movie-card-container" key={movie.imdb_id}>
             <Link
               to={`/movies/${movie.movie_id}`}
-              style={{ textDecoration: "none", color: "inherit" }}
+              style={{ textDecoration: 'none', color: 'inherit' }}
             >
               <div className="movie-card">
                 <img src={movie.poster_url} alt={movie.title} />
@@ -41,7 +41,7 @@ const HeroMovies = ({ movies }) => {
                     <div className="movie-rating-span-container">
                       {movie.imdb_rating
                         ? Number(movie.imdb_rating).toFixed(1)
-                        : "N/A"}
+                        : 'N/A'}
                     </div>
                   </div>
                 </div>
@@ -49,7 +49,7 @@ const HeroMovies = ({ movies }) => {
                 <div className="about-movie-information-landing-page">
                   <div className="about-movie-information-landing-page-wrapper">
                     <p>
-                      {movie.release_year} | {movie.length_minutes} min |{" "}
+                      {movie.release_year} | {movie.length_minutes} min |{' '}
                       {movie.genre}
                     </p>
                   </div>
@@ -61,17 +61,17 @@ const HeroMovies = ({ movies }) => {
                     e.preventDefault();
                     e.stopPropagation();
                     if (!user) {
-                      alert("You need to sign in to add to Watchlist");
+                      alert('You need to sign in to add to Watchlist');
                       return;
                     }
 
                     const isInWatchlist = watchlist.includes(movie.movie_id);
-                    const method = isInWatchlist ? "DELETE" : "POST";
+                    const method = isInWatchlist ? 'DELETE' : 'POST';
 
-                    fetch("http://localhost:3001/api/watchlist", {
+                    fetch('http://localhost:3001/api/watchlist', {
                       method,
                       headers: {
-                        "Content-Type": "application/json",
+                        'Content-Type': 'application/json',
                         Authorization: `Bearer ${user.token}`,
                       },
                       body: JSON.stringify({
@@ -100,8 +100,8 @@ const HeroMovies = ({ movies }) => {
                           className="heart-icon"
                           style={{
                             color: watchlist.includes(movie.movie_id)
-                              ? "orange"
-                              : "gray",
+                              ? 'orange'
+                              : 'gray',
                           }}
                         />
                       </div>
