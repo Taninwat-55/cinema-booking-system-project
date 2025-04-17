@@ -1,9 +1,5 @@
 const movieModel = require('../models/movieModel');
 
-// function getAllMovies(req, res) {
-//   const movies = movieModel.getAllMovies();
-//   res.json(movies);
-// }
 function getAllMovies(req, res) {
   const search = req.query.search || '';
   const movies = movieModel.getAllMovies(search);
