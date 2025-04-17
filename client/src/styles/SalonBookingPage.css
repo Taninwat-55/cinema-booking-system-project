@@ -5,6 +5,7 @@
   --occupied-color: #e74c3c;
   --available-color: #4b5563;
   --main-color: #222831;
+  --text-color: #ffffff;
 }
 
 body {
@@ -52,29 +53,46 @@ body {
   gap: 50px;
   align-items: flex-start;
   width: 100%;
+  
 }
 
 /* Vänstra kolumnen */
 .left-side {
   display: flex;
   flex-direction: column;
-  margin-top: -2.5rem;
   background-color: var(--main-color);
-  border-right: 1px solid #fff;
-  margin-left: 50px;
+  padding: 20px;
+  margin-left: 5rem;
+  border-right: 2px solid #2d3748;
 }
 
-.left-content {
-  flex: 1;
-  padding: 20px;
+.total-price {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+/* Högra kolumnen */
+.right-side {
+  display: grid;
+  grid-template-columns: 1fr 2fr; 
+  width: 90%;
+  align-items: flex-start;
+  margin-right: 20rem;
+}
+
+
+.right-content {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
 }
 
 .tickets {
-  margin-right: 50px;
   flex: 1;
-  padding: 20px;
   border-radius: 5px;
   text-align: center;
+  margin-top: 3.5rem;
 }
 
 .tickets label {
@@ -83,44 +101,30 @@ body {
 }
 
 .tickets input {
+  border: none;
   margin-left: 10px;
   padding: 5px;
+  text-align: center; 
   border-radius: 5px;
-  border: 1px solid #d1d5db;
+  width: 3rem;
+  background-color: #2d3748;
+  line-height: 1.5; 
+  font-size: 1rem; 
+  -webkit-appearance: none; 
+  -moz-appearance: textfield;
+  appearance: none; 
 }
 
-/* Högra kolumnen */
-.right-side {
+.tickets input::-webkit-inner-spin-button,
+.tickets input::-webkit-outer-spin-button {
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+.seats-section {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: -3rem;
-  margin-right: 5rem;
-  gap: 20px;
-}
-
-@media (max-width: 768px) {
-  .booking-grid-wrapper {
-    grid-template-columns: 1fr;
-  }
-
-  .right-side,
-  .left-side {
-    width: 100%;
-    align-items: center;
-  }
-
-  .booking-information {
-    text-align: center;
-  }
-
-  .tickets {
-    text-align: center;
-  }
-
-  .left-side {
-    flex-direction: column;
-  }
 }
 
 /*Seating & Screen*/
@@ -148,13 +152,6 @@ body {
   text-transform: uppercase;
   margin: 15px auto;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-@media (max-width: 768px) {
-  .screen {
-    height: 2rem;
-    max-width: 100%;
-  }
 }
 
 .row {
@@ -249,20 +246,93 @@ button:hover {
   color: #d1d5db;
 }
 
-/* Responsive design för vänstersidan */
-@media (min-width: 769px) {
-  .left-side {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 20px;
+/* Responsive design */
+@media (max-width: 768px) {
+  .booking-grid-wrapper {
+    grid-template-columns: 1fr;
   }
 
-  .left-content {
-    width: 50%;
+  .right-side,
+  .left-side {
+    width: 100%;
+    align-items: center;
+  }
+
+  .right-content {
+    flex-direction: column;
+    align-items: center;
   }
 
   .tickets {
-    width: 40%;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .seats-section {
+    width: 100%;
+  }
+}
+
+/* Navbar styling */
+.navbar {
+  width: 100%;
+  background-color: var(--main-color);
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--selected-color);
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-brand {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: var(--selected-color);
+  margin-left: 50px;
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links li {
+  margin-right: 20px;
+}
+
+.navbar-links a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 1em;
+  transition: color 0.3s;
+}
+
+.navbar-links a:hover {
+  color: var(--selected-color);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 1rem 0;
+  }
+
+  .navbar-brand {
+    margin-left: 0;
+    margin-bottom: 1rem;
+  }
+
+  .navbar-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar-links li {
+    margin: 0.5rem 0;
   }
 }
