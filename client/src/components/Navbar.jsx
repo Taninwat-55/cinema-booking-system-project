@@ -3,11 +3,13 @@ import { Link, useLocation } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import '../styles/Navbar.css';
 import { SearchContext } from '../context/SearchContext';
+import { WatchlistContext } from '../context/WatchlistContext';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, setUser } = useContext(UserContext);
   const location = useLocation();
+  const { watchlist } = useContext(WatchlistContext);
   const { searchTerm, setSearchTerm, setSearchResults, setHasSearched } =
     useContext(SearchContext);
 
@@ -149,7 +151,7 @@ const Navbar = () => {
                   <Link to="/">Home</Link>
                 </li>
                 <li>
-                  <Link to="/watchlist">Watchlist</Link>
+                  <Link to="/watchlist">Watchlist ({watchlist.length})</Link>
                 </li>
                 <li>
                   <Link to="/my-bookings">My Bookings</Link>
