@@ -1,6 +1,20 @@
-const express = require('express');
-const router = express.Router();
+const db = require('../db/database');
 
-// Nothing here for now — but ready for future user features
+function updateUser(req, res) {
+  const userId = req.params.id;
+  const { name, email } = req.body;
 
-module.exports = router;
+  if (!name || !email) {
+    return res.status(400).json({ error: 'Name and email are required' });
+  }
+
+  db.prepare(
+    `
+      UPDATE users SET name = ?, email = ? WHERE user_id = ?
+    `
+  ).run(name, email, userId);
+
+  res.json({ message: 'User updated successfully' });
+}
+
+module.exports = { updateUser };

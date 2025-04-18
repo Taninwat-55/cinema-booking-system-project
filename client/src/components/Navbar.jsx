@@ -104,7 +104,7 @@ const Navbar = () => {
             ) : (
               <li className="profile-dropdown">
                 <img
-                  src="/default-avatar.png" // or replace with user.avatar_url if you add that later
+                  src="../assets/account_circle_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png"
                   alt="Profile"
                   className="avatar"
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -121,7 +121,7 @@ const Navbar = () => {
                     </li>
                     <li>
                       <Link
-                        to="/profile/edit"
+                        to="/profile/update"
                         onClick={() => setIsDropdownOpen(false)}
                       >
                         Update Info
