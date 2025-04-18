@@ -17,6 +17,7 @@ import AdminAddShowingPage from './pages/admin/AdminAddShowingPage';
 import AdminMovieListPage from './pages/admin/AdminMovieListPage';
 import AdminEditMoviePage from './pages/admin/AdminEditMoviePage';
 import ProfilePage from './pages/ProfilePage';
+import AdminAllBookingsPage from './pages/admin/AdminAllBookingPage';
 
 export const router = createBrowserRouter([
   {
@@ -116,6 +117,14 @@ export const router = createBrowserRouter([
         element: (
           <AdminProtectedRoute>
             <AdminEditMoviePage />
+          </AdminProtectedRoute>
+        ),
+      },
+      {
+        path: 'admin/bookings',
+        element: (
+          <AdminProtectedRoute>
+            <AdminAllBookingsPage />
           </AdminProtectedRoute>
         ),
       },

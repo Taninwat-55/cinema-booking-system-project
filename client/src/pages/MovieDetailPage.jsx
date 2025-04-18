@@ -10,15 +10,14 @@ function MovieDetailPage() {
   const [movie, setMovie] = useState(null);
   const [showings, setShowings] = useState([]);
   const [isInWatchlist, setIsInWatchlist] = useState(false);
+  const [selectedDate, setSelectedDate] = useState('');
   const { user } = useContext(UserContext);
   const { fetchWatchlist } = useContext(WatchlistContext);
 
   useEffect(() => {
     fetch(`http://localhost:3001/api/movies/${id}`)
       .then((res) => res.json())
-      .then((data) => {
-        setMovie(data);
-      });
+      .then((data) => setMovie(data));
 
     if (user) {
       fetch(`http://localhost:3001/api/users/${user.user_id}/watchlist`, {
@@ -32,11 +31,17 @@ function MovieDetailPage() {
           setIsInWatchlist(found);
         });
     }
+  }, [id, user]);
 
-    fetch(`http://localhost:3001/api/showings/movie/${id}`)
+  useEffect(() => {
+    const url = selectedDate
+      ? `http://localhost:3001/api/showings/movie/${id}?date=${selectedDate}`
+      : `http://localhost:3001/api/showings/movie/${id}`;
+
+    fetch(url)
       .then((res) => res.json())
       .then((data) => setShowings(data));
-  }, [id, user]);
+  }, [id, selectedDate]);
 
   if (!movie) return <p>Loading movie details...</p>;
 
@@ -80,6 +85,27 @@ function MovieDetailPage() {
 
   return (
     <div className="movie-details-container">
+      <div
+        className="date-filter"
+        style={{ textAlign: 'center', marginBottom: '1rem' }}
+      >
+        <label htmlFor="showing-date">Filter by Date:</label>{' '}
+        <input
+          type="date"
+          id="showing-date"
+          value={selectedDate}
+          onChange={(e) => setSelectedDate(e.target.value)}
+        />
+        {selectedDate && (
+          <button
+            onClick={() => setSelectedDate('')}
+            style={{ marginLeft: '1rem' }}
+          >
+            Clear
+          </button>
+        )}
+      </div>
+
       <MovieInformation
         movie={movie}
         showings={showings}

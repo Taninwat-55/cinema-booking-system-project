@@ -80,9 +80,53 @@ function deletePastBookings() {
   }
 }
 
+function insertBookedSeats(bookingId, seatIds) {
+  const stmt = db.prepare(`
+    INSERT INTO booked_seats (booking_id, seat_id)
+    VALUES (?, ?)
+  `);
+
+  for (const seatId of seatIds) {
+    stmt.run(bookingId, seatId);
+  }
+}
+
+function insertBookingDetails(bookingId, details) {
+  const stmt = db.prepare(`
+    INSERT INTO booking_details (booking_id, ticket_type, quantity, price_per_ticket)
+    VALUES (?, ?, ?, ?)
+  `);
+
+  for (const detail of details) {
+    stmt.run(
+      bookingId,
+      detail.ticket_type,
+      detail.quantity,
+      detail.price_per_ticket
+    );
+  }
+}
+
+function getBookingByNumber(bookingNumber) {
+  return db
+    .prepare(
+      `
+    SELECT bookings.*, movies.title AS movie_title, movies.poster_url, showings.showing_time
+    FROM bookings
+    JOIN showings ON bookings.showing_id = showings.showing_id
+    JOIN movies ON showings.movie_id = movies.movie_id
+    WHERE bookings.booking_number = ?
+  `
+    )
+    .get(bookingNumber);
+}
+
 module.exports = {
   getBookingsByUserId,
   getSeatsByBookingId,
   createBooking,
   deletePastBookings,
+  insertBookedSeats,
+  insertBookingDetails,
+  getBookingByNumber,
 };

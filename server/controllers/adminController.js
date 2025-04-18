@@ -1,6 +1,7 @@
 const db = require('../db/database');
 const movieModel = require('../models/movieModel');
 const showingModel = require('../models/showingModel');
+const adminModel = require('../models/adminModel');
 const fetch = require('node-fetch');
 require('dotenv').config();
 
@@ -162,6 +163,16 @@ function getDashboardStats(req, res) {
   }
 }
 
+function getAllBookings(req, res) {
+  try {
+    const allBookings = adminModel.getAllBookingsWithSeats();
+    res.json(allBookings);
+  } catch (err) {
+    console.error('Error fetching all bookings:', err.message);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
 module.exports = {
   getAllMovies,
   createMovie,
@@ -169,4 +180,5 @@ module.exports = {
   createShowing,
   updateMovie,
   getDashboardStats,
+  getAllBookings,
 };
