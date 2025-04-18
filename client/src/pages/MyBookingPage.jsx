@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import "../styles/BookingPages.css";
+import Navbar from "../components/Navbar";
 const MyBookingsPage = () => {
   const { user } = useContext(UserContext);
   const [bookings, setBookings] = useState([]);
@@ -49,6 +50,7 @@ const MyBookingsPage = () => {
 
   return (
     <div className="booking-confirmation-container">
+      <Navbar />
       <h1>My Bookings</h1>
       {bookings.length === 0 ? (
         <p>No bookings found.</p>

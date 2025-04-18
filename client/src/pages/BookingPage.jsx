@@ -140,9 +140,7 @@ function BookingPage() {
   if (!showing) return <p>Loading showing details...</p>;
   return (
     <div>
-      <div className="Navbar">
         <Navbar />
-      </div>
       {!showing ? (
         <p>Loading showing details...</p>
       ) : (
