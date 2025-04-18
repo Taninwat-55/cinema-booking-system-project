@@ -90,6 +90,13 @@ function createShowing(req, res) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
+  const selectedDate = new Date(showing_time);
+  const now = new Date();
+
+  if (selectedDate < now) {
+    return res.status(400).json({ error: 'Cannot add a showing in the past' });
+  }
+
   showingModel.createShowing(
     movie_id,
     theater_id,
