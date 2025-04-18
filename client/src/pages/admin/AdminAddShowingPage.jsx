@@ -30,6 +30,14 @@ const AdminAddShowingPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const selectedDate = new Date(showing.showing_time);
+    const now = new Date();
+
+    if (selectedDate < now) {
+      alert('Cannot add a showing in the past!');
+      return;
+    }
+
     const res = await fetch('http://localhost:3001/api/admin/showings', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
