@@ -199,3 +199,51 @@
   pointer-events: none;
   color: #aaa;
 }
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+.profile-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 40px; 
+  right: 0;
+  background: white;
+  color: black;
+  border-radius: 8px;
+  padding: 10px 0;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+}
+
+.dropdown-menu li {
+  padding: 8px 16px;
+  list-style-type: none;
+}
+
+.dropdown-menu li a,
+.dropdown-menu li button {
+  /* all: unset; */
+  cursor: pointer;
+  font-size: 14px;
+  width: 100%;
+  display: block;
+  color: black;
+}
+
+.dropdown-menu li a:hover,
+.dropdown-menu li button:hover {
+  background-color: #f0f0f0;
+}
