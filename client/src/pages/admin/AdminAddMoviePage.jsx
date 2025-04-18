@@ -20,7 +20,8 @@ const AdminAddMoviePage = () => {
       alert('Movie added successfully!');
       navigate('/admin/dashboard');
     } else {
-      alert('Failed to add movie');
+      const data = await res.json();
+      alert(data.message || 'Failed to add movie');
     }
   };
 

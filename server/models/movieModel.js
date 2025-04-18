@@ -53,9 +53,16 @@ function deleteMovie(movieId) {
   return db.prepare('DELETE FROM movies WHERE movie_id = ?').run(movieId);
 }
 
+function getMovieByTitle(title) {
+  return db
+    .prepare('SELECT * FROM movies WHERE LOWER(title) = LOWER(?)')
+    .get(title);
+}
+
 module.exports = {
   getAllMovies,
   getMovieById,
   createMovie,
   deleteMovie,
+  getMovieByTitle,
 };

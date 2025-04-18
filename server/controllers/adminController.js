@@ -17,10 +17,17 @@ async function createMovie(req, res) {
   }
 
   try {
+    const existingMovie = movieModel.getMovieByTitle(title);
+
+    if (existingMovie) {
+      return res.status(400).json({ message: 'Movie already exists.' });
+    }
+
     const apiKey = process.env.OMDB_API_KEY;
     const response = await fetch(
       `https://www.omdbapi.com/?t=${encodeURIComponent(title)}&apikey=${apiKey}`
     );
+
     const data = await response.json();
 
     if (data.Response === 'False') {
