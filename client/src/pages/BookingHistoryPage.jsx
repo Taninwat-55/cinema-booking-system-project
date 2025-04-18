@@ -49,9 +49,7 @@ const BookingHistoryPage = () => {
 
   return (
     <div className="booking-confirmation-container">
-      <div className="navbar">
         <Navbar />
-      </div>
       <h1>Booking History</h1>
       {bookings.length === 0 ? (
         <p>No past bookings.</p>
