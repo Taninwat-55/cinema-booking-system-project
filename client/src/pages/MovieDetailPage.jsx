@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import Navbar from "../components/Navbar";
 import MovieInformation from "../components/MovieInformation";
 import "../styles/MovieDetailPage.css";
 
@@ -72,6 +73,9 @@ function MovieDetailPage() {
 
   return (
     <div className="movie-details-container">
+      <div className="movie-detail-page">
+        <Navbar />
+      </div>
       <MovieInformation
         movie={movie}
         showings={showings}
