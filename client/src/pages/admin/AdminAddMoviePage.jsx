@@ -1,35 +1,35 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Navbar from "../../components/Navbar";
-import "../../styles/AdminAddMoviePage.css";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../../components/Navbar';
+import '../../styles/AdminAddMoviePage.css';
+import { toast } from 'react-hot-toast';
 
 const AdminAddMoviePage = () => {
   const navigate = useNavigate();
-  const [title, setTitle] = useState("");
-  const [trailerUrl, setTrailerUrl] = useState("");
-  const [message, setMessage] = useState("");
+  const [title, setTitle] = useState('');
+  const [trailerUrl, setTrailerUrl] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    const res = await fetch("http://localhost:3001/api/admin/movies", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+
+    const res = await fetch('http://localhost:3001/api/admin/movies', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title, trailer_url: trailerUrl }),
     });
-  
-    if (res.ok) {
-      setMessage("Movie added successfully!");
-      setTitle("");
-      setTrailerUrl("");
 
-    
-      navigate("");
+    if (res.ok) {
+      toast.success('Movie added successfully!');
+      setTitle('');
+      setTrailerUrl('');
+
+      navigate('');
     } else if (res.status === 400) {
-      setMessage("Movie already exists.");
+      setMessage('Movie already exists.');
     } else {
       const data = await res.json();
-      alert(data.message || 'Failed to add movie');
+      toast.error(data.message || 'Failed to add movie');
     }
   };
 

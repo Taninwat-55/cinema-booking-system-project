@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 const AdminMovieListPage = () => {
   const [movies, setMovies] = useState([]);
@@ -39,10 +40,10 @@ const AdminMovieListPage = () => {
     });
 
     if (res.ok) {
-      alert('Movie deleted!');
+      toast.success('Movie deleted!');
       setMovies(movies.filter((movie) => movie.movie_id !== id));
     } else {
-      alert('Failed to delete movie');
+      toast.error('Failed to delete movie');
     }
   };
 

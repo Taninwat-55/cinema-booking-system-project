@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 const AdminAddShowingPage = () => {
   const navigate = useNavigate();
@@ -45,10 +46,10 @@ const AdminAddShowingPage = () => {
     });
 
     if (res.ok) {
-      alert('Showing added successfully!');
+      toast.success('Showing added successfully!');
       navigate('/admin/dashboard');
     } else {
-      alert('Failed to add showing');
+      toast.error('Failed to add showing');
     }
   };
 
