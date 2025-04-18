@@ -2,17 +2,34 @@ const db = require('../db/database');
 
 function getShowingsByMovieId(req, res) {
   const movieId = req.params.id;
+  const filterDate = req.query.date;
 
-  const showings = db
-    .prepare(
+  let showings;
+
+  if (filterDate) {
+    showings = db
+      .prepare(
+        `
+        SELECT showing_id, showing_time, theater_id
+        FROM showings
+        WHERE movie_id = ?
+        AND DATE(showing_time) = ?
+        ORDER BY showing_time
       `
-    SELECT showing_id, showing_time, theater_id
-    FROM showings
-    WHERE movie_id = ?
-    ORDER BY showing_time
-  `
-    )
-    .all(movieId);
+      )
+      .all(movieId, filterDate);
+  } else {
+    showings = db
+      .prepare(
+        `
+        SELECT showing_id, showing_time, theater_id
+        FROM showings
+        WHERE movie_id = ?
+        ORDER BY showing_time
+      `
+      )
+      .all(movieId);
+  }
 
   res.json(showings);
 }
