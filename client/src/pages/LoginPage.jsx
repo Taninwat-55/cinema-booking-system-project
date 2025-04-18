@@ -32,8 +32,8 @@ const LoginPage = () => {
         expiry: new Date().getTime() + 60 * 60 * 1000
       };
 
-      localStorage.setItem("user", JSON.stringify(userData)); // Save to localStorage
-      setUser(userData); // Save to Context
+      localStorage.setItem("user", JSON.stringify(userData)); 
+      setUser(userData); 
       navigate("/");
     }
   };

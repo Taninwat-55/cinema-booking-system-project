@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import '../styles/WatchlistPage.css'; // if your CSS is in this file
+import '../styles/WatchlistPage.css'; 
 
 function WatchlistPage() {
   const [watchlist, setWatchlist] = useState([]);
