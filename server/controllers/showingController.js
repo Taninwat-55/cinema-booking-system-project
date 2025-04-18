@@ -1,4 +1,5 @@
 const db = require('../db/database');
+const showingModel = require('../models/showingModel');
 
 function getShowingsByMovieId(req, res) {
   const movieId = req.params.id;
@@ -7,28 +8,9 @@ function getShowingsByMovieId(req, res) {
   let showings;
 
   if (filterDate) {
-    showings = db
-      .prepare(
-        `
-        SELECT showing_id, showing_time, theater_id
-        FROM showings
-        WHERE movie_id = ?
-        AND DATE(showing_time) = ?
-        ORDER BY showing_time
-      `
-      )
-      .all(movieId, filterDate);
+    showings = showingModel.getShowingsByMovieIdAndDate(movieId, filterDate);
   } else {
-    showings = db
-      .prepare(
-        `
-        SELECT showing_id, showing_time, theater_id
-        FROM showings
-        WHERE movie_id = ?
-        ORDER BY showing_time
-      `
-      )
-      .all(movieId);
+    showings = showingModel.getShowingsByMovieId(movieId);
   }
 
   res.json(showings);
@@ -37,20 +19,14 @@ function getShowingsByMovieId(req, res) {
 function getShowingById(req, res) {
   const showingId = req.params.id;
 
-  const showing = db
-    .prepare(
-      `
-    SELECT showings.*, movies.title
-    FROM showings
-    JOIN movies ON movies.movie_id = showings.movie_id
-    WHERE showing_id = ?
-  `
-    )
-    .get(showingId);
+  const showing = showingModel.getShowingById(showingId);
 
   if (!showing) return res.status(404).json({ error: 'Showing not found' });
 
   res.json(showing);
 }
 
-module.exports = { getShowingsByMovieId, getShowingById };
+module.exports = {
+  getShowingsByMovieId,
+  getShowingById,
+};
