@@ -8,6 +8,7 @@ const {
   createShowing,
   updateMovie,
   getDashboardStats,
+  getAllBookings,
 } = require('../controllers/adminController');
 
 const { requireAuth } = require('../middlewares/authMiddleware');
@@ -23,5 +24,7 @@ router.post('/showings', createShowing);
 router.put('/movies/:id', updateMovie);
 
 router.get('/dashboard/stats', requireAuth, getDashboardStats);
+
+router.get('/bookings', requireAuth, getAllBookings);
 
 module.exports = router;
