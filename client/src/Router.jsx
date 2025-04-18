@@ -16,8 +16,9 @@ import AdminAddMoviePage from './pages/admin/AdminAddMoviePage';
 import AdminAddShowingPage from './pages/admin/AdminAddShowingPage';
 import AdminMovieListPage from './pages/admin/AdminMovieListPage';
 import AdminEditMoviePage from './pages/admin/AdminEditMoviePage';
-import ProfilePage from './pages/ProfilePage';
 import AdminAllBookingsPage from './pages/admin/AdminAllBookingPage';
+import UserProfilePage from './pages/UserProfilePage';
+import UpdateUserInfoPage from './pages/UpdateUserInfoPage';
 
 export const router = createBrowserRouter([
   {
@@ -52,7 +53,15 @@ export const router = createBrowserRouter([
         path: 'profile',
         element: (
           <ProtectedRoute>
-            <ProfilePage />
+            <UserProfilePage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'profile/update',
+        element: (
+          <ProtectedRoute>
+            <UpdateUserInfoPage />
           </ProtectedRoute>
         ),
       },
