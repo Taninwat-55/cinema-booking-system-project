@@ -4,6 +4,7 @@ import { UserContext } from '../context/UserContext';
 import '../styles/Navbar.css';
 import { SearchContext } from '../context/SearchContext';
 import { WatchlistContext } from '../context/WatchlistContext';
+import profileIcon from '/account_circle.svg';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,6 +14,19 @@ const Navbar = () => {
   const { watchlist } = useContext(WatchlistContext);
   const { searchTerm, setSearchTerm, setSearchResults, setHasSearched } =
     useContext(SearchContext);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!e.target.closest('.profile-dropdown')) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('user');
@@ -104,7 +118,7 @@ const Navbar = () => {
             ) : (
               <li className="profile-dropdown">
                 <img
-                  src="../assets/account_circle_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png"
+                  src={profileIcon}
                   alt="Profile"
                   className="avatar"
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
