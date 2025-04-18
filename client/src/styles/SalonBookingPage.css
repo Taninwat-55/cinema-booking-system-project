@@ -20,10 +20,6 @@ body {
   margin: 0;
 }
 
-.Navbar {
-  margin-top: -5rem;
-}
-
 .booking-page-container {
   display: flex;
   flex-direction: column;
@@ -46,7 +42,6 @@ body {
   border-radius: 5px;
 }
 
-/* Grid-layout för desktop */
 .booking-grid-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -212,7 +207,6 @@ button:hover {
   display: flex;
   justify-content: space-around;
   width: 300px;
-  margin-top: -0.8rem;
 }
 
 .showcase li {
@@ -270,69 +264,5 @@ button:hover {
 
   .seats-section {
     width: 100%;
-  }
-}
-
-/* Navbar styling */
-.navbar {
-  width: 100%;
-  background-color: var(--main-color);
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 2px solid var(--selected-color);
-  position: fixed;
-  top: 0;
-  z-index: 1000;
-}
-
-.navbar-brand {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: var(--selected-color);
-  margin-left: 50px;
-}
-
-.navbar-links {
-  list-style: none;
-  display: flex;
-  margin: 0;
-  padding: 0;
-}
-
-.navbar-links li {
-  margin-right: 20px;
-}
-
-.navbar-links a {
-  color: var(--text-color);
-  text-decoration: none;
-  font-size: 1em;
-  transition: color 0.3s;
-}
-
-.navbar-links a:hover {
-  color: var(--selected-color);
-}
-
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    padding: 1rem 0;
-  }
-
-  .navbar-brand {
-    margin-left: 0;
-    margin-bottom: 1rem;
-  }
-
-  .navbar-links {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .navbar-links li {
-    margin: 0.5rem 0;
   }
 }
