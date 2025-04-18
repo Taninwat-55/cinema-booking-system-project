@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import '../styles/HeroMovies.css';
 import { CiHeart } from 'react-icons/ci';
 import { UserContext } from '../context/UserContext';
+import { WatchlistContext } from '../context/WatchlistContext';
 
 const HeroMovies = ({ movies }) => {
   const { user } = useContext(UserContext);
   const [watchlist, setWatchlist] = useState([]);
+  const { fetchWatchlist } = useContext(WatchlistContext);
 
   useEffect(() => {
     if (user) {
@@ -133,9 +135,6 @@ const HeroMovies = ({ movies }) => {
 export default HeroMovies;
 
 /*
-
-
-
 
 import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";

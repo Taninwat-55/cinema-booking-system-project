@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 const AdminAddShowingPage = () => {
   const navigate = useNavigate();
@@ -30,6 +31,14 @@ const AdminAddShowingPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const selectedDate = new Date(showing.showing_time);
+    const now = new Date();
+
+    if (selectedDate < now) {
+      alert('Cannot add a showing in the past!');
+      return;
+    }
+
     const res = await fetch('http://localhost:3001/api/admin/showings', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -37,10 +46,10 @@ const AdminAddShowingPage = () => {
     });
 
     if (res.ok) {
-      alert('Showing added successfully!');
+      toast.success('Showing added successfully!');
       navigate('/admin/dashboard');
     } else {
-      alert('Failed to add showing');
+      toast.error('Failed to add showing');
     }
   };
 
