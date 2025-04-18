@@ -8,6 +8,7 @@ import { WatchlistContext } from '../context/WatchlistContext';
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, setUser } = useContext(UserContext);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const location = useLocation();
   const { watchlist } = useContext(WatchlistContext);
   const { searchTerm, setSearchTerm, setSearchResults, setHasSearched } =
@@ -101,8 +102,36 @@ const Navbar = () => {
                 </li>
               </>
             ) : (
-              <li onClick={handleLogout} style={{ cursor: 'pointer' }}>
-                Logout
+              <li className="profile-dropdown">
+                <img
+                  src="/default-avatar.png" // or replace with user.avatar_url if you add that later
+                  alt="Profile"
+                  className="avatar"
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                />
+                {isDropdownOpen && (
+                  <ul className="dropdown-menu">
+                    <li>
+                      <Link
+                        to="/profile"
+                        onClick={() => setIsDropdownOpen(false)}
+                      >
+                        View Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/profile/edit"
+                        onClick={() => setIsDropdownOpen(false)}
+                      >
+                        Update Info
+                      </Link>
+                    </li>
+                    <li>
+                      <button onClick={handleLogout}>Log Out</button>
+                    </li>
+                  </ul>
+                )}
               </li>
             )}
           </ul>
