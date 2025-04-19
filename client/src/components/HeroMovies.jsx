@@ -8,7 +8,6 @@ import { WatchlistContext } from '../context/WatchlistContext';
 const HeroMovies = ({ movies }) => {
   const { user } = useContext(UserContext);
   const [watchlist, setWatchlist] = useState([]);
-  const { fetchWatchlist } = useContext(WatchlistContext);
 
   useEffect(() => {
     if (user) {
@@ -90,6 +89,7 @@ const HeroMovies = ({ movies }) => {
                           } else {
                             setWatchlist((prev) => [...prev, movie.movie_id]);
                           }
+                          window.dispatchEvent(new Event('watchlistUpdated'));
                         }
                       })
                       .catch((err) => console.error(err));

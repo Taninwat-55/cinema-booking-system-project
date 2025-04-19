@@ -10,23 +10,35 @@ export const WatchlistProvider = ({ children }) => {
   const fetchWatchlist = async () => {
     if (!user) return setWatchlist([]);
 
-    const res = await fetch(
-      `http://localhost:3001/api/users/${user.user_id}/watchlist`,
-      {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
+    try {
+      const res = await fetch(
+        `http://localhost:3001/api/users/${user.user_id}/watchlist`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      const data = await res.json();
+      if (Array.isArray(data)) {
+        setWatchlist(data.map((movie) => movie.movie_id));
       }
-    );
-
-    const data = await res.json();
-    if (Array.isArray(data)) {
-      setWatchlist(data.map((movie) => movie.movie_id));
+    } catch (err) {
+      console.error('Error fetching watchlist:', err);
     }
   };
 
   useEffect(() => {
     fetchWatchlist();
+
+    const handleRefresh = () => {
+      fetchWatchlist();
+    };
+
+    window.addEventListener('watchlistUpdated', handleRefresh);
+    return () => {
+      window.removeEventListener('watchlistUpdated', handleRefresh);
+    };
   }, [user]);
 
   return (
