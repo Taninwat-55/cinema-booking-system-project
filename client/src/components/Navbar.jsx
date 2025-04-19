@@ -44,7 +44,7 @@ const Navbar = () => {
       );
       const data = await response.json();
       setSearchResults(data);
-      setHasSearched(true); // ✅
+      setHasSearched(true);
     } catch (error) {
       console.error('Error fetching search results:', error);
     }

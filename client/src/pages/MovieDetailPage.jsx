@@ -60,6 +60,7 @@ function MovieDetailPage() {
       if (res.ok) {
         setIsInWatchlist(true); // or false if removed
         fetchWatchlist(); // 🔄 auto-refresh
+        window.dispatchEvent(new Event('watchlistUpdated'));
       }
     });
   }
@@ -79,6 +80,7 @@ function MovieDetailPage() {
       if (res.ok) {
         setIsInWatchlist(true); // or false if removed
         fetchWatchlist(); // 🔄 auto-refresh
+        window.dispatchEvent(new Event('watchlistUpdated'));
       }
     });
   }
