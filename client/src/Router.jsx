@@ -19,6 +19,7 @@ import AdminEditMoviePage from './pages/admin/AdminEditMoviePage';
 import AdminAllBookingsPage from './pages/admin/AdminAllBookingPage';
 import UserProfilePage from './pages/UserProfilePage';
 import UpdateUserInfoPage from './pages/UpdateUserInfoPage';
+import TrackBookingPage from './pages/TrackBookingPage';
 
 export const router = createBrowserRouter([
   {
@@ -136,6 +137,10 @@ export const router = createBrowserRouter([
             <AdminAllBookingsPage />
           </AdminProtectedRoute>
         ),
+      },
+      {
+        path: 'track-booking',
+        element: <TrackBookingPage />,
       },
     ],
   },

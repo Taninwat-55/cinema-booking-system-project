@@ -53,8 +53,26 @@ function getBookingByBookingNumber(req, res) {
   res.json({ ...booking, seats: seats.map((s) => s.seat_label) });
 }
 
+function trackBookingByNumber(req, res) {
+  const { booking_number } = req.params;
+
+  try {
+    const booking = bookingModel.trackBookingByNumber(booking_number);
+
+    if (!booking) {
+      return res.status(404).json({ error: 'Booking not found.' });
+    }
+
+    res.json(booking);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to track booking.' });
+  }
+}
+
 module.exports = {
   createBooking,
   getBookingsByUserId,
   getBookingByBookingNumber,
+  trackBookingByNumber,
 };
