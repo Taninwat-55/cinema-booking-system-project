@@ -58,7 +58,7 @@
 
 - [x] Showings Management
 - [x] Add showings for movies
-- [ ] Edit/Delete showings for movies
+- [x] Edit/Delete showings for movies
 
 - [x] Booking Overview
 - [x] View all bookings
