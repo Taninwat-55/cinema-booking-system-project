@@ -55,6 +55,7 @@ function getBookingByBookingNumber(req, res) {
 
 function trackBookingByNumber(req, res) {
   const { booking_number } = req.params;
+  console.log('Looking for booking number:', booking_number);
 
   try {
     const booking = bookingModel.trackBookingByNumber(booking_number);
