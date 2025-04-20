@@ -71,9 +71,21 @@ function trackBookingByNumber(req, res) {
   }
 }
 
+function cancelBookingById(req, res) {
+  const bookingId = req.params.id;
+  const result = bookingModel.cancelBooking(bookingId);
+
+  if (result.changes > 0) {
+    res.json({ message: 'Booking cancelled successfully' });
+  } else {
+    res.status(400).json({ error: 'Could not cancel booking' });
+  }
+}
+
 module.exports = {
   createBooking,
   getBookingsByUserId,
   getBookingByBookingNumber,
   trackBookingByNumber,
+  cancelBookingById,
 };

@@ -151,6 +151,14 @@ function trackBookingByNumber(bookingNumber) {
   return { ...booking, seats };
 }
 
+function cancelBooking(bookingId) {
+  return db
+    .prepare(
+      `UPDATE bookings SET is_cancelled = 1 WHERE booking_id = ? AND booking_time > CURRENT_TIMESTAMP`
+    )
+    .run(bookingId);
+}
+
 module.exports = {
   getBookingsByUserId,
   getSeatsByBookingId,
@@ -160,4 +168,5 @@ module.exports = {
   insertBookingDetails,
   getBookingByNumber,
   trackBookingByNumber,
+  cancelBooking,
 };

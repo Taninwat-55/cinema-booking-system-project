@@ -1,4 +1,4 @@
-const db = require("../db/database");
+const db = require('../db/database');
 
 // Drop tables if they exist
 db.exec(`
@@ -95,6 +95,8 @@ db.exec(`
     FOREIGN KEY (showing_id) REFERENCES showings (showing_id)
   );
 
+  ALTER TABLE bookings ADD COLUMN is_cancelled INTEGER DEFAULT 0;
+
   -- Tabell för bokningsdetaljer (antal biljetter av varje typ)
   CREATE TABLE booking_details (
     booking_detail_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -128,4 +130,4 @@ db.exec(`
   END;
 `);
 
-console.log("✅ Tables created and initial data inserted!");
+console.log('✅ Tables created and initial data inserted!');
