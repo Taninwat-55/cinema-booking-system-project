@@ -16,7 +16,6 @@ const UserProfilePage = () => {
 
   if (!user) return <p>You need to log in to view this page.</p>;
 
-  console.log('User object:', user);
   return (
     <>
       <Navbar />
@@ -39,6 +38,38 @@ const UserProfilePage = () => {
             <p>
               <strong>Admin:</strong> {user.is_admin ? 'Yes' : 'No'}
             </p>
+            <button
+              className="delete-btn"
+              onClick={async () => {
+                if (
+                  !window.confirm(
+                    'Are you sure you want to delete your account?'
+                  )
+                )
+                  return;
+
+                const res = await fetch(
+                  `http://localhost:3001/api/users/${user.user_id}`,
+                  {
+                    method: 'DELETE',
+                    headers: {
+                      Authorization: `Bearer ${user.token}`,
+                    },
+                  }
+                );
+
+                if (res.ok) {
+                  localStorage.removeItem('user');
+                  setUser(null);
+                  alert('Account deleted');
+                  navigate('/');
+                } else {
+                  alert('Failed to delete account');
+                }
+              }}
+            >
+              Delete Account
+            </button>
           </div>
 
           <div className="profile-actions">
