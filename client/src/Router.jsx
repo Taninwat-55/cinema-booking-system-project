@@ -20,6 +20,8 @@ import AdminAllBookingsPage from './pages/admin/AdminAllBookingPage';
 import UserProfilePage from './pages/UserProfilePage';
 import UpdateUserInfoPage from './pages/UpdateUserInfoPage';
 import TrackBookingPage from './pages/TrackBookingPage';
+import AdminEditShowingPage from './pages/admin/AdminEditShowingPage';
+import AdminManageShowingsPage from './pages/admin/AdminManageShowingsPage';
 
 export const router = createBrowserRouter([
   {
@@ -141,6 +143,22 @@ export const router = createBrowserRouter([
       {
         path: 'track-booking',
         element: <TrackBookingPage />,
+      },
+      {
+        path: 'admin/manage-showings',
+        element: (
+          <AdminProtectedRoute>
+            <AdminManageShowingsPage />
+          </AdminProtectedRoute>
+        ),
+      },
+      {
+        path: 'admin/edit-showing/:id',
+        element: (
+          <AdminProtectedRoute>
+            <AdminEditShowingPage />
+          </AdminProtectedRoute>
+        ),
       },
     ],
   },

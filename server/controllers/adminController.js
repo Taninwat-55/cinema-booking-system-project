@@ -106,6 +106,47 @@ function getAllBookings(req, res) {
   }
 }
 
+function updateShowing(req, res) {
+  const showingId = req.params.id;
+  const {
+    movie_id,
+    theater_id,
+    showing_time,
+    price_adult,
+    price_child,
+    price_senior,
+  } = req.body;
+
+  if (
+    !movie_id ||
+    !theater_id ||
+    !showing_time ||
+    !price_adult ||
+    !price_child ||
+    !price_senior
+  ) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
+
+  showingModel.updateShowing(
+    showingId,
+    movie_id,
+    theater_id,
+    showing_time,
+    price_adult,
+    price_child,
+    price_senior
+  );
+
+  res.json({ message: 'Showing updated successfully' });
+}
+
+function deleteShowing(req, res) {
+  const showingId = req.params.id;
+  showingModel.deleteShowing(showingId);
+  res.json({ message: 'Showing deleted successfully' });
+}
+
 module.exports = {
   getAllMovies,
   createMovie,
@@ -114,4 +155,6 @@ module.exports = {
   updateMovie,
   getDashboardStats,
   getAllBookings,
+  updateShowing,
+  deleteShowing,
 };
