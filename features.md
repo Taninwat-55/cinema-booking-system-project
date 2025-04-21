@@ -27,21 +27,23 @@
 
 ### User Account
 - [x] Register / Log In
-- [x] View profile info (name, email)
-- [x] View Booking History + Upcoming Bookings
-- [x] Add movies to Watchlist
-- [x] Option to cancel upcoming bookings
-- [x] (Optional) Delete account
+- [x] Movie Listings
+- [x] Browse current and upcoming movies
+- [x] Filter by genre and year
+- [ ] Sort by release date, popularity
 
 ### Watchlist
+- [x] Watchlist
 - [x] Add/remove movies to personal list
 - [x] View all saved movies
 - [x] Easy access to book later
 
 ### Search & Filters
+- [x] Search & Filters
 - [x] Keyword search (title, actor)
 - [x] Genre filter
 - [x] Year slider or dropdown
+
 
 ### Responsive UI
 - [ ] Works on mobile, tablet, and desktop
@@ -49,6 +51,7 @@
 ---
 
 ## 🛠 Admin Features
+
 
 ### Admin Dashboard
 - [x] Stats: total bookings, top movies, showings, etc.
@@ -67,6 +70,7 @@
 - [ ] Cancel or manage bookings
 - [x] Filter by date, movie, or user
 
+
 ### User Management (Optional)
 - [ ] View list of users (Optional)
 - [ ] Promote users to admin (Optional)
@@ -74,7 +78,6 @@
 ---
 
 ## 🧠 Nice-to-Have Features
-
 - [x] 🎞 Trailers embedded on movie pages (Needs improvement)
 - [ ] 🧾 Email Confirmation for bookings (Optional)
 - [ ] 🌐 Multi-language support (Optional)
