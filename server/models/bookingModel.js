@@ -27,18 +27,41 @@ function getBookingsByUserId(userId) {
       bookings.total_price,
       bookings.booking_time,
       showings.showing_id,
-      showings.showing_time, -- this is full TIMESTAMP
+      showings.showing_time,
       movies.title AS movie_title,
       movies.poster_url
     FROM bookings
     JOIN showings ON bookings.showing_id = showings.showing_id
     JOIN movies ON showings.movie_id = movies.movie_id
-    WHERE bookings.user_id = ?
+    WHERE bookings.user_id = ? AND (bookings.is_cancelled IS NULL OR bookings.is_cancelled = 0)
     ORDER BY showings.showing_time ASC
   `
     )
     .all(userId);
 }
+
+// function getBookingsByUserId(userId) {
+//   return db
+//     .prepare(
+//       `
+//     SELECT 
+//       bookings.booking_id,
+//       bookings.booking_number,
+//       bookings.total_price,
+//       bookings.booking_time,
+//       showings.showing_id,
+//       showings.showing_time, -- this is full TIMESTAMP
+//       movies.title AS movie_title,
+//       movies.poster_url
+//     FROM bookings
+//     JOIN showings ON bookings.showing_id = showings.showing_id
+//     JOIN movies ON showings.movie_id = movies.movie_id
+//     WHERE bookings.user_id = ?
+//     ORDER BY showings.showing_time ASC
+//   `
+//     )
+//     .all(userId);
+// }
 
 function getSeatsByBookingId(bookingId) {
   return db

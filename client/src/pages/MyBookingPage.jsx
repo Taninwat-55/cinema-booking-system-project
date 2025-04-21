@@ -3,7 +3,8 @@ import { UserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import '../styles/BookingPages.css';
 import Navbar from '../components/Navbar';
-const MyBookingsPage = () => {
+
+const MyBookingPage = () => {
   const { user } = useContext(UserContext);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,31 +17,35 @@ const MyBookingsPage = () => {
     }
 
     const fetchBookings = async () => {
-      const res = await fetch(
-        `http://localhost:3001/api/bookings/user/${user.user_id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
+      try {
+        const res = await fetch(
+          `http://localhost:3001/api/bookings/user/${user.user_id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+
+        const data = await res.json();
+
+        if (!Array.isArray(data)) {
+          console.error('Expected array but got:', data);
+          setBookings([]);
+          return;
         }
-      );
 
-      const data = await res.json();
+        const upcoming = data.filter(
+          (booking) => new Date(booking.showing_time) > new Date()
+        );
 
-      if (Array.isArray(data)) {
-        setBookings(data);
-      } else {
+        setBookings(upcoming);
+      } catch (err) {
+        console.error('Error fetching bookings:', err);
         setBookings([]);
-        console.error('Expected array but got:', data);
+      } finally {
+        setLoading(false);
       }
-
-      const upcoming = data.filter(
-        (booking) => new Date(booking.showing_time) > new Date()
-      );
-
-      setBookings(upcoming);
-
-      setLoading(false);
     };
 
     fetchBookings();
@@ -114,4 +119,4 @@ const MyBookingsPage = () => {
   );
 };
 
-export default MyBookingsPage;
+export default MyBookingPage;
