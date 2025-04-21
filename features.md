@@ -67,7 +67,6 @@
 
 - [ ] User Management (Optional)
 - [ ] View list of users
-- [ ] Delete suspicious accounts (Optional)
 - [ ] Promote users to admin (Optional)
 
 ---
