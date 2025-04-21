@@ -34,11 +34,19 @@
 - [x] (Optional) Delete account
 
 ### Watchlist
+- [x] Movie Listings
+- [x] Browse current and upcoming movies
+- [x] Filter by genre and year
+- [ ] Sort by release date, popularity
+
+### Watchlist
+- [x] Watchlist
 - [x] Add/remove movies to personal list
 - [x] View all saved movies
 - [x] Easy access to book later
 
 ### Search & Filters
+- [x] Search & Filters
 - [x] Keyword search (title, actor)
 - [x] Genre filter
 - [x] Year slider or dropdown
@@ -74,7 +82,6 @@
 ---
 
 ## 🧠 Nice-to-Have Features
-
 - [x] 🎞 Trailers embedded on movie pages (Needs improvement)
 - [ ] 🧾 Email Confirmation for bookings (Optional)
 - [ ] 🌐 Multi-language support (Optional)
