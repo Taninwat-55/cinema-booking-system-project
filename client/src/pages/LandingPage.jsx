@@ -47,21 +47,6 @@ function LandingPage() {
     fetchMovies();
   }, [searchTerm, selectedGenre, selectedYear]);
 
-  // useEffect(() => {
-  //   fetch('http://localhost:3001/api/movies')
-  //     .then((res) => {
-  //       if (!res.ok) throw new Error('Nätverksfel eller ogiltigt svar');
-  //       return res.json();
-  //     })
-  //     .then((data) => {
-  //       setMovies(data);
-  //       setLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       console.error('❌ Fel vid hämtning av filmer:', error.message);
-  //     });
-  // }, []);
-
   return (
     <div className="landing-page-container">
       <Navbar />
