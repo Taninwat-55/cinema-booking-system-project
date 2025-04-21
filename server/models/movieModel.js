@@ -1,15 +1,37 @@
 const db = require('../db/database');
 
-function getAllMovies(searchTerm = '') {
+function getAllMovies(searchTerm = '', genre = '', year = '') {
+  let query = 'SELECT * FROM movies WHERE 1=1';
+  const params = [];
+
   if (searchTerm) {
-    const lower = searchTerm.toLowerCase();
-    return db
-      .prepare('SELECT * FROM movies WHERE LOWER(title) LIKE ?')
-      .all(`%${lower}%`);
+    query += ' AND LOWER(title) LIKE ?';
+    params.push(`%${searchTerm.toLowerCase()}%`);
   }
 
-  return db.prepare('SELECT * FROM movies').all();
+  if (genre) {
+    query += ' AND genre LIKE ?';
+    params.push(`%${genre}%`);
+  }
+
+  if (year) {
+    query += ' AND release_year = ?';
+    params.push(year);
+  }
+
+  return db.prepare(query).all(...params);
 }
+
+// function getAllMovies(searchTerm = '') {
+//   if (searchTerm) {
+//     const lower = searchTerm.toLowerCase();
+//     return db
+//       .prepare('SELECT * FROM movies WHERE LOWER(title) LIKE ?')
+//       .all(`%${lower}%`);
+//   }
+
+//   return db.prepare('SELECT * FROM movies').all();
+// }
 
 function getMovieById(movieId) {
   return db.prepare('SELECT * FROM movies WHERE movie_id = ?').get(movieId);

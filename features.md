@@ -4,7 +4,7 @@
 
 - [x] Movie Listings
 - [x] Browse current and upcoming movies
-- [ ] Filter by genre, year, rating
+- [x] Filter by genre and year
 - [ ] Sort by release date, popularity
 
 - [x] Movie Details Page
@@ -38,8 +38,8 @@
 
 - [x] Search & Filters
 - [x] Keyword search (title, actor)
-- [ ] Genre filter
-- [ ] Year slider or dropdown
+- [x] Genre filter
+- [x] Year slider or dropdown
 
 - [ ] Responsive UI
 - [ ] Works on mobile, tablet, and desktop
@@ -67,15 +67,14 @@
 
 - [ ] User Management (Optional)
 - [ ] View list of users
-- [ ] Delete suspicious accounts
-- [ ] (Optional) Promote users to admin
+- [ ] Promote users to admin (Optional)
 
 ---
 
 ## 🧠 Nice-to-Have Features
 
 - [x] 🎞 Trailers embedded on movie pages
-- [ ] 🧾 Email Confirmation for bookings
-- [ ] 🌐 Multi-language support
-- [ ] 🏷️ Promo Codes / Discounts
-- [ ] 📍 Multiple Theater Locations (if applicable)
+- [ ] 🧾 Email Confirmation for bookings (Optional)
+- [ ] 🌐 Multi-language support (Optional)
+- [ ] 🏷️ Promo Codes / Discounts (Optional)
+- [ ] 📍 Multiple Theater Locations (if applicable) 
