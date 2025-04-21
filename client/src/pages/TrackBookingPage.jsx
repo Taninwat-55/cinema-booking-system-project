@@ -9,7 +9,9 @@ export default function TrackBookingPage() {
     e.preventDefault();
     setError('');
     try {
-      const res = await fetch(`/api/bookings/track/${bookingNumber}`);
+      const res = await fetch(
+        `http://localhost:3001/api/bookings/track/${bookingNumber}`
+      );
       if (!res.ok) throw new Error('Not found');
       const data = await res.json();
       setBookingInfo(data);

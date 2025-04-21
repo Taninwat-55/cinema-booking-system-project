@@ -1,9 +1,9 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { UserContext } from "../context/UserContext";
-import { useContext } from "react";
-import Navbar from "../components/Navbar";
-import "../styles/SalonBookingPage.css";
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { UserContext } from '../context/UserContext';
+import { useContext } from 'react';
+import Navbar from '../components/Navbar';
+import '../styles/SalonBookingPage.css';
 
 function BookingPage() {
   const { id } = useParams();
@@ -30,7 +30,7 @@ function BookingPage() {
   useEffect(() => {
     fetch(`http://localhost:3001/api/showings/${id}`)
       .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch showing");
+        if (!res.ok) throw new Error('Failed to fetch showing');
         return res.json();
       })
       .then((data) => {
@@ -38,7 +38,7 @@ function BookingPage() {
         return fetch(`http://localhost:3001/api/movies/${data.movie_id}`);
       })
       .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch movie");
+        if (!res.ok) throw new Error('Failed to fetch movie');
         return res.json();
       })
       .then((movieData) => setMovie(movieData))
@@ -56,11 +56,11 @@ function BookingPage() {
     const totalTickets =
       updatedTickets.adult + updatedTickets.child + updatedTickets.senior;
 
-    console.log("Total tickets allowed:", totalTickets);
-    console.log("Selected seats:", selectedSeats);
+    console.log('Total tickets allowed:', totalTickets);
+    console.log('Selected seats:', selectedSeats);
 
     if (selectedSeats.length > totalTickets) {
-      alert("Selected seats exceed total tickets. Seats will be cleared.");
+      alert('Selected seats exceed total tickets. Seats will be cleared.');
       setSelectedSeats([]);
     }
 
@@ -74,7 +74,7 @@ function BookingPage() {
       !selectedSeats.find((s) => s.id === seat.seat_id) &&
       selectedSeats.length + 1 > totalTickets
     ) {
-      alert("You cannot select more seats than tickets!");
+      alert('You cannot select more seats than tickets!');
       return;
     }
 
@@ -90,36 +90,28 @@ function BookingPage() {
 
   const handleBooking = async () => {
     if (!selectedSeats.length) {
-      alert("Please select at least one seat!");
+      alert('Please select at least one seat!');
       return;
     }
 
     if (selectedSeats.length < totalTickets) {
-      alert("You must select seats equal to the number of tickets!");
+      alert('You must select seats equal to the number of tickets!');
       return;
     }
 
     const ticketDetails = [
-      { ticket_type: "vuxen", quantity: tickets.adult, price_per_ticket: 120 },
-      { ticket_type: "barn", quantity: tickets.child, price_per_ticket: 80 },
+      { ticket_type: 'vuxen', quantity: tickets.adult, price_per_ticket: 120 },
+      { ticket_type: 'barn', quantity: tickets.child, price_per_ticket: 80 },
       {
-        ticket_type: "pensionär",
+        ticket_type: 'pensionär',
         quantity: tickets.senior,
         price_per_ticket: 100,
       },
     ].filter((ticket) => ticket.quantity > 0);
 
-    console.log("Booking with data:", {
-      showing_id: id,
-      total_price: totalPrice,
-      selected_seats: selectedSeats.map((s) => s.id),
-      user_id: user ? user.user_id : null,
-      ticket_details: ticketDetails,
-    });
-
-    const res = await fetch("http://localhost:3001/api/bookings", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const res = await fetch('http://localhost:3001/api/bookings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         showing_id: id,
         total_price: totalPrice,
@@ -140,7 +132,7 @@ function BookingPage() {
   if (!showing) return <p>Loading showing details...</p>;
   return (
     <div>
-        <Navbar />
+      <Navbar />
       {!showing ? (
         <p>Loading showing details...</p>
       ) : (
@@ -156,23 +148,22 @@ function BookingPage() {
                   />
                 )}
               </div>
-              <h3>{showing.title || "Title not available"}</h3>
+              <h3>{showing.title || 'Title not available'}</h3>
               <p>
-                Theater {showing.theater_id || "N/A"} |{" "}
-                {movie?.length_minutes ? `${movie.length_minutes} min` : "N/A"}
+                Theater {showing.theater_id || 'N/A'} |{' '}
+                {movie?.length_minutes ? `${movie.length_minutes} min` : 'N/A'}
               </p>
               <p>
-                Time:{" "}
+                Time:{' '}
                 {showing.showing_time ? (
                   <>
-                    {new Date(showing.showing_time).toLocaleDateString()} |{" "}
+                    {new Date(showing.showing_time).toLocaleDateString()} |{' '}
                     {new Date(showing.showing_time).toLocaleTimeString()}
                   </>
                 ) : (
-                  "N/A"
+                  'N/A'
                 )}
               </p>
-
             </div>
           </div>
           <div className="right-side">
@@ -215,7 +206,7 @@ function BookingPage() {
             </div>
 
             <div className="seats-section">
-              <div style={{ perspective: "1000px" }}>
+              <div style={{ perspective: '1000px' }}>
                 <div className="screen">SCREEN</div>
               </div>
               <div className="seat-container">
@@ -232,10 +223,10 @@ function BookingPage() {
                             onClick={() => handleSelect(seat)}
                             className={`seat ${
                               selectedSeats.find((s) => s.id === seat.seat_id)
-                                ? "selected"
+                                ? 'selected'
                                 : seat.is_available
-                                ? ""
-                                : "occupied"
+                                ? ''
+                                : 'occupied'
                             }`}
                             disabled={!seat.is_available}
                           >
@@ -267,8 +258,8 @@ function BookingPage() {
                         .map((s) => s.label)
                         .slice()
                         .sort((a, b) => a.localeCompare(b))
-                        .join(", ")
-                    : "No seats selected"}
+                        .join(', ')
+                    : 'No seats selected'}
                 </p>
               </div>
             </div>

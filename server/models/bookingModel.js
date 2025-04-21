@@ -125,13 +125,13 @@ function trackBookingByNumber(bookingNumber) {
   const booking = db
     .prepare(
       `
-    SELECT b.booking_id, b.booking_number, b.total_price, b.showing_id,
-           s.showing_time, m.title, m.poster_url, m.duration
-    FROM bookings b
-    JOIN showings s ON b.showing_id = s.showing_id
-    JOIN movies m ON s.movie_id = m.movie_id
-    WHERE b.booking_number = ?
-  `
+      SELECT b.booking_id, b.booking_number, b.total_price, b.showing_id,
+            s.showing_time, m.title, m.poster_url
+      FROM bookings b
+      JOIN showings s ON b.showing_id = s.showing_id
+      JOIN movies m ON s.movie_id = m.movie_id
+      WHERE b.booking_number = ?
+    `
     )
     .get(bookingNumber);
 
@@ -140,8 +140,11 @@ function trackBookingByNumber(bookingNumber) {
   const seats = db
     .prepare(
       `
-    SELECT seat_row, seat_column FROM booked_seats WHERE booking_id = ?
-  `
+      SELECT s.row_number AS seat_row, s.seat_number AS seat_column
+      FROM booked_seats bs
+      JOIN seats s ON bs.seat_id = s.seat_id
+      WHERE bs.booking_id = ?
+    `
     )
     .all(booking.booking_id);
 
@@ -156,5 +159,5 @@ module.exports = {
   insertBookedSeats,
   insertBookingDetails,
   getBookingByNumber,
-  trackBookingByNumber
+  trackBookingByNumber,
 };
