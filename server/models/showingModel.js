@@ -65,9 +65,58 @@ function getShowingById(showingId) {
     .get(showingId);
 }
 
+function getAllShowings() {
+  return db
+    .prepare(
+      `
+      SELECT s.*, m.title
+      FROM showings s
+      JOIN movies m ON s.movie_id = m.movie_id
+      ORDER BY s.showing_time ASC
+    `
+    )
+    .all();
+}
+
+function updateShowing(
+  showingId,
+  movieId,
+  theaterId,
+  showingTime,
+  priceAdult,
+  priceChild,
+  priceSenior
+) {
+  return db
+    .prepare(
+      `
+      UPDATE showings
+      SET movie_id = ?, theater_id = ?, showing_time = ?, 
+          price_adult = ?, price_child = ?, price_senior = ?
+      WHERE showing_id = ?
+    `
+    )
+    .run(
+      movieId,
+      theaterId,
+      showingTime,
+      priceAdult,
+      priceChild,
+      priceSenior,
+      showingId
+    );
+}
+
+function deleteShowing(showingId) {
+  return db.prepare('DELETE FROM showings WHERE showing_id = ?').run(showingId);
+}
+
 module.exports = {
   createShowing,
   getShowingsByMovieId,
   getShowingsByMovieIdAndDate,
   getShowingById,
+  updateShowing,
+  deleteShowing,
+  getAllShowings,
 };

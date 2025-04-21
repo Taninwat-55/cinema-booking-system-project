@@ -1,6 +1,11 @@
 const db = require('../db/database');
 const showingModel = require('../models/showingModel');
 
+function getAllShowings(req, res) {
+  const showings = showingModel.getAllShowings();
+  res.json(showings); // ✅ Must return JSON!
+}
+
 function getShowingsByMovieId(req, res) {
   const movieId = req.params.id;
   const filterDate = req.query.date;
@@ -29,4 +34,5 @@ function getShowingById(req, res) {
 module.exports = {
   getShowingsByMovieId,
   getShowingById,
+  getAllShowings,
 };
