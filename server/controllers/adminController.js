@@ -10,21 +10,69 @@ function getAllMovies(req, res) {
   res.json(movies);
 }
 
+// async function createMovie(req, res) {
+//   const { title } = req.body;
+//   const apiKey = process.env.OMDB_API_KEY;
+
+//   try {
+//     const result = await movieModel.createMovieFromOMDb(title, apiKey);
+//     if (result.error === 'exists') {
+//       return res.status(400).json({ message: 'Movie already exists.' });
+//     }
+//     if (result.error === 'not_found') {
+//       return res.status(404).json({ error: 'Movie not found in OMDb API' });
+//     }
+//     res
+//       .status(201)
+//       .json({ message: 'Movie created successfully with OMDb data' });
+//   } catch (err) {
+//     console.error('Create Movie Error:', err.message);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// }
+
 async function createMovie(req, res) {
-  const { title } = req.body;
+  const {
+    title,
+    description,
+    poster_url,
+    trailer_url,
+    imdb_rating,
+    release_year,
+    length_minutes,
+    genre,
+    useOmdb = true, // optional flag
+  } = req.body;
+
   const apiKey = process.env.OMDB_API_KEY;
 
   try {
-    const result = await movieModel.createMovieFromOMDb(title, apiKey);
-    if (result.error === 'exists') {
-      return res.status(400).json({ message: 'Movie already exists.' });
+    if (useOmdb) {
+      const result = await movieModel.createMovieFromOMDb(title, apiKey);
+      if (result.error === 'exists') {
+        return res.status(400).json({ message: 'Movie already exists.' });
+      }
+      if (result.error === 'not_found') {
+        return res.status(404).json({ error: 'Movie not found in OMDb API' });
+      }
+      return res
+        .status(201)
+        .json({ message: 'Movie created successfully with OMDb data' });
+    } else {
+      movieModel.createMovie(
+        title,
+        description,
+        poster_url,
+        trailer_url,
+        imdb_rating,
+        release_year,
+        length_minutes,
+        genre
+      );
+      return res
+        .status(201)
+        .json({ message: 'Movie created manually and saved successfully' });
     }
-    if (result.error === 'not_found') {
-      return res.status(404).json({ error: 'Movie not found in OMDb API' });
-    }
-    res
-      .status(201)
-      .json({ message: 'Movie created successfully with OMDb data' });
   } catch (err) {
     console.error('Create Movie Error:', err.message);
     res.status(500).json({ error: 'Internal Server Error' });
