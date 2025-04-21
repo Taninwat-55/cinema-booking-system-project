@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 const AdminEditMoviePage = () => {
   const { id } = useParams();
@@ -35,10 +36,10 @@ const AdminEditMoviePage = () => {
     });
 
     if (res.ok) {
-      alert('Movie updated successfully!');
+      toast.success('Movie updated successfully!');
       navigate('/admin/manage-movies');
     } else {
-      alert('Failed to update movie');
+      toast.error('Failed to update movie');
     }
   };
 

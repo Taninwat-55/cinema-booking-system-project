@@ -20,28 +20,8 @@ function createBooking(req, res) {
 
   const bookingId = result.lastInsertRowid;
 
-  const insertBookedSeat = db.prepare(`
-    INSERT INTO booked_seats (booking_id, seat_id)
-    VALUES (?, ?)
-  `);
-
-  for (const seatId of selected_seats) {
-    insertBookedSeat.run(bookingId, seatId);
-  }
-
-  const insertBookingDetail = db.prepare(`
-    INSERT INTO booking_details (booking_id, ticket_type, quantity, price_per_ticket)
-    VALUES (?, ?, ?, ?)
-  `);
-
-  for (const detail of ticket_details) {
-    insertBookingDetail.run(
-      bookingId,
-      detail.ticket_type,
-      detail.quantity,
-      detail.price_per_ticket
-    );
-  }
+  bookingModel.insertBookedSeats(bookingId, selected_seats);
+  bookingModel.insertBookingDetails(bookingId, ticket_details);
 
   res.json({ message: 'Booking successfully!', booking_number });
 }
@@ -64,17 +44,7 @@ function getBookingsByUserId(req, res) {
 function getBookingByBookingNumber(req, res) {
   const bookingNumber = req.params.bookingNumber;
 
-  const booking = db
-    .prepare(
-      `
-    SELECT bookings.*, movies.title AS movie_title, movies.poster_url, showings.showing_time
-    FROM bookings
-    JOIN showings ON bookings.showing_id = showings.showing_id
-    JOIN movies ON showings.movie_id = movies.movie_id
-    WHERE bookings.booking_number = ?
-  `
-    )
-    .get(bookingNumber);
+  const booking = bookingModel.getBookingByNumber(bookingNumber);
 
   if (!booking) return res.status(404).json({ error: 'Booking not found' });
 
@@ -83,8 +53,39 @@ function getBookingByBookingNumber(req, res) {
   res.json({ ...booking, seats: seats.map((s) => s.seat_label) });
 }
 
+function trackBookingByNumber(req, res) {
+  const { booking_number } = req.params;
+  console.log('Looking for booking number:', booking_number);
+
+  try {
+    const booking = bookingModel.trackBookingByNumber(booking_number);
+
+    if (!booking) {
+      return res.status(404).json({ error: 'Booking not found.' });
+    }
+
+    res.json(booking);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to track booking.' });
+  }
+}
+
+function cancelBookingById(req, res) {
+  const bookingId = req.params.id;
+  const result = bookingModel.cancelBooking(bookingId);
+
+  if (result.changes > 0) {
+    res.json({ message: 'Booking cancelled successfully' });
+  } else {
+    res.status(400).json({ error: 'Could not cancel booking' });
+  }
+}
+
 module.exports = {
   createBooking,
   getBookingsByUserId,
   getBookingByBookingNumber,
+  trackBookingByNumber,
+  cancelBookingById,
 };

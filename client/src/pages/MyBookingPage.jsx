@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../context/UserContext";
-import { useNavigate } from "react-router-dom";
-import "../styles/BookingPages.css";
-import Navbar from "../components/Navbar";
+import { useContext, useEffect, useState } from 'react';
+import { UserContext } from '../context/UserContext';
+import { useNavigate } from 'react-router-dom';
+import '../styles/BookingPages.css';
+import Navbar from '../components/Navbar';
 const MyBookingsPage = () => {
   const { user } = useContext(UserContext);
   const [bookings, setBookings] = useState([]);
@@ -11,7 +11,7 @@ const MyBookingsPage = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate("/login");
+      navigate('/login');
       return;
     }
 
@@ -31,7 +31,7 @@ const MyBookingsPage = () => {
         setBookings(data);
       } else {
         setBookings([]);
-        console.error("Expected array but got:", data);
+        console.error('Expected array but got:', data);
       }
 
       const upcoming = data.filter(
@@ -72,10 +72,41 @@ const MyBookingsPage = () => {
               <h2>{booking.movie_title}</h2>
               <p>Time: {new Date(booking.showing_time).toLocaleString()}</p>
               <p>
-                Seats: {booking.seats ? booking.seats.join(", ") : "No seats"}
+                Seats: {booking.seats ? booking.seats.join(', ') : 'No seats'}
               </p>
               <p>Total Price: {booking.total_price} kr</p>
             </div>
+            <button
+              onClick={async () => {
+                const confirmCancel = window.confirm(
+                  'Are you sure you want to cancel this booking?'
+                );
+                if (!confirmCancel) return;
+
+                const res = await fetch(
+                  `http://localhost:3001/api/bookings/cancel/${booking.booking_id}`,
+                  {
+                    method: 'PUT',
+                    headers: {
+                      Authorization: `Bearer ${user.token}`,
+                    },
+                  }
+                );
+
+                const data = await res.json();
+                if (res.ok) {
+                  alert('Booking cancelled!');
+                  // Refresh list
+                  setBookings((prev) =>
+                    prev.filter((b) => b.booking_id !== booking.booking_id)
+                  );
+                } else {
+                  alert(data.error || 'Failed to cancel booking');
+                }
+              }}
+            >
+              Cancel Booking
+            </button>
           </div>
         ))
       )}

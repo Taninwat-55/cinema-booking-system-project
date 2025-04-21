@@ -3,13 +3,30 @@ import { Link, useLocation } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import '../styles/Navbar.css';
 import { SearchContext } from '../context/SearchContext';
+import { WatchlistContext } from '../context/WatchlistContext';
+import profileIcon from '/account_circle.svg';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, setUser } = useContext(UserContext);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const location = useLocation();
+  const { watchlist } = useContext(WatchlistContext);
   const { searchTerm, setSearchTerm, setSearchResults, setHasSearched } =
     useContext(SearchContext);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!e.target.closest('.profile-dropdown')) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('user');
@@ -27,7 +44,7 @@ const Navbar = () => {
       );
       const data = await response.json();
       setSearchResults(data);
-      setHasSearched(true); // ✅
+      setHasSearched(true);
     } catch (error) {
       console.error('Error fetching search results:', error);
     }
@@ -89,18 +106,49 @@ const Navbar = () => {
             {!user ? (
               <>
                 <li>
+                  <Link to="/">Home</Link>
+                </li>
+                <li>
+                  <Link to="/track-booking">Track Booking</Link>
+                </li>
+                <li>
                   <Link to="/login">Sign In</Link>
                 </li>
                 <li>
                   <Link to="/register">Sign Up</Link>
                 </li>
-                <li>
-                  <Link to="/">Home</Link>
-                </li>
               </>
             ) : (
-              <li onClick={handleLogout} style={{ cursor: 'pointer' }}>
-                Logout
+              <li className="profile-dropdown">
+                <img
+                  src={profileIcon}
+                  alt="Profile"
+                  className="avatar"
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                />
+                {isDropdownOpen && (
+                  <ul className="dropdown-menu">
+                    <li>
+                      <Link
+                        to="/profile"
+                        onClick={() => setIsDropdownOpen(false)}
+                      >
+                        View Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/profile/update"
+                        onClick={() => setIsDropdownOpen(false)}
+                      >
+                        Update Info
+                      </Link>
+                    </li>
+                    <li>
+                      <button onClick={handleLogout}>Log Out</button>
+                    </li>
+                  </ul>
+                )}
               </li>
             )}
           </ul>
@@ -149,7 +197,7 @@ const Navbar = () => {
                   <Link to="/">Home</Link>
                 </li>
                 <li>
-                  <Link to="/watchlist">Watchlist</Link>
+                  <Link to="/watchlist">Watchlist ({watchlist.length})</Link>
                 </li>
                 <li>
                   <Link to="/my-bookings">My Bookings</Link>

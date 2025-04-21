@@ -28,14 +28,20 @@ const AdminDashboardPage = () => {
       <p>Most Popular Movie: {stats.popular_movie}</p>
 
       <ul style={{ listStyle: 'none', padding: 0 }}>
-        <li style={{ marginBottom: '1rem' }}>
+        <li>
+          <Link to="/admin/bookings">📋 View All Bookings</Link>
+        </li>
+        <li>
           <Link to="/admin/add-movie">➕ Add New Movie</Link>
         </li>
         <li>
           <Link to="/admin/add-showing">🎬 Add New Showing</Link>
         </li>
-        <li style={{ marginBottom: '1rem' }}>
+        <li>
           <Link to="/admin/manage-movies">🛠 Manage Movies</Link>
+        </li>
+        <li>
+          <Link to="/admin/manage-showings">🗓 Manage Showings</Link>
         </li>
       </ul>
     </div>

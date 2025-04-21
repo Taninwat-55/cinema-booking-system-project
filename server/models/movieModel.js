@@ -1,15 +1,37 @@
 const db = require('../db/database');
 
-function getAllMovies(searchTerm = '') {
+function getAllMovies(searchTerm = '', genre = '', year = '') {
+  let query = 'SELECT * FROM movies WHERE 1=1';
+  const params = [];
+
   if (searchTerm) {
-    const lower = searchTerm.toLowerCase();
-    return db
-      .prepare('SELECT * FROM movies WHERE LOWER(title) LIKE ?')
-      .all(`%${lower}%`);
+    query += ' AND LOWER(title) LIKE ?';
+    params.push(`%${searchTerm.toLowerCase()}%`);
   }
 
-  return db.prepare('SELECT * FROM movies').all();
+  if (genre) {
+    query += ' AND genre LIKE ?';
+    params.push(`%${genre}%`);
+  }
+
+  if (year) {
+    query += ' AND release_year = ?';
+    params.push(year);
+  }
+
+  return db.prepare(query).all(...params);
 }
+
+// function getAllMovies(searchTerm = '') {
+//   if (searchTerm) {
+//     const lower = searchTerm.toLowerCase();
+//     return db
+//       .prepare('SELECT * FROM movies WHERE LOWER(title) LIKE ?')
+//       .all(`%${lower}%`);
+//   }
+
+//   return db.prepare('SELECT * FROM movies').all();
+// }
 
 function getMovieById(movieId) {
   return db.prepare('SELECT * FROM movies WHERE movie_id = ?').get(movieId);
@@ -59,10 +81,49 @@ function getMovieByTitle(title) {
     .get(title);
 }
 
+function updateMovie(id, title, description, poster_url, trailer_url) {
+  return db
+    .prepare(
+      `
+        UPDATE movies
+        SET title = ?, description = ?, poster_url = ?, trailer_url = ?
+        WHERE movie_id = ?
+      `
+    )
+    .run(title, description, poster_url, trailer_url, id);
+}
+
+async function createMovieFromOMDb(title, apiKey) {
+  const existing = getMovieByTitle(title);
+  if (existing) return { error: 'exists' };
+
+  const response = await fetch(
+    `https://www.omdbapi.com/?t=${encodeURIComponent(title)}&apikey=${apiKey}`
+  );
+  const data = await response.json();
+
+  if (data.Response === 'False') return { error: 'not_found' };
+
+  createMovie(
+    data.Title,
+    data.Plot,
+    data.Poster,
+    '', // Trailer URL
+    data.imdbRating,
+    data.Year,
+    data.Runtime,
+    data.Genre
+  );
+
+  return { success: true };
+}
+
 module.exports = {
   getAllMovies,
   getMovieById,
   createMovie,
   deleteMovie,
   getMovieByTitle,
+  updateMovie,
+  createMovieFromOMDb,
 };

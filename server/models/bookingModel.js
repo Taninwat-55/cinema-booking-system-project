@@ -80,9 +80,93 @@ function deletePastBookings() {
   }
 }
 
+function insertBookedSeats(bookingId, seatIds) {
+  const stmt = db.prepare(`
+    INSERT INTO booked_seats (booking_id, seat_id)
+    VALUES (?, ?)
+  `);
+
+  for (const seatId of seatIds) {
+    stmt.run(bookingId, seatId);
+  }
+}
+
+function insertBookingDetails(bookingId, details) {
+  const stmt = db.prepare(`
+    INSERT INTO booking_details (booking_id, ticket_type, quantity, price_per_ticket)
+    VALUES (?, ?, ?, ?)
+  `);
+
+  for (const detail of details) {
+    stmt.run(
+      bookingId,
+      detail.ticket_type,
+      detail.quantity,
+      detail.price_per_ticket
+    );
+  }
+}
+
+function getBookingByNumber(bookingNumber) {
+  return db
+    .prepare(
+      `
+    SELECT bookings.*, movies.title AS movie_title, movies.poster_url, showings.showing_time
+    FROM bookings
+    JOIN showings ON bookings.showing_id = showings.showing_id
+    JOIN movies ON showings.movie_id = movies.movie_id
+    WHERE bookings.booking_number = ?
+  `
+    )
+    .get(bookingNumber);
+}
+
+function trackBookingByNumber(bookingNumber) {
+  const booking = db
+    .prepare(
+      `
+      SELECT b.booking_id, b.booking_number, b.total_price, b.showing_id,
+            s.showing_time, m.title, m.poster_url
+      FROM bookings b
+      JOIN showings s ON b.showing_id = s.showing_id
+      JOIN movies m ON s.movie_id = m.movie_id
+      WHERE b.booking_number = ?
+    `
+    )
+    .get(bookingNumber);
+
+  if (!booking) return null;
+
+  const seats = db
+    .prepare(
+      `
+      SELECT s.row_number AS seat_row, s.seat_number AS seat_column
+      FROM booked_seats bs
+      JOIN seats s ON bs.seat_id = s.seat_id
+      WHERE bs.booking_id = ?
+    `
+    )
+    .all(booking.booking_id);
+
+  return { ...booking, seats };
+}
+
+function cancelBooking(bookingId) {
+  return db
+    .prepare(
+      `UPDATE bookings SET is_cancelled = 1 WHERE booking_id = ? AND booking_time > CURRENT_TIMESTAMP`
+    )
+    .run(bookingId);
+}
+
 module.exports = {
   getBookingsByUserId,
   getSeatsByBookingId,
   createBooking,
   deletePastBookings,
+  insertBookedSeats,
+  insertBookingDetails,
+  getBookingByNumber,
+  trackBookingByNumber,
+  cancelBooking,
 };

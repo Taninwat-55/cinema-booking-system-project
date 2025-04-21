@@ -16,6 +16,12 @@ import AdminAddMoviePage from './pages/admin/AdminAddMoviePage';
 import AdminAddShowingPage from './pages/admin/AdminAddShowingPage';
 import AdminMovieListPage from './pages/admin/AdminMovieListPage';
 import AdminEditMoviePage from './pages/admin/AdminEditMoviePage';
+import AdminAllBookingsPage from './pages/admin/AdminAllBookingPage';
+import UserProfilePage from './pages/UserProfilePage';
+import UpdateUserInfoPage from './pages/UpdateUserInfoPage';
+import TrackBookingPage from './pages/TrackBookingPage';
+import AdminEditShowingPage from './pages/admin/AdminEditShowingPage';
+import AdminManageShowingsPage from './pages/admin/AdminManageShowingsPage';
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +51,22 @@ export const router = createBrowserRouter([
       {
         path: 'login',
         element: <LoginPage />,
+      },
+      {
+        path: 'profile',
+        element: (
+          <ProtectedRoute>
+            <UserProfilePage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'profile/update',
+        element: (
+          <ProtectedRoute>
+            <UpdateUserInfoPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: 'my-bookings',
@@ -107,6 +129,34 @@ export const router = createBrowserRouter([
         element: (
           <AdminProtectedRoute>
             <AdminEditMoviePage />
+          </AdminProtectedRoute>
+        ),
+      },
+      {
+        path: 'admin/bookings',
+        element: (
+          <AdminProtectedRoute>
+            <AdminAllBookingsPage />
+          </AdminProtectedRoute>
+        ),
+      },
+      {
+        path: 'track-booking',
+        element: <TrackBookingPage />,
+      },
+      {
+        path: 'admin/manage-showings',
+        element: (
+          <AdminProtectedRoute>
+            <AdminManageShowingsPage />
+          </AdminProtectedRoute>
+        ),
+      },
+      {
+        path: 'admin/edit-showing/:id',
+        element: (
+          <AdminProtectedRoute>
+            <AdminEditShowingPage />
           </AdminProtectedRoute>
         ),
       },
