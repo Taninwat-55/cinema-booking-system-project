@@ -47,7 +47,18 @@
     transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
   }
   
-  /* Button styling */
+  .showing-info {
+    flex: 1;
+    margin-right: 1rem;
+    word-break: break-word; /* handles long text gracefully */
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  /* Your existing button styles still apply */
   .admin-button {
     padding: 0.5rem 1rem;
     background-color: #ffd500;
@@ -60,23 +71,19 @@
     font-size: 14px;
   }
   
-  /* Button hover effect */
   .admin-button:hover {
     background-color: #ffcc00;
-    transform: translateY(-2px); /* Slight lift effect */
+    transform: translateY(-2px);
   }
   
-  /* Edit button specific styling */
   .edit-button {
-    margin-right: 0.5rem;
+    margin-right: 0; /* not needed anymore, since we use gap */
   }
   
-  /* Delete button specific styling */
   .delete-button {
     background-color: #fa7000;
   }
   
-  /* Delete button hover effect */
   .delete-button:hover {
     background-color: #e63939;
     transform: translateY(-2px);
