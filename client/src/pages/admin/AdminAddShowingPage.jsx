@@ -58,16 +58,16 @@ const AdminAddShowingPage = () => {
   return (
     <>
       <Navbar />
-      <div className="admin-add-showing-container">
-        <h1 className="admin-title">Add New Showing</h1>
-        <form className="admin-form" onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label className="admin-label">Select Movie</label>
+      <div className="showing-container">
+        <h1 className="showing-heading">Add New Showing</h1>
+        <form className="showing-form" onSubmit={handleSubmit}>
+          <div className="form-block">
+            <label className="form-label">Select Movie</label>
             <select
               name="movie_id"
               value={showing.movie_id}
               onChange={handleChange}
-              className="admin-select"
+              className="form-select"
               required
             >
               <option value="">Select Movie</option>
@@ -79,13 +79,13 @@ const AdminAddShowingPage = () => {
             </select>
           </div>
 
-          <div className="form-group">
-            <label className="admin-label">Select Theater</label>
+          <div className="form-block">
+            <label className="form-label">Select Theater</label>
             <select
               name="theater_id"
               value={showing.theater_id}
               onChange={handleChange}
-              className="admin-select"
+              className="form-select"
               required
             >
               <option value={1}>Theater 1</option>
@@ -93,64 +93,62 @@ const AdminAddShowingPage = () => {
             </select>
           </div>
 
-          <div className="form-group">
-            <label className="admin-label">Date & Time</label>
+          <div className="form-block">
+            <label className="form-label">Date & Time</label>
             <input
               type="datetime-local"
               name="showing_time"
               value={showing.showing_time}
               onChange={handleChange}
-              className="admin-input"
+              className="form-input"
               required
             />
           </div>
 
-          <div className="form-group">
-            <label className="admin-label">Adult Price</label>
+          <div className="form-block">
+            <label className="form-label">Adult Price</label>
             <input
               type="number"
               name="price_adult"
               placeholder="Adult Price"
               value={showing.price_adult}
               onChange={handleChange}
-              className="admin-input"
+              className="form-input"
               required
             />
           </div>
 
-          <div className="form-group">
-            <label className="admin-label">Child Price</label>
+          <div className="form-block">
+            <label className="form-label">Child Price</label>
             <input
               type="number"
               name="price_child"
               placeholder="Child Price"
               value={showing.price_child}
               onChange={handleChange}
-              className="admin-input"
+              className="form-input"
               required
             />
           </div>
 
-          <div className="form-group">
-            <label className="admin-label">Senior Price</label>
+          <div className="form-block">
+            <label className="form-label">Senior Price</label>
             <input
               type="number"
               name="price_senior"
               placeholder="Senior Price"
               value={showing.price_senior}
               onChange={handleChange}
-              className="admin-input"
+              className="form-input"
               required
             />
           </div>
 
-          <button type="submit" className="admin-button">
+          <button type="submit" className="submit-button">
             Add Showing
           </button>
         </form>
       </div>
-
-      {/* Optional background effects */}
       <div className="circle-one"></div>
       <div className="circle-two"></div>
     </>
