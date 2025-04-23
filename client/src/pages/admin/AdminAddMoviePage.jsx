@@ -83,17 +83,17 @@ const AdminAddMoviePage = () => {
   return (
     <>
       <Navbar />
-      <div className="admin-add-movie-container">
-        <h1 className="admin-title">Add New Movie</h1>
-        <form onSubmit={handleSubmit} className="admin-form">
-          <label className="custom-checkbox">
+      <div className="add-movie-page">
+        <h1 className="add-movie-heading">Add New Movie</h1>
+        <form onSubmit={handleSubmit} className="movie-form">
+          <label className="omdb-checkbox">
             <input
               type="checkbox"
               name="useOmdb"
               checked={formData.useOmdb}
               onChange={handleChange}
-            />{" "}
-            <span className="checkmark"></span>
+            />
+            <span className="checkbox-icon"></span>
             Fetch from OMDb
           </label>
 
@@ -107,15 +107,15 @@ const AdminAddMoviePage = () => {
           />
 
           {!formData.useOmdb && (
-            <div className="extra-fields">
+            <div className="manual-entry-fields">
               <textarea
                 name="description"
                 placeholder="Description"
                 value={formData.description}
                 onChange={(e) => {
                   handleChange(e);
-                  e.target.style.height = "auto"; // reset the height
-                  e.target.style.height = `${e.target.scrollHeight}px`; // set to scroll height
+                  e.target.style.height = "auto";
+                  e.target.style.height = `${e.target.scrollHeight}px`;
                 }}
                 required
               />
@@ -179,7 +179,7 @@ const AdminAddMoviePage = () => {
           <button type="submit">Add Movie</button>
         </form>
 
-        {message && <div className="message-box">{message}</div>}
+        {message && <div className="form-response">{message}</div>}
       </div>
       <div className="circle-one"></div>
       <div className="circle-two"></div>
