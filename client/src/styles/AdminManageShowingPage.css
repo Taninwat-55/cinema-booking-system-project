@@ -46,7 +46,14 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
   }
+
+  /* Hover effect: lift slightly */
+.showing-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  }
   
+
   .showing-info {
     flex: 1;
     margin-right: 1rem;
@@ -81,7 +88,7 @@
   }
   
   .delete-button {
-    background-color: #fa7000;
+    background-color: #ff4d4d;
   }
   
   .delete-button:hover {
