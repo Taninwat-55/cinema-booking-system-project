@@ -19,7 +19,7 @@
   .admin-title {
     font-size: 28px;
     font-weight: 600;
-    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
     text-align: center;
     color: #fff;
   }
@@ -81,11 +81,10 @@
   }
   
   .delete-button {
-    background-color: #fa7000;
+    background-color: #ff4d4d;
   }
   
   .delete-button:hover {
     background-color: #e63939;
     transform: translateY(-2px);
   }
-  
