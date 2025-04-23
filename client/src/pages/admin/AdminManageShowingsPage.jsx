@@ -34,33 +34,40 @@ const AdminManageShowingsPage = () => {
 
   return (
     <>
-    <Navbar />
-    <div className="admin-manage-showings-container">
-      <h1 className="admin-title">Manage Showings</h1>
-      <ul className="showings-list">
-        {showings.map((showing) => (
-          <li key={showing.showing_id} className="showing-item">
-            {showing.title} - {new Date(showing.showing_time).toLocaleString()} | Theater {showing.theater_id}
-            <button
-              className="admin-button edit-button"
-              onClick={() =>
-                navigate(`/admin/edit-showing/${showing.showing_id}`)
-              }
-            >
-              Edit
-            </button>
-            <button
-              className="admin-button delete-button"
-              onClick={() => handleDelete(showing.showing_id)}
-            >
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
-    <div className="circle-one"></div>
-    <div className="circle-two"></div>
+      <Navbar />
+      <div className="admin-manage-showings-container">
+        <h1 className="admin-title">Manage Showings</h1>
+        <ul className="showings-list">
+          {showings.map((showing) => (
+            <li key={showing.showing_id} className="showing-item">
+              <div className="showing-info">
+                {showing.title} -{' '}
+                {new Date(showing.showing_time).toLocaleString()} | Theater{' '}
+                {showing.theater_id}
+              </div>
+              <div className="button-group">
+                <button
+                  className="admin-button edit-button"
+                  onClick={() =>
+                    navigate(`/admin/edit-showing/${showing.showing_id}`)
+                  }
+                >
+                  Edit
+                </button>
+                <button
+                  className="admin-button delete-button"
+                  onClick={() => handleDelete(showing.showing_id)}
+                >
+                  Delete
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="circle-one"></div>
+      <div className="circle-two"></div>
     </>
   );
 };
