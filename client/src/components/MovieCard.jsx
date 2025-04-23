@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { CiHeart } from 'react-icons/ci';
 import { UserContext } from '../context/UserContext';
 import '../styles/MovieCard.css';
+import '../styles/WatchlistButton.css'
 
 const MovieCard = ({ movie, watchlist, setWatchlist }) => {
   const { user } = useContext(UserContext);
@@ -19,7 +20,6 @@ const MovieCard = ({ movie, watchlist, setWatchlist }) => {
       return;
     }
 
-    // const isInWatchlist = watchlist.includes(movie.movie_id);
     const method = isInWatchlist ? 'DELETE' : 'POST';
 
     try {
@@ -82,19 +82,12 @@ const MovieCard = ({ movie, watchlist, setWatchlist }) => {
             className="add-to-list-container"
             onClick={handleWatchlistToggle}
           >
-            <div className="add-to-list">
-              <div className="heart-icon-container">
-                <CiHeart
-                  className="heart-icon"
-                  style={{
-                    color: isInWatchlist ? 'orange' : 'gray',
-                  }}
-                />
-              </div>
-              <div className="watch-list-container">
-                <h3>Watchlist</h3>
-              </div>
-            </div>
+            <button
+              className={`watchlist-button ${isInWatchlist ? 'active' : ''}`}
+            >
+              <CiHeart className="heart-icon" />
+              <span>Watchlist</span>
+            </button>
           </div>
         </div>
       </Link>

@@ -1,0 +1,38 @@
+.add-to-list-container {
+  height: 10%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.watchlist-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background-color: #202124;
+  border: 1px solid #4b4d52;
+  color: #a8a9ad;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.watchlist-button .heart-icon {
+  transition: all 0.3s ease;
+  height: 20px;
+  width: 20px;
+}
+
+.watchlist-button.active {
+  background-color: rgba(245, 158, 11, 0.1);
+  border-color: black;
+  color: black;
+}
+
+.watchlist-button.active .heart-icon {
+  fill: black;
+  stroke:black;
+}

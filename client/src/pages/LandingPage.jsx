@@ -52,35 +52,33 @@ function LandingPage() {
       <Navbar />
 
       <div className="filters-container">
-        <label>
-          Genre:
-          <select
-            value={selectedGenre}
-            onChange={(e) => setSelectedGenre(e.target.value)}
-          >
-            <option value="">All</option>
-            {uniqueGenres.map((genre, idx) => (
-              <option key={idx} value={genre}>
-                {genre}
-              </option>
-            ))}
-          </select>
-        </label>
+        <select
+          className="filter-inputs"
+          value={selectedGenre}
+          onChange={(e) => setSelectedGenre(e.target.value)}
+        >
+          <option value="">
+            Genre
+          </option>
+          {uniqueGenres.map((genre, idx) => (
+            <option key={idx} value={genre}>
+              {genre}
+            </option>
+          ))}
+        </select>
 
-        <label>
-          Year:
-          <select
-            value={selectedYear}
-            onChange={(e) => setSelectedYear(e.target.value)}
-          >
-            <option value="">All</option>
-            {uniqueYears.map((year, idx) => (
-              <option key={idx} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
-        </label>
+        <select
+          className="filter-inputs"
+          value={selectedYear}
+          onChange={(e) => setSelectedYear(e.target.value)}
+        >
+          <option value="">Year</option>
+          {uniqueYears.map((year, idx) => (
+            <option key={idx} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
       </div>
 
       {loading ? (
