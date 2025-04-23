@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import Navbar from '../../components/Navbar';
+import '../../styles/AdminManageShowingPage.css';
 
 const AdminManageShowingsPage = () => {
   const [showings, setShowings] = useState([]);
@@ -31,27 +33,35 @@ const AdminManageShowingsPage = () => {
   };
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>Manage Showings</h1>
-      <ul>
+    <>
+    <Navbar />
+    <div className="admin-manage-showings-container">
+      <h1 className="admin-title">Manage Showings</h1>
+      <ul className="showings-list">
         {showings.map((showing) => (
-          <li key={showing.showing_id}>
-            {showing.title} - {new Date(showing.showing_time).toLocaleString()}{' '}
-            | Theater {showing.theater_id}
+          <li key={showing.showing_id} className="showing-item">
+            {showing.title} - {new Date(showing.showing_time).toLocaleString()} | Theater {showing.theater_id}
             <button
+              className="admin-button edit-button"
               onClick={() =>
                 navigate(`/admin/edit-showing/${showing.showing_id}`)
               }
             >
               Edit
             </button>
-            <button onClick={() => handleDelete(showing.showing_id)}>
+            <button
+              className="admin-button delete-button"
+              onClick={() => handleDelete(showing.showing_id)}
+            >
               Delete
             </button>
           </li>
         ))}
       </ul>
     </div>
+    <div className="circle-one"></div>
+    <div className="circle-two"></div>
+    </>
   );
 };
 
