@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import Navbar from '../../components/Navbar';
+import '../../styles/AdminMovieListPage.css';
 
 const AdminMovieListPage = () => {
   const [movies, setMovies] = useState([]);
@@ -49,6 +51,7 @@ const AdminMovieListPage = () => {
 
   return (
     <div style={{ padding: '2rem' }}>
+      <Navbar />
       <h1>Manage Movies</h1>
       <input
         type="text"
@@ -68,19 +71,33 @@ const AdminMovieListPage = () => {
           </option>
         ))}
       </select>
-      <ul>
+      <ul className="movie-list">
         {filteredMovies.map((movie) => (
-          <li key={movie.movie_id} style={{ marginBottom: '1rem' }}>
-            {movie.title}{' '}
-            <button
-              onClick={() => navigate(`/admin/edit-movie/${movie.movie_id}`)}
-            >
-              Edit
-            </button>{' '}
-            <button onClick={() => handleDelete(movie.movie_id)}>Delete</button>
+          <li key={movie.movie_id} className="movie-card">
+            {movie.poster_url && (
+              <img
+                src={movie.poster_url}
+                alt={movie.title}
+                className="movie-poster"
+              />
+            )}
+            <h3 className="movie-title">{movie.title}</h3>
+            <h4>{movie.length_minutes} min | {movie.genre}</h4>
+            <div className="movie-buttons">
+              <button
+                onClick={() => navigate(`/admin/edit-movie/${movie.movie_id}`)}
+              >
+                Edit
+              </button>
+              <button onClick={() => handleDelete(movie.movie_id)}>
+                Delete
+              </button>
+            </div>
           </li>
         ))}
       </ul>
+      <div className="circle-one"></div>
+      <div className="circle-two"></div>
     </div>
   );
 };
