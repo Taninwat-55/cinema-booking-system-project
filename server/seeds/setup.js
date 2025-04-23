@@ -67,11 +67,9 @@ db.exec(`
     email TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
     name TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_admin INTEGER DEFAULT 0
   );
-
-  ALTER TABLE users
-  ADD COLUMN is_admin INTEGER DEFAULT 0;
 
   -- Tabell för watchlist (favoritfilmer)
   CREATE TABLE watchlist (
@@ -91,11 +89,10 @@ db.exec(`
     showing_id INTEGER NOT NULL,
     booking_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     total_price REAL NOT NULL,
+    is_cancelled INTEGER DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES users (user_id),
     FOREIGN KEY (showing_id) REFERENCES showings (showing_id)
   );
-
-  ALTER TABLE bookings ADD COLUMN is_cancelled INTEGER DEFAULT 0;
 
   -- Tabell för bokningsdetaljer (antal biljetter av varje typ)
   CREATE TABLE booking_details (
