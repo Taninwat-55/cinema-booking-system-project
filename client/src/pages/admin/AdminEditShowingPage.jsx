@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import Nabar from '../../components/Navbar';
+import '../../styles/AdminEditShowingPage.css';
 
 const AdminEditShowingPage = () => {
   const { id } = useParams();
@@ -56,68 +58,96 @@ const AdminEditShowingPage = () => {
   };
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>Edit Showing</h1>
-      <form onSubmit={handleSubmit}>
-        <select
-          name="movie_id"
-          value={form.movie_id}
-          onChange={handleChange}
-          required
-        >
-          <option value="">Select Movie</option>
-          {movies.map((movie) => (
-            <option key={movie.movie_id} value={movie.movie_id}>
-              {movie.title}
-            </option>
-          ))}
-        </select>
-        <br />
-        <select
-          name="theater_id"
-          value={form.theater_id}
-          onChange={handleChange}
-          required
-        >
-          <option value={1}>Theater 1</option>
-          <option value={2}>Theater 2</option>
-        </select>
-        <br />
-        <input
-          type="datetime-local"
-          name="showing_time"
-          value={form.showing_time}
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <label>Adult Price:</label>
-        <input
-          type="number"
-          name="price_adult"
-          value={form.price_adult}
-          onChange={handleChange}
-        />
-        <br />
-        <label>Child Price:</label>
-        <input
-          type="number"
-          name="price_child"
-          value={form.price_child}
-          onChange={handleChange}
-        />
-        <br />
-        <label>Senior Price:</label>
-        <input
-          type="number"
-          name="price_senior"
-          value={form.price_senior}
-          onChange={handleChange}
-        />
-        <br />
-        <button type="submit">Update Showing</button>
-      </form>
-    </div>
+    <>
+      <Nabar />
+      <div className="admin-edit-showing-container">
+        <h1 className="admin-edit-title">Edit Showing</h1>
+        <form className="admin-edit-form" onSubmit={handleSubmit}>
+          <div className="admin-edit-form-group">
+            <label className="admin-edit-label">Select Movie:</label>
+            <select
+              className="admin-edit-select"
+              name="movie_id"
+              value={form.movie_id}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Movie</option>
+              {movies.map((movie) => (
+                <option key={movie.movie_id} value={movie.movie_id}>
+                  {movie.title}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="admin-edit-form-group">
+            <label className="admin-edit-label">Select Theater:</label>
+            <select
+              className="admin-edit-select"
+              name="theater_id"
+              value={form.theater_id}
+              onChange={handleChange}
+              required
+            >
+              <option value={1}>Theater 1</option>
+              <option value={2}>Theater 2</option>
+            </select>
+          </div>
+
+          <div className="admin-edit-form-group">
+            <label className="admin-edit-label">Showing Time:</label>
+            <input
+              className="admin-edit-input"
+              type="datetime-local"
+              name="showing_time"
+              value={form.showing_time}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="admin-edit-form-group">
+            <label className="admin-edit-label">Adult Price:</label>
+            <input
+              className="admin-edit-input"
+              type="number"
+              name="price_adult"
+              value={form.price_adult}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="admin-edit-form-group">
+            <label className="admin-edit-label">Child Price:</label>
+            <input
+              className="admin-edit-input"
+              type="number"
+              name="price_child"
+              value={form.price_child}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="admin-edit-form-group">
+            <label className="admin-edit-label">Senior Price:</label>
+            <input
+              className="admin-edit-input"
+              type="number"
+              name="price_senior"
+              value={form.price_senior}
+              onChange={handleChange}
+            />
+          </div>
+
+          <button className="admin-edit-button" type="submit">
+            Update Showing
+          </button>
+        </form>
+      </div>
+      <div className="circle-one"></div>
+      <div className="circle-two"></div>
+    </>
   );
 };
 
