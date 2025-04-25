@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { SearchContext } from '../context/SearchContext';
-import '../styles/component_styles/SearchBar.css'
+import '../styles/component_styles/SearchBar.css';
 
 const SearchBar = () => {
   const { searchTerm, setSearchTerm, setSearchResults, setHasSearched } =
@@ -34,15 +34,15 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="search-bar-container">
-      <span className="search-icon">🔍</span>
+    <div className="search-wrapper">
       <input
         type="text"
-        className="search-input with-icon"
+        className="search-input"
         placeholder="Search..."
         value={searchTerm}
         onChange={handleChange}
       />
+      {/* <span className="search-icon">🔍</span> */}
     </div>
   );
 };
