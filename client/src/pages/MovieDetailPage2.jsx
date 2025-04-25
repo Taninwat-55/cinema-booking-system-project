@@ -1,9 +1,182 @@
+export default MovieDetailPage2;
+
+import { useParams, Link } from 'react-router-dom';
+import { useEffect, useState, useContext } from 'react';
+import { UserContext } from '../context/UserContext';
+import { WatchlistContext } from '../context/WatchlistContext';
+import '../styles/MovieDetailPage2.css';
+import Navbar from '../components/Navbar';
+
 function MovieDetailPage2() {
+  const { id } = useParams();
+  const [movie, setMovie] = useState(null);
+  const [showTrailer, setShowTrailer] = useState(false);
+  const [showings, setShowings] = useState([]);
+  const [selectedDate, setSelectedDate] = useState('');
+  const [isInWatchlist, setIsInWatchlist] = useState(false);
+  const { user } = useContext(UserContext);
+  const { fetchWatchlist } = useContext(WatchlistContext);
+
+  useEffect(() => {
+    fetch(`http://localhost:3001/api/movies/${id}`)
+      .then((res) => res.json())
+      .then((data) => setMovie(data));
+
+    if (user) {
+      fetch(`http://localhost:3001/api/users/${user.user_id}/watchlist`, {
+        headers: { Authorization: `Bearer ${user.token}` },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          const found = data.some((m) => m.movie_id === Number(id));
+          setIsInWatchlist(found);
+        });
+    }
+  }, [id, user]);
+
+  useEffect(() => {
+    const url = selectedDate
+      ? `http://localhost:3001/api/showings/movie/${id}?date=${selectedDate}`
+      : `http://localhost:3001/api/showings/movie/${id}`;
+
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => setShowings(data));
+  }, [id, selectedDate]);
+
+  const getEmbedUrl = (url) => {
+    if (url.includes('youtu.be')) {
+      return url.replace('youtu.be/', 'www.youtube.com/embed/').split('?')[0];
+    }
+    if (url.includes('watch?v=')) {
+      return url.replace('watch?v=', 'embed/').split('?')[0];
+    }
+    return url;
+  };
+
+  const handleAddWatchlist = () => {
+    fetch('http://localhost:3001/api/watchlist', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+      body: JSON.stringify({ user_id: user.user_id, movie_id: Number(id) }),
+    }).then((res) => {
+      if (res.ok) {
+        setIsInWatchlist(true);
+        fetchWatchlist();
+        window.dispatchEvent(new Event('watchlistUpdated'));
+      }
+    });
+  };
+
+  const handleRemoveWatchlist = () => {
+    fetch('http://localhost:3001/api/watchlist', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+      body: JSON.stringify({ user_id: user.user_id, movie_id: Number(id) }),
+    }).then((res) => {
+      if (res.ok) {
+        setIsInWatchlist(false);
+        fetchWatchlist();
+        window.dispatchEvent(new Event('watchlistUpdated'));
+      }
+    });
+  };
+
+  if (!movie) return <p>Loading movie details...</p>;
+
   return (
-    <>
-      <h1>Hi, test</h1>
-    </>
+    <div className="movie-details-container">
+      <Navbar />
+
+      <div className="movie-header">
+        <div className="poster-wrapper">
+          {!showTrailer ? (
+            <div
+              className="poster-overlay"
+              onClick={() => setShowTrailer(true)}
+            >
+              <img
+                src={movie.poster_url}
+                alt={movie.title}
+                className="movie-poster"
+              />
+              <div className="play-button">▶</div>
+            </div>
+          ) : (
+            <div className="poster-overlay">
+              <iframe
+                src={getEmbedUrl(movie.trailer_url)}
+                title={`${movie.title} Trailer`}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          )}
+        </div>
+
+        <div className="movie-info">
+          <h2>{movie.title}</h2>
+          <p>
+            {movie.release_year} | {movie.length_minutes} min | {movie.genre}
+          </p>
+          <p>{movie.description}</p>
+        </div>
+      </div>
+
+      {user && (
+        <button
+          onClick={isInWatchlist ? handleRemoveWatchlist : handleAddWatchlist}
+        >
+          {isInWatchlist ? 'Remove from Watchlist' : 'Add to Watchlist'}
+        </button>
+      )}
+
+      <div className="date-filter">
+        <label htmlFor="showing-date">Filter by Date:</label>{' '}
+        <input
+          type="date"
+          id="showing-date"
+          value={selectedDate}
+          onChange={(e) => setSelectedDate(e.target.value)}
+        />
+        {selectedDate && (
+          <button onClick={() => setSelectedDate('')}>Clear</button>
+        )}
+      </div>
+
+      <div className="showings-list">
+        <h2>Upcoming Showings</h2>
+        {showings.length === 0 ? (
+          <p>No showings available.</p>
+        ) : (
+          <ul>
+            {showings.map((showing) => (
+              <li key={showing.showing_id} className="showing-item">
+                <span>
+                  {new Date(showing.showing_time).toLocaleDateString()} —{' '}
+                  {new Date(showing.showing_time).toLocaleTimeString()} |
+                  Theater {showing.theater_id}
+                </span>
+                <Link to={`/book/${showing.showing_id}`} className="book-btn">
+                  Book Ticket
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      <div className="circle-one"></div>
+      <div className="circle-two"></div>
+    </div>
   );
 }
 
 export default MovieDetailPage2;
+
