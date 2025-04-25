@@ -1,9 +1,50 @@
-function SearchBar() {
+import { useContext } from 'react';
+import { SearchContext } from '../context/SearchContext';
+import '../styles/component_styles/SearchBar.css'
+
+const SearchBar = () => {
+  const { searchTerm, setSearchTerm, setSearchResults, setHasSearched } =
+    useContext(SearchContext);
+
+  const handleSearch = async (value) => {
+    if (!value.trim()) return;
+
+    try {
+      const response = await fetch(
+        `http://localhost:3001/api/movies?search=${encodeURIComponent(value)}`
+      );
+      const data = await response.json();
+      setSearchResults(data);
+      setHasSearched(true);
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+    }
+  };
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+
+    if (value.trim()) {
+      handleSearch(value);
+    } else {
+      setSearchResults([]);
+      setHasSearched(false);
+    }
+  };
+
   return (
-    <>
-      <h1>This is searchbar</h1>
-    </>
+    <div className="search-bar-container">
+      <span className="search-icon">🔍</span>
+      <input
+        type="text"
+        className="search-input with-icon"
+        placeholder="Search..."
+        value={searchTerm}
+        onChange={handleChange}
+      />
+    </div>
   );
-}
+};
 
 export default SearchBar;

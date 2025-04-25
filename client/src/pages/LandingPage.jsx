@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import HeroMovies from '../components/HeroMovies';
 import { SearchContext } from '../context/SearchContext';
 import '../styles/LandingPage.css';
+import SearchBar from '../components/SearchBar';
 
 function LandingPage() {
   const [movies, setMovies] = useState([]);
@@ -52,14 +53,13 @@ function LandingPage() {
       <Navbar />
 
       <div className="filters-container">
+        <SearchBar />
         <select
           className="filter-inputs"
           value={selectedGenre}
           onChange={(e) => setSelectedGenre(e.target.value)}
         >
-          <option value="">
-            Genre
-          </option>
+          <option value="">Genre</option>
           {uniqueGenres.map((genre, idx) => (
             <option key={idx} value={genre}>
               {genre}
