@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import Navbar from '../../components/Navbar';
+import '../../styles/AdminEditMoviePage.css';
 
 const AdminEditMoviePage = () => {
   const { id } = useParams();
@@ -44,45 +46,78 @@ const AdminEditMoviePage = () => {
   };
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>Edit Movie</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="title"
-          placeholder="Title"
-          value={movie.title}
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <textarea
-          name="description"
-          placeholder="Description"
-          value={movie.description}
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <input
-          type="text"
-          name="poster_url"
-          placeholder="Poster URL"
-          value={movie.poster_url}
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <input
-          type="text"
-          name="trailer_url"
-          placeholder="Trailer URL"
-          value={movie.trailer_url}
-          onChange={handleChange}
-        />
-        <br />
-        <button type="submit">Update Movie</button>
-      </form>
+    <div>
+      <Navbar />
+      <div className="edit-movie-container">
+        <h1 className="edit-movie-title">Edit Movie</h1>
+
+        <form className="edit-movie-form" onSubmit={handleSubmit}>
+          <div className="edit-movie-form-group">
+            <label htmlFor="title" className="edit-movie-label">
+              Title
+            </label>
+            <input
+              type="text"
+              name="title"
+              placeholder="Enter title"
+              value={movie.title}
+              onChange={handleChange}
+              className="edit-movie-input"
+              required
+            />
+          </div>
+
+          <div className="edit-movie-form-group">
+            <label htmlFor="description" className="edit-movie-label">
+              Description
+            </label>
+            <textarea
+              name="description"
+              placeholder="Enter description"
+              value={movie.description}
+              onChange={handleChange}
+              className="edit-movie-input"
+              id='description'
+              required
+            />
+          </div>
+
+          <div className="edit-movie-form-group">
+            <label htmlFor="poster_url" className="edit-movie-label">
+              Poster URL
+            </label>
+            <input
+              type="text"
+              name="poster_url"
+              placeholder="Enter poster URL"
+              value={movie.poster_url}
+              onChange={handleChange}
+              className="edit-movie-input"
+              required
+            />
+          </div>
+
+          <div className="edit-movie-form-group">
+            <label htmlFor="trailer_url" className="edit-movie-label">
+              Trailer URL
+            </label>
+            <input
+              type="text"
+              name="trailer_url"
+              placeholder="Enter trailer URL"
+              value={movie.trailer_url}
+              onChange={handleChange}
+              className="edit-movie-input"
+            />
+          </div>
+
+          <button type="submit" className="edit-movie-button">
+            Update Movie
+          </button>
+        </form>
+      </div>
+      <div className="circle-one"></div>
+      <div className="circle-two"></div>
     </div>
   );
 };
