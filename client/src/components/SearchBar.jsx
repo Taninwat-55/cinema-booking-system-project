@@ -2,7 +2,6 @@ import { useContext } from 'react';
 import { SearchContext } from '../context/SearchContext';
 import '../styles/component_styles/SearchBar.css';
 
-
 const SearchBar = () => {
   const { searchTerm, setSearchTerm, setSearchResults, setHasSearched } =
     useContext(SearchContext);

@@ -1,3 +1,5 @@
+export default MovieDetailPage2;
+
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState, useContext } from 'react';
 import { UserContext } from '../context/UserContext';
@@ -177,3 +179,4 @@ function MovieDetailPage2() {
 }
 
 export default MovieDetailPage2;
+
