@@ -1,9 +1,274 @@
-.movie-details-container {
-  /* background-color: #1c1c29; */
+/* Main container for the movie page */
+.movie-page {
+  width: 100%;
+  max-width: 900px; /* Slightly wider to accommodate larger iframe */
+  margin-top: 8rem;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  font-family: 'Roboto', sans-serif;
   color: white;
-  /* font-family: 'Roboto', sans-serif; */
+  position: relative;
+  z-index: 1; /* Above circles */
+}
+
+/* Movie header (poster + details) */
+.movie-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Movie poster (trailer) */
+.movie-poster {
+  width: 100%;
+  max-width: 600px; /* Larger iframe */
+  margin: 4rem auto 0; /* Push down with top margin */
+}
+
+.trailer-overlay {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio for YouTube */
+  height: 0;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.trailer-overlay iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Trailer iframe */
+.trailer-iframe {
+  border: none;
+}
+
+/* Movie details section */
+.movie-details {
+  text-align: center;
+  padding: 0.5rem;
+  color: #fff;
+}
+
+.movie-title {
+  font-size: 48px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.movie-meta {
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.movie-description {
+  font-size: 16px;
+  color: #fff;
+  line-height: 1.5;
+  padding: 0 1rem;
+
+}
+
+/* Watchlist button */
+.watchlist-btn {
+  display: block;
+  margin: 1.5rem auto;
+  padding: 0.75rem 1.5rem;
+  background-color: #ffd500;
+  color: black;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.watchlist-btn:hover {
+  background-color: #ffcc00;
+  transform: translateY(-2px);
+}
+
+/* Filter container */
+.filter-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+/* Filter label */
+.filter-label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  transition: color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.filter-label:hover {
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+/* Filter input */
+.filter-input {
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 16px;
+  height: 40px;
+  line-height: 1.5;
+  box-sizing: border-box;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  appearance: none;
+}
+
+/* Style date input calendar picker */
+.filter-input::-webkit-calendar-picker-indicator {
+  filter: brightness(0) invert(1);
+  cursor: pointer;
+  opacity: 1;
+}
+
+/* Focus effect for date input */
+.filter-input:focus {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.02);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+/* Clear filter button */
+.clear-filter-btn {
+  padding: 0.5rem 1rem;
+  background-color: #ff4d4d;
+  color: white;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 14px;
+}
+
+.clear-filter-btn:hover {
+  background-color: #e63939;
+  transform: translateY(-2px);
+}
+
+/* Showings section */
+.showings-section {
+  margin-top: 2rem;
+}
+
+.showings-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.no-showings {
+  font-size: 16px;
+  color: #e0e0e0;
+  text-align: center;
+}
+
+.showings-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 600px; /* Centered list */
+}
+
+.showing-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  margin-bottom: 0.75rem;
+  transition: all 0.3s ease; /* Smooth hover effect */
+}
+
+.showing-item:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.showing-info {
+  font-size: 16px;
+  color: #fff;
+}
+
+.book-ticket-btn {
+  padding: 0.5rem 1rem;
+  background-color: #ffd500;
+  color: black;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.book-ticket-btn:hover {
+  background-color: #ffcc00;
+  transform: translateY(-2px);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .movie-details-container {
+  color: white;
+  
   font-family: var(--font-fam);
-  padding-top: 4.5rem; /* For navbar space */
+  padding-top: 4.5rem; 
 }
 
 .movie-header {
@@ -39,14 +304,6 @@
   display: block;
   border-radius: 12px;
 }
-
-/* .movie-poster {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-} */
-
 .play-button {
   position: absolute;
   top: 50%;
@@ -151,4 +408,4 @@ iframe {
   .poster-wrapper {
     max-width: 100%;
   }
-}
+} */
