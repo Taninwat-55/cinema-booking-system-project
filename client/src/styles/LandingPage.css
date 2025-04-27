@@ -1,23 +1,34 @@
-
 .landing-page-container {
   height: auto;
   min-height: 100vh;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  padding-top: 100px;
+  padding: 100px 0;
 }
 
 .filters-container {
+  width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start; 
-  align-items: center;
-  margin-bottom: 20px;
-  gap: 2rem; 
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.right-wing {
+  display: flex;
+  gap: 2rem;
 }
 
 .filter-inputs {
+  width: 10rem;
+  padding: 6px 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: transparent;
+  color: white;
+}
+
+/* .filter-inputs {
   margin: 0;
   padding: 4px 6px;
   width: 10rem;
@@ -26,4 +37,4 @@
   -webkit-appearance: none;
   -moz-appearance: textfield;
   appearance: none;
-}
+}  */

@@ -170,3 +170,4 @@ function MovieDetailPage2() {
 }
 
 export default MovieDetailPage2;
+

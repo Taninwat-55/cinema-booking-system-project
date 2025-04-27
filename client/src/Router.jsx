@@ -23,6 +23,7 @@ import UpdateUserInfoPage from './pages/UpdateUserInfoPage';
 import TrackBookingPage from './pages/TrackBookingPage';
 import AdminEditShowingPage from './pages/admin/AdminEditShowingPage';
 import AdminManageShowingsPage from './pages/admin/AdminManageShowingsPage';
+import ShowtimesOverviewPage from './pages/ShowtimesOverviewPage';
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ export const router = createBrowserRouter([
       {
         path: 'booking-confirmation/:bookingNumber',
         element: <BookingConfirmationPage />,
+      },
+      {
+        path: '/showtimes',
+        element: <ShowtimesOverviewPage />,
       },
       {
         path: 'register',

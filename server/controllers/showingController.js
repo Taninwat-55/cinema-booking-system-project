@@ -1,9 +1,21 @@
 const db = require('../db/database');
 const showingModel = require('../models/showingModel');
 
+// function getAllShowings(req, res) {
+//   const showings = showingModel.getAllShowings();
+//   res.json(showings);
+// }
+
 function getAllShowings(req, res) {
+  const filterDate = req.query.date;
+
+  if (filterDate) {
+    const showings = showingModel.getAllShowingsByDate(filterDate);
+    return res.json(showings);
+  }
+
   const showings = showingModel.getAllShowings();
-  res.json(showings); // ✅ Must return JSON!
+  res.json(showings);
 }
 
 function getShowingsByMovieId(req, res) {
@@ -30,7 +42,6 @@ function getShowingById(req, res) {
 
   res.json(showing);
 }
-
 module.exports = {
   getShowingsByMovieId,
   getShowingById,
