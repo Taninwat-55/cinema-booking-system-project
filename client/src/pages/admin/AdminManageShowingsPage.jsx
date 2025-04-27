@@ -41,9 +41,16 @@ const AdminManageShowingsPage = () => {
           {showings.map((showing) => (
             <li key={showing.showing_id} className="showing-item">
               <div className="showing-info">
-                {showing.title} -{' '}
-                {new Date(showing.showing_time).toLocaleString()} | Theater{' '}
-                {showing.theater_id}
+                <img
+                  src={showing.poster_url}
+                  alt={showing.title}
+                  className="showing-poster"
+                />
+                <div>
+                  <div>{showing.title}</div>
+                  <div>{new Date(showing.showing_time).toLocaleString()} </div>
+                  <div>Theater {showing.theater_id}</div>
+                </div>
               </div>
               <div className="button-group">
                 <button

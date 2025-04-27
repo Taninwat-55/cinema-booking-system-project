@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { CiHeart } from 'react-icons/ci';
 import { UserContext } from '../context/UserContext';
 import '../styles/MovieCard.css';
-import '../styles/WatchlistButton.css'
+import '../styles/WatchlistButton.css';
 
 const MovieCard = ({ movie, watchlist, setWatchlist }) => {
   const { user } = useContext(UserContext);
@@ -73,7 +73,7 @@ const MovieCard = ({ movie, watchlist, setWatchlist }) => {
 
           <div className="about-movie-information-landing-page">
             <p>
-              {movie.release_year} | {movie.length_minutes} min |{' '}
+              {movie.release_year} | {parseInt(movie.length_minutes, 10)} min |{' '}
               {movie.genre || 'Genre Unknown'}
             </p>
           </div>

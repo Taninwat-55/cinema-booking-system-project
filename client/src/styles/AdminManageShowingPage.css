@@ -1,90 +1,106 @@
 /* Container for the page */
 .admin-manage-showings-container {
-    width: 100%;
-    max-width: 600px;
-    margin: 9rem auto;
-    padding: 2rem;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 16px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    font-family: 'Roboto', sans-serif;
-    color: white;
-    position: relative;
-    z-index: 1; /* Ensure container is above background circles */
-  }
-  
-  /* Title styling */
-  .admin-title {
-    font-size: 28px;
-    font-weight: 600;
-    margin-top: 1.5rem;
-    text-align: center;
-    color: #fff;
-  }
-  
-  /* List styling */
-  .showings-list {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  /* List item styling */
-  .showing-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
-    color: white;
-    font-size: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-  }
-  
-  .showing-info {
-    flex: 1;
-    margin-right: 1rem;
-    word-break: break-word; /* handles long text gracefully */
-  }
-  
-  .button-group {
-    display: flex;
-    gap: 0.5rem;
-  }
-  
-  /* Your existing button styles still apply */
-  .admin-button {
-    padding: 0.5rem 1rem;
-    background-color: #ffd500;
-    color: black;
-    font-weight: 600;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 12px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    font-size: 14px;
-  }
-  
-  .admin-button:hover {
-    background-color: #ffcc00;
-    transform: translateY(-2px);
-  }
-  
-  .edit-button {
-    margin-right: 0; /* not needed anymore, since we use gap */
-  }
-  
-  .delete-button {
-    background-color: #ff4d4d;
-  }
-  
-  .delete-button:hover {
-    background-color: #e63939;
-    transform: translateY(-2px);
-  }
+  width: 100%;
+  max-width: 1200px;
+  margin: 8rem auto;
+  padding: 3rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  position: relative;
+  z-index: 1; /* Ensure container is above background circles */
+}
+
+/* Title styling */
+.admin-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  text-align: center;
+  color: #fff;
+}
+
+/* Adjusting the layout for movie cards */
+.showings-list {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(300px, 1fr)
+  ); /* Responsive grid */
+  gap: 1rem; /* Spacing between cards */
+  padding: 0;
+  list-style: none;
+  width: 100%;
+  max-width: 1200px; /* Limit the width of the list */
+}
+
+.showing-poster {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 1rem; /* Add spacing below the poster */
+}
+
+/* List item styling */
+.showing-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align all content */
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  color: white;
+  font-size: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.showing-info {
+  text-align: center; /* Center align text */
+  margin-bottom: 1rem; /* Add spacing below movie info */
+}
+
+.showing-info div {
+  margin-bottom: 0.5rem; /* Add spacing between rows */
+}
+
+.button-group {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center; /* Center align buttons */
+}
+
+/* Your existing button styles still apply */
+.admin-button {
+  padding: 0.5rem 1rem;
+  background-color: #ffd500;
+  color: black;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 14px;
+}
+
+.admin-button:hover {
+  background-color: #ffcc00;
+  transform: translateY(-2px);
+}
+
+.edit-button {
+  margin-right: 0; /* not needed anymore, since we use gap */
+}
+
+.delete-button {
+  background-color: #ff4d4d;
+}
+
+.delete-button:hover {
+  background-color: #e63939;
+  transform: translateY(-2px);
+}

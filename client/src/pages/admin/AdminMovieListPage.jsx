@@ -82,7 +82,7 @@ const AdminMovieListPage = () => {
               />
             )}
             <h3 className="movie-title">{movie.title}</h3>
-            <h4>{movie.length_minutes} min | {movie.genre}</h4>
+            <h4>{parseInt(movie.length_minutes, 10)} min | {movie.genre}</h4>
             <div className="movie-buttons">
               <button
                 onClick={() => navigate(`/admin/edit-movie/${movie.movie_id}`)}
