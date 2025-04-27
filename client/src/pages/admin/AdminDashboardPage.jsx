@@ -35,7 +35,7 @@ const AdminDashboardPage = () => {
 
         <div className="dashboard-links">
           <ul className="links-list">
-          <h3 className="links-title">Quick Links</h3>
+          <h3 className="links-title">Control Nexus</h3>
             <li className="link-item">
               <Link to="/admin/bookings" className="dashboard-link">View All Bookings</Link>
             </li>
