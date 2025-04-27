@@ -50,10 +50,16 @@ const AdminAddMoviePage = () => {
     e.preventDefault();
     const endpoint = "http://localhost:3001/api/admin/movies";
 
+    // Ensure length_minutes is sent as a number
+    const payload = {
+      ...formData,
+      length_minutes: parseInt(formData.length_minutes, 10),
+    };
+
     const res = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(payload),
     });
 
     const data = await res.json();
