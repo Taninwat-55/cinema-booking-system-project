@@ -16,6 +16,7 @@ function BookingPage() {
     child: 0,
     senior: 0,
   });
+  const [isOutdated, setIsOutdated] = useState(false);
 
   const { user } = useContext(UserContext);
 
@@ -27,6 +28,7 @@ function BookingPage() {
     const rowLetter = String.fromCharCode(64 + row); // 1 → A, 2 → B, etc.
     return `${rowLetter}${seat}`;
   };
+
   useEffect(() => {
     fetch(`http://localhost:3001/api/showings/${id}`)
       .then((res) => {
@@ -35,6 +37,11 @@ function BookingPage() {
       })
       .then((data) => {
         setShowing(data);
+        const showingDate = new Date(data.showing_time);
+        const currentDate = new Date();
+        if (showingDate < currentDate) {
+          setIsOutdated(true);
+        }
         return fetch(`http://localhost:3001/api/movies/${data.movie_id}`);
       })
       .then((res) => {
@@ -167,102 +174,110 @@ function BookingPage() {
             </div>
           </div>
           <div className="right-side">
-            <div className="tickets">
-              <h2>Tickets</h2>
-              <label>
-                Adults (120 kr):
-                <input
-                  type="number"
-                  name="adult"
-                  min="0"
-                  value={tickets.adult}
-                  onChange={handleChange}
-                />
-              </label>
-              <br />
-              <label>
-                Children (80 kr):
-                <input
-                  type="number"
-                  name="child"
-                  min="0"
-                  value={tickets.child}
-                  onChange={handleChange}
-                />
-              </label>
-              <br />
-              <label>
-                Seniors (100 kr):
-                <input
-                  type="number"
-                  name="senior"
-                  min="0"
-                  value={tickets.senior}
-                  onChange={handleChange}
-                />
-              </label>
-              <h3 className="total-price">Total Price: {totalPrice} kr</h3>
-              <button onClick={handleBooking}>Confirm Booking</button>
-            </div>
+            {isOutdated ? (
+              <div className="outdated-message">
+                <p>This showing is outdated and cannot be booked.</p>
+              </div>
+            ) : (
+              <>
+                <div className="tickets">
+                  <h2>Tickets</h2>
+                  <label>
+                    Adults (120 kr):
+                    <input
+                      type="number"
+                      name="adult"
+                      min="0"
+                      value={tickets.adult}
+                      onChange={handleChange}
+                    />
+                  </label>
+                  <br />
+                  <label>
+                    Children (80 kr):
+                    <input
+                      type="number"
+                      name="child"
+                      min="0"
+                      value={tickets.child}
+                      onChange={handleChange}
+                    />
+                  </label>
+                  <br />
+                  <label>
+                    Seniors (100 kr):
+                    <input
+                      type="number"
+                      name="senior"
+                      min="0"
+                      value={tickets.senior}
+                      onChange={handleChange}
+                    />
+                  </label>
+                  <h3 className="total-price">Total Price: {totalPrice} kr</h3>
+                  <button onClick={handleBooking}>Confirm Booking</button>
+                </div>
 
-            <div className="seats-section">
-              <div style={{ perspective: '1000px' }}>
-                <div className="screen">SCREEN</div>
-              </div>
-              <div className="seat-container">
-                {[...new Set(seats.map((seat) => seat.row_number))]
-                  .sort((a, b) => a - b)
-                  .map((row) => (
-                    <div key={row} className="row">
-                      {seats
-                        .filter((seat) => seat.row_number === row)
-                        .sort((a, b) => a.seat_number - b.seat_number)
-                        .map((seat) => (
-                          <button
-                            key={seat.seat_id}
-                            onClick={() => handleSelect(seat)}
-                            className={`seat ${
-                              selectedSeats.find((s) => s.id === seat.seat_id)
-                                ? 'selected'
-                                : seat.is_available
-                                ? ''
-                                : 'occupied'
-                            }`}
-                            disabled={!seat.is_available}
-                          >
-                            {getSeatLabel(seat.row_number, seat.seat_number)}
-                          </button>
-                        ))}
-                    </div>
-                  ))}
-              </div>
-              <ul className="showcase">
-                <li>
-                  <div className="seat"></div>
-                  <small>Available</small>
-                </li>
-                <li>
-                  <div className="seat selected"></div>
-                  <small>Selected</small>
-                </li>
-                <li>
-                  <div className="seat occupied"></div>
-                  <small>Taken</small>
-                </li>
-              </ul>
-              <div>
-                <h3>Selected Seats:</h3>
-                <p className="selected-seats-text">
-                  {selectedSeats.length > 0
-                    ? selectedSeats
-                        .map((s) => s.label)
-                        .slice()
-                        .sort((a, b) => a.localeCompare(b))
-                        .join(', ')
-                    : 'No seats selected'}
-                </p>
-              </div>
-            </div>
+                <div className="seats-section">
+                  <div style={{ perspective: '1000px' }}>
+                    <div className="screen">SCREEN</div>
+                  </div>
+                  <div className="seat-container">
+                    {[...new Set(seats.map((seat) => seat.row_number))]
+                      .sort((a, b) => a - b)
+                      .map((row) => (
+                        <div key={row} className="row">
+                          {seats
+                            .filter((seat) => seat.row_number === row)
+                            .sort((a, b) => a.seat_number - b.seat_number)
+                            .map((seat) => (
+                              <button
+                                key={seat.seat_id}
+                                onClick={() => handleSelect(seat)}
+                                className={`seat ${
+                                  selectedSeats.find((s) => s.id === seat.seat_id)
+                                    ? 'selected'
+                                    : seat.is_available
+                                    ? ''
+                                    : 'occupied'
+                                }`}
+                                disabled={!seat.is_available}
+                              >
+                                {getSeatLabel(seat.row_number, seat.seat_number)}
+                              </button>
+                            ))}
+                        </div>
+                      ))}
+                  </div>
+                  <ul className="showcase">
+                    <li>
+                      <div className="seat"></div>
+                      <small>Available</small>
+                    </li>
+                    <li>
+                      <div className="seat selected"></div>
+                      <small>Selected</small>
+                    </li>
+                    <li>
+                      <div className="seat occupied"></div>
+                      <small>Taken</small>
+                    </li>
+                  </ul>
+                  <div>
+                    <h3>Selected Seats:</h3>
+                    <p className="selected-seats-text">
+                      {selectedSeats.length > 0
+                        ? selectedSeats
+                            .map((s) => s.label)
+                            .slice()
+                            .sort((a, b) => a.localeCompare(b))
+                            .join(', ')
+                        : 'No seats selected'}
+                    </p>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}
