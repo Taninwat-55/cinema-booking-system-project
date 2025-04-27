@@ -1,0 +1,119 @@
+.edit-movie-container {
+  width: 100%;
+  max-width: none;
+  margin: 12rem auto;
+  margin-top: 10rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+
+.edit-movie-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-top: 1rem;
+  text-align: center;
+  color: #fff;
+}
+
+.edit-movie-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.edit-movie-form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.edit-movie-input {
+  width: 20rem;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  line-height: 1.5;
+  box-sizing: border-box;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  height: 3rem;
+  position: relative;
+  resize: none;
+}
+
+#description{
+    min-height: 100px;
+
+}
+.edit-movie-label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  transition: color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.edit-movie-input::placeholder {
+  color: #000;
+  opacity: 0.7;
+  font-weight: 400;
+  transition: opacity 0.3s ease;
+}
+
+.edit-movie-input:focus {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.02);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.edit-movie-input:focus::placeholder {
+  opacity: 1;
+}
+
+.edit-movie-button {
+  padding: 0.75rem;
+  background-color: #ffd500;
+  color: black;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 2rem;
+}
+
+.edit-movie-button:hover {
+  background-color: #ffcc00;
+  transform: translateY(-2px);
+}
+
+.Toastify__toast--success {
+  background-color: #ffd500 !important;
+  color: #000 !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 12px !important;
+  font-family: 'Roboto', sans-serif !important;
+  font-weight: bold !important;
+  text-align: center !important;
+}
+
+.Toastify__toast--error {
+  background-color: #ff4d4d !important;
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 12px !important;
+  font-family: 'Roboto', sans-serif !important;
+  font-weight: bold !important;
+  text-align: center !important;
+}

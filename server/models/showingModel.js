@@ -69,7 +69,7 @@ function getAllShowings() {
   return db
     .prepare(
       `
-      SELECT s.*, m.title
+      SELECT s.*, m.title, m.poster_url
       FROM showings s
       JOIN movies m ON s.movie_id = m.movie_id
       ORDER BY s.showing_time ASC
@@ -111,6 +111,20 @@ function deleteShowing(showingId) {
   return db.prepare('DELETE FROM showings WHERE showing_id = ?').run(showingId);
 }
 
+function getAllShowingsByDate(date) {
+  return db
+    .prepare(
+      `
+      SELECT s.*, m.title
+      FROM showings s
+      JOIN movies m ON s.movie_id = m.movie_id
+      WHERE DATE(s.showing_time) = ?
+      ORDER BY s.showing_time ASC
+    `
+    )
+    .all(date);
+}
+
 module.exports = {
   createShowing,
   getShowingsByMovieId,
@@ -119,4 +133,5 @@ module.exports = {
   updateShowing,
   deleteShowing,
   getAllShowings,
+  getAllShowingsByDate,
 };

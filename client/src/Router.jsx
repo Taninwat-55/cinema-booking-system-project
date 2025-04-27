@@ -1,7 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import LandingPage from './pages/LandingPage';
-import MovieDetailPage from './pages/MovieDetailPage';
+// import MovieDetailPage from './pages/MovieDetailPage';
+import MovieDetailPage2 from './pages/MovieDetailPage2';
 import BookingPage from './pages/BookingPage';
 import BookingConfirmationPage from './pages/BookingConfirmationPage';
 import RegisterPage from './pages/RegisterPage';
@@ -22,6 +23,7 @@ import UpdateUserInfoPage from './pages/UpdateUserInfoPage';
 import TrackBookingPage from './pages/TrackBookingPage';
 import AdminEditShowingPage from './pages/admin/AdminEditShowingPage';
 import AdminManageShowingsPage from './pages/admin/AdminManageShowingsPage';
+import ShowtimesOverviewPage from './pages/ShowtimesOverviewPage';
 
 export const router = createBrowserRouter([
   {
@@ -34,7 +36,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'movies/:id',
-        element: <MovieDetailPage />,
+        element: <MovieDetailPage2 />,
       },
       {
         path: 'book/:id',
@@ -43,6 +45,10 @@ export const router = createBrowserRouter([
       {
         path: 'booking-confirmation/:bookingNumber',
         element: <BookingConfirmationPage />,
+      },
+      {
+        path: '/showtimes',
+        element: <ShowtimesOverviewPage />,
       },
       {
         path: 'register',

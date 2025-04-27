@@ -12,8 +12,8 @@ const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const location = useLocation();
   const { watchlist } = useContext(WatchlistContext);
-  const { searchTerm, setSearchTerm, setSearchResults, setHasSearched } =
-    useContext(SearchContext);
+  // const { searchTerm, setSearchTerm, setSearchResults, setHasSearched } =
+  //   useContext(SearchContext);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -33,22 +33,22 @@ const Navbar = () => {
     setUser(null);
   };
 
-  const handleSearch = async () => {
-    if (!searchTerm.trim()) return;
+  // const handleSearch = async () => {
+  //   if (!searchTerm.trim()) return;
 
-    try {
-      const response = await fetch(
-        `http://localhost:3001/api/movies?search=${encodeURIComponent(
-          searchTerm
-        )}`
-      );
-      const data = await response.json();
-      setSearchResults(data);
-      setHasSearched(true);
-    } catch (error) {
-      console.error('Error fetching search results:', error);
-    }
-  };
+  //   try {
+  //     const response = await fetch(
+  //       `http://localhost:3001/api/movies?search=${encodeURIComponent(
+  //         searchTerm
+  //       )}`
+  //     );
+  //     const data = await response.json();
+  //     setSearchResults(data);
+  //     setHasSearched(true);
+  //   } catch (error) {
+  //     console.error('Error fetching search results:', error);
+  //   }
+  // };
 
   useEffect(() => {
     if (user) {
@@ -56,12 +56,12 @@ const Navbar = () => {
     }
   }, [location.pathname, user]);
 
-  useEffect(() => {
-    if (!searchTerm.trim()) {
-      setSearchResults([]);
-      setHasSearched(false);
-    }
-  }, [searchTerm]);
+  // useEffect(() => {
+  //   if (!searchTerm.trim()) {
+  //     setSearchResults([]);
+  //     setHasSearched(false);
+  //   }
+  // }, [searchTerm]);
 
   return (
     <header className="header-container">
@@ -80,26 +80,6 @@ const Navbar = () => {
               <span className="menu-bar"></span>
               <span className="menu-bar"></span>
             </div>
-
-            <div className="search-container">
-              <span className="search-icon">🔍</span>
-              <input
-                type="text"
-                className="search-input with-icon"
-                placeholder="Search..."
-                value={searchTerm}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  setSearchTerm(value);
-                  if (value.trim()) {
-                    handleSearch(value);
-                  } else {
-                    setSearchResults([]);
-                    setHasSearched(false);
-                  }
-                }}
-              />
-            </div>
           </div>
 
           <ul className="menu-options">
@@ -107,6 +87,9 @@ const Navbar = () => {
               <>
                 <li>
                   <Link to="/">Home</Link>
+                </li>
+                <li>
+                  <Link to="/showtimes">Showtimes</Link>
                 </li>
                 <li>
                   <Link to="/track-booking">Track Booking</Link>
@@ -167,26 +150,6 @@ const Navbar = () => {
               <span className="menu-bar"></span>
               <span className="menu-bar"></span>
               <span className="menu-bar"></span>
-            </div>
-
-            <div className="search-container">
-              <span className="search-icon">🔍</span>
-              <input
-                type="text"
-                className="search-input with-icon"
-                placeholder="Search..."
-                value={searchTerm}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  setSearchTerm(value);
-                  if (value.trim()) {
-                    handleSearch(value);
-                  } else {
-                    setSearchResults([]);
-                    setHasSearched(false);
-                  }
-                }}
-              />
             </div>
           </div>
 
