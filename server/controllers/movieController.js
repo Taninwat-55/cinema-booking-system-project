@@ -9,12 +9,6 @@ function getAllMovies(req, res) {
   res.json(movies);
 }
 
-// function getAllMovies(req, res) {
-//   const search = req.query.search || '';
-//   const movies = movieModel.getAllMovies(search);
-//   res.json(movies);
-// }
-
 function getMovieById(req, res) {
   const movieId = req.params.id;
 

@@ -155,51 +155,6 @@
   color: #e0e0e0;
 }
 
-/* SEARCH STYLES */
-/* .search-input {
-  height: 32px;
-  border-radius: 16px;
-  border: 1px solid #ccc;
-  outline: none;
-  padding: 0 12px;
-  font-size: 14px;
-}
-
-.search-input.with-icon {
-  padding-left: 32px;
-}
-
-.search-input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.search-input:focus {
-  background-color: rgba(255, 255, 255, 0.25);
-  border-color: #fff;
-}
-
-.search-button {
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-size: 18px;
-  padding: 4px 6px;
-  transition: color 0.2s ease;
-}
-
-.search-button:hover {
-  color: #e0e0e0;
-}
-
-.search-icon {
-  position: absolute;
-  left: 12px;
-  font-size: 16px;
-  pointer-events: none;
-  color: #aaa;
-} */
-
 /* Profile */
 .avatar {
   width: 32px;

@@ -1,0 +1,35 @@
+.booking-confirmation-container {
+    text-align: center;
+  }
+  
+  .booking-details-wrapper {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  
+  .booking-poster {
+    width: 250px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .booking-info {
+    flex: 1;
+    margin-top: 4.5rem;
+  }
+  
+  .booking-number {
+    color: #fbbf24;
+  }
+  
+  .booking-btn {
+    background-color: #fbbf24;
+    border: none;
+  
+    padding: 0.5rem;
+    border-radius: 5px;
+    margin-top: 1rem;
+  }

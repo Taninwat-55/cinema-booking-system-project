@@ -22,17 +22,6 @@ function getAllMovies(searchTerm = '', genre = '', year = '') {
   return db.prepare(query).all(...params);
 }
 
-// function getAllMovies(searchTerm = '') {
-//   if (searchTerm) {
-//     const lower = searchTerm.toLowerCase();
-//     return db
-//       .prepare('SELECT * FROM movies WHERE LOWER(title) LIKE ?')
-//       .all(`%${lower}%`);
-//   }
-
-//   return db.prepare('SELECT * FROM movies').all();
-// }
-
 function getMovieById(movieId) {
   return db.prepare('SELECT * FROM movies WHERE movie_id = ?').get(movieId);
 }

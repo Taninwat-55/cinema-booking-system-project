@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
-import '../styles/BookingPages.css';
+import '../styles/MyBookingPage.css';
 import Navbar from '../components/Navbar';
 
 const MyBookingPage = () => {

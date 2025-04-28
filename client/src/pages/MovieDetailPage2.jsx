@@ -105,7 +105,7 @@ function MovieDetailPage2() {
           </div>
 
           <div className="movie-details">
-            <h2 className="movie-title">{movie.title}</h2>
+            <h2 className="movie-detail-title">{movie.title}</h2>
             <p className="movie-meta">
               {movie.release_year} | {movie.length_minutes} min | {movie.genre}
             </p>
