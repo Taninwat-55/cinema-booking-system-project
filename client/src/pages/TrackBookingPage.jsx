@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import Navbar from '../components/Navbar';
+import '../styles/TrackBookingPage.css';
 
 export default function TrackBookingPage() {
   const [bookingNumber, setBookingNumber] = useState('');
@@ -21,28 +23,31 @@ export default function TrackBookingPage() {
   };
 
   return (
-    <div>
-      <h2>Track Your Booking</h2>
-      <form onSubmit={handleSubmit}>
+    <>
+    <Navbar />
+    <div className="track-booking-page">
+      <h2 className="track-page-title">Track Your Booking</h2>
+      <form onSubmit={handleSubmit} className="tracking-page-form">
         <input
           type="text"
           placeholder="Enter booking number"
           value={bookingNumber}
           onChange={(e) => setBookingNumber(e.target.value)}
           required
+          className="track-booking-input"
         />
-        <button type="submit">Track</button>
+        <button type="submit" className="track-submit-button">Track</button>
       </form>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="error-message" style={{ color: 'red' }}>{error}</p>}
 
       {bookingInfo && (
-        <div>
-          <h3>Booking for: {bookingInfo.title}</h3>
-          <img src={bookingInfo.poster_url} alt={bookingInfo.title} />
-          <p>Showing: {new Date(bookingInfo.showing_time).toLocaleString()}</p>
-          <p>Total: {bookingInfo.total_price} kr</p>
-          <p>
+        <div className="track-booking-info">
+          <h3 className="track-booking-title">Booking for: {bookingInfo.title}</h3>
+          <img className="track-booking-poster" src={bookingInfo.poster_url} alt={bookingInfo.title} />
+          <p className="track-booking-time">Showing: {new Date(bookingInfo.showing_time).toLocaleString()}</p>
+          <p className="track-booking-total">Total: {bookingInfo.total_price} kr</p>
+          <p className="track-booking-seats">
             Seats:{' '}
             {bookingInfo.seats
               .map((seat) => `${seat.seat_row}${seat.seat_column}`)
@@ -51,5 +56,8 @@ export default function TrackBookingPage() {
         </div>
       )}
     </div>
+    <div className="circle-one"></div>
+    <div className="circle-two"></div>
+    </>
   );
 }
