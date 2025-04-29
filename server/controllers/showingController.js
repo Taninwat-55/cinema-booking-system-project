@@ -1,11 +1,6 @@
 const db = require('../db/database');
 const showingModel = require('../models/showingModel');
 
-// function getAllShowings(req, res) {
-//   const showings = showingModel.getAllShowings();
-//   res.json(showings);
-// }
-
 function getAllShowings(req, res) {
   const filterDate = req.query.date;
 
