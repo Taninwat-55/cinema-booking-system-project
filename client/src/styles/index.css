@@ -16,6 +16,11 @@
   --main-color: #222831;
   --text-color: #ffffff;
   --font-fam: Bebas Neue, sans-serif;
+  --fab-close-animation-time: 0.4s;
+  --fab-close-line-length: 20px;
+  --fab-close-line-thickness: 2px;
+  --fab-close-spins: 1;
+  --slide-in-duration: 0.4s;
 }
 
 * {
