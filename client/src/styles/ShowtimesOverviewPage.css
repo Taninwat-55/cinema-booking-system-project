@@ -1,58 +1,176 @@
-.showtimes-page {
-    padding: 50px 2rem 2rem;
-    text-align: center;
-  }
-  
-  .showtimes-title {
-    margin-bottom: 1.5rem;
-  }
-  
-  .date-filter-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-  
-  .showings-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
-    list-style: none;
-    padding: 0;
-  }
-  
-  .showing-card {
-    background-color: rgba(255, 255, 255, 0.05);
-    padding: 1rem;
-    border-radius: 8px;
-    text-align: center;
-  }
-  
-  .showing-poster {
-    width: 100%;
-    height: 320px;
-    object-fit: cover;
-    border-radius: 6px;
-  }
-  
-  .showing-info {
-    margin-top: 0.8rem;
-  }
-  
-  .book-link {
-    display: inline-block;
-    margin-top: 0.5rem;
-    padding: 0.5rem 1rem;
-    background-color: var(--selected-color);
-    color: black;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: bold;
-  }
-  
-  .no-showings {
-    font-size: 1.2rem;
-    margin-top: 2rem;
-  }
+/* Main container for the showtimes overview page */
+.showtimes-overview-page {
+  width: 60rem;
+  margin: 8rem 4rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  position: relative;
+  z-index: 1; /* Above circles */
+}
+
+/* Page title */
+.showtimes-overview-title {
+  font-size: 32px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* Filter section */
+.showtimes-filter-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+/* Filter label */
+.filter-label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #e0e0e0;
+  transition: color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.filter-label:hover {
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+/* Filter date input */
+.filter-date-input {
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 16px;
+  height: 40px;
+  line-height: 1.5;
+  box-sizing: border-box;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  appearance: none;
+}
+
+/* Style date input calendar picker */
+.filter-date-input::-webkit-calendar-picker-indicator {
+  filter: brightness(0) invert(1);
+  cursor: pointer;
+  opacity: 1;
+}
+
+/* Focus effect for date input */
+.filter-date-input:focus {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.02);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+/* Clear filter button */
+.clear-filter-button {
+  padding: 0.5rem 1rem;
+  background-color: #ff4d4d;
+  color: white;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 14px;
+}
+
+.clear-filter-button:hover {
+  background-color: #e63939;
+  transform: translateY(-2px);
+}
+
+/* Empty message */
+.showtimes-empty-message {
+  font-size: 16px;
+  color: #e0e0e0;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* Showtimes list */
+.showtimes-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Showtimes card */
+.showtimes-card {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease; /* Smooth hover effect */
+}
+
+.showtimes-card:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Showtimes card poster */
+.showtimes-card-poster {
+  width: 100px;
+  height: auto;
+  border-radius: 8px;
+  margin-right: 1rem;
+}
+
+/* Showtimes card info */
+.showtimes-card-info {
+  flex: 1;
+}
+
+/* Showtimes card title */
+.showtimes-card-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+/* Showtimes card datetime and theater */
+.showtimes-card-datetime,
+.showtimes-card-theater {
+  font-size: 14px;
+  color: #e0e0e0;
+  margin-bottom: 0.5rem;
+}
+
+/* Book ticket link */
+.showtimes-card-book-link {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: #ffd500;
+  color: black;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.showtimes-card-book-link:hover {
+  background-color: #ffcc00;
+  transform: translateY(-2px);
+}
