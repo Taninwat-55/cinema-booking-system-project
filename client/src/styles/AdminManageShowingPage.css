@@ -1,80 +1,89 @@
 /* Container for the page */
 .admin-manage-showings-container {
   width: 100%;
-  max-width: 1200px;
-  margin: 8rem auto;
+  max-width: 1400px; /* Increased width as specified */
+  margin-top: -5rem; /* Adjusted to positive margin for better spacing */
   padding: 3rem;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 16px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  
   font-family: 'Roboto', sans-serif;
   color: white;
   position: relative;
-  z-index: 1; /* Ensure container is above background circles */
+  z-index: 1; /* Above circles */
 }
 
 /* Title styling */
 .admin-title {
+  margin-top: 1rem;
   font-size: 28px;
   font-weight: 600;
-  margin-top: 1.5rem;
+  margin-top: 1rem; /* Adjusted for better spacing with container padding */
   text-align: center;
   color: #fff;
 }
 
-/* Adjusting the layout for movie cards */
+/* Showings list */
 .showings-list {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(300px, 1fr)
-  ); /* Responsive grid */
-  gap: 1rem; /* Spacing between cards */
+  grid-template-columns: repeat(3, max(20rem)); /* Adjusted to fit wider cards */
+  gap: 2rem;
   padding: 0;
   list-style: none;
-  width: 100%;
-  max-width: 1200px; /* Limit the width of the list */
-}
-
-.showing-poster {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 1rem; /* Add spacing below the poster */
+  margin-top: 2rem;
+  justify-content: center; /* Ensure grid items are centered */
 }
 
 /* List item styling */
 .showing-item {
+  width: 100%; /* Full width of grid cell */
+  max-width: 20rem; /* Maintain card size */
+  margin: 0 auto; /* Center within grid cell */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center align all content */
+  align-items: center;
   padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
   color: white;
   font-size: 16px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
 }
 
+/* Hover effect for cards */
+.showing-item:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Poster styling */
+.showing-poster {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+/* Info section */
 .showing-info {
-  text-align: center; /* Center align text */
-  margin-bottom: 1rem; /* Add spacing below movie info */
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 .showing-info div {
-  margin-bottom: 0.5rem; /* Add spacing between rows */
+  margin-bottom: 0.5rem;
 }
 
+/* Button group */
 .button-group {
   display: flex;
   gap: 0.5rem;
-  justify-content: center; /* Center align buttons */
+  justify-content: center;
 }
 
-/* Your existing button styles still apply */
+/* Button styles */
 .admin-button {
   padding: 0.5rem 1rem;
   background-color: #ffd500;
@@ -90,10 +99,6 @@
 .admin-button:hover {
   background-color: #ffcc00;
   transform: translateY(-2px);
-}
-
-.edit-button {
-  margin-right: 0; /* not needed anymore, since we use gap */
 }
 
 .delete-button {
