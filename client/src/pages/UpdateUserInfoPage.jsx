@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { UserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import '../styles/UpdateUserInfoPage.css';
 
 const UpdateUserInfoPage = () => {
   const { user, setUser } = useContext(UserContext);
@@ -51,14 +52,34 @@ const UpdateUserInfoPage = () => {
       <Navbar />
       <div className="update-user-form-container">
         <h2>Update Your Info</h2>
+        
+        <div className="update-user-group">
+          <label htmlFor="name">Name</label>
+          <input
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            className="update-user-input"
+          />
+        </div>
+        <div className="updat-user-group">
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className="update-user-input"
+          />
+        </div>
+
         <form onSubmit={handleSubmit}>
-          <label>Name:</label>
-          <input name="name" value={formData.name} onChange={handleChange} />
-          <label>Email:</label>
-          <input name="email" value={formData.email} onChange={handleChange} />
-          <button type="submit">Update Info</button>
+          <button type="submit" className='update-user-button'>Update Info</button>
         </form>
       </div>
+      <div className="circle-one"></div>
+      <div className="circle-two"></div>
     </>
   );
 };
