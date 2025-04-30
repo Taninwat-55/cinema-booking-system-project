@@ -61,6 +61,7 @@ const AdminMovieListPage = () => {
       />
 
       <select
+        id="genre-select-admin-movies"
         value={selectedGenre}
         onChange={(e) => setSelectedGenre(e.target.value)}
       >
@@ -71,6 +72,7 @@ const AdminMovieListPage = () => {
           </option>
         ))}
       </select>
+
       <ul className="movie-list">
         {filteredMovies.map((movie) => (
           <li key={movie.movie_id} className="movie-card">
