@@ -68,7 +68,7 @@ const UserProfilePage = () => {
                 }
               }}
             >
-              Delete Account
+              <strong>Delete Account</strong>
             </button>
           </div>
 
@@ -76,11 +76,13 @@ const UserProfilePage = () => {
             <button onClick={handleLogout} className="logout-btn">
               Logout
             </button>
-            <button onClick={() => navigate('/')} className="home-btn">
+            <button onClick={() => navigate('/')} className="profile-home-btn">
               Back to Home
             </button>
           </div>
         </div>
+        <div className="circle-one"></div>
+        <div className="circle-two"></div>
       </div>
     </>
   );
