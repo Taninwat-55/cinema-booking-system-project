@@ -102,16 +102,26 @@ const Navbar = () => {
                 </li>
               </>
             ) : (
-              <li className="profile-dropdown">
-                <img
-                  src={profileIcon}
-                  alt="Profile"
-                  className="avatar"
+              <li
+                className={`profile-dropdown fixed-action-btn spin-close ${
+                  isDropdownOpen ? 'active' : ''
+                }`}
+              >
+                <button
+                  className="btn-large"
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                />
+                >
+                  <i>
+                    <img src={profileIcon} alt="Profile" className="avatar" />
+                  </i>
+                </button>
+
+                {/* Dropdown Menu */}
                 {isDropdownOpen && (
-                  <ul className="dropdown-menu">
-                    <li>
+                  <ul
+                    className={`dropdown-menu ${isDropdownOpen ? 'show' : ''}`}
+                  >
+                    <li className="dropdown-item item-profile">
                       <Link
                         to="/profile"
                         onClick={() => setIsDropdownOpen(false)}
@@ -119,7 +129,7 @@ const Navbar = () => {
                         View Profile
                       </Link>
                     </li>
-                    <li>
+                    <li className="dropdown-item item-update">
                       <Link
                         to="/profile/update"
                         onClick={() => setIsDropdownOpen(false)}
@@ -127,8 +137,15 @@ const Navbar = () => {
                         Update Info
                       </Link>
                     </li>
-                    <li>
-                      <button onClick={handleLogout}>Log Out</button>
+                    <li className="dropdown-item item-logout">
+                      <button
+                        onClick={() => {
+                          handleLogout();
+                          setIsDropdownOpen(false);
+                        }}
+                      >
+                        Log Out
+                      </button>
                     </li>
                   </ul>
                 )}
