@@ -1,4 +1,29 @@
 const db = require('../db/database');
+const fetch = require('node-fetch');
+require('dotenv').config();
+
+async function getYoutubeTrailer(title) {
+  const query = `${title} trailer`;
+  const apiKey = process.env.YOUTUBE_API_KEY;
+  const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(
+    query
+  )}&key=${apiKey}&type=video&maxResults=1`;
+
+  try {
+    const res = await fetch(searchUrl);
+    const data = await res.json();
+
+    if (data.items && data.items.length > 0) {
+      const videoId = data.items[0].id.videoId;
+      return `https://www.youtube.com/watch?v=${videoId}`;
+    } else {
+      return '';
+    }
+  } catch (err) {
+    console.error('YouTube API Error:', err.message);
+    return '';
+  }
+}
 
 function getAllMovies(searchTerm = '', genre = '', year = '') {
   let query = 'SELECT * FROM movies WHERE 1=1';
@@ -93,14 +118,16 @@ async function createMovieFromOMDb(title, apiKey) {
 
   if (data.Response === 'False') return { error: 'not_found' };
 
+  const trailer_url = await getYoutubeTrailer(title);
+
   createMovie(
     data.Title,
     data.Plot,
     data.Poster,
-    '', // Trailer URL
-    data.imdbRating,
-    data.Year,
-    data.Runtime,
+    trailer_url, // ✅ Now fetched from YouTube!
+    parseFloat(data.imdbRating),
+    parseInt(data.Year),
+    parseInt(data.Runtime),
     data.Genre
   );
 
@@ -115,4 +142,5 @@ module.exports = {
   getMovieByTitle,
   updateMovie,
   createMovieFromOMDb,
+  getYoutubeTrailer,
 };

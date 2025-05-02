@@ -42,14 +42,33 @@ function MovieDetailPage2() {
   }, [id, selectedDate]);
 
   const getEmbedUrl = (url) => {
-    if (url.includes('youtu.be')) {
-      return url.replace('youtu.be/', 'www.youtube.com/embed/').split('?')[0];
+    if (!url) return null;
+
+    try {
+      const parsedUrl = new URL(url);
+      const hostname = parsedUrl.hostname;
+
+      // Case 1: youtu.be short link
+      if (hostname === 'youtu.be') {
+        const videoId = parsedUrl.pathname.slice(1);
+        return `https://www.youtube.com/embed/${videoId}`;
+      }
+
+      // Case 2: youtube.com/watch?v=...
+      if (hostname.includes('youtube.com') && parsedUrl.searchParams.has('v')) {
+        const videoId = parsedUrl.searchParams.get('v');
+        return `https://www.youtube.com/embed/${videoId}`;
+      }
+
+      // Fallback: Return null if not recognized
+      return null;
+    } catch (err) {
+      console.error('Invalid trailer URL:', url);
+      return null;
     }
-    if (url.includes('watch?v=')) {
-      return url.replace('watch?v=', 'embed/').split('?')[0];
-    }
-    return url;
   };
+  
+  const embedUrl = getEmbedUrl(movie?.trailer_url);
 
   const handleAddWatchlist = () => {
     fetch('http://localhost:3001/api/watchlist', {
@@ -94,6 +113,31 @@ function MovieDetailPage2() {
       <div className="movie-page">
         <div className="movie-header">
           <div className="movie-poster">
+            {embedUrl ? (
+              <div className="trailer-overlay">
+                <iframe
+                  src={embedUrl}
+                  title={`${movie.title} Trailer`}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            ) : (
+              <div className="trailer-placeholder">
+                <p>No trailer available.</p>
+                <a
+                  href={`https://www.youtube.com/results?search_query=${encodeURIComponent(
+                    movie.title + ' trailer'
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Search on YouTube
+                </a>
+              </div>
+            )}
+          </div>
+          {/* <div className="movie-poster">
             <div className="trailer-overlay">
               <iframe
                 src={getEmbedUrl(movie.trailer_url)}
@@ -102,7 +146,7 @@ function MovieDetailPage2() {
                 allowFullScreen
               ></iframe>
             </div>
-          </div>
+          </div> */}
 
           <div className="movie-details">
             <h2 className="movie-detail-title">{movie.title}</h2>
@@ -134,7 +178,10 @@ function MovieDetailPage2() {
             onChange={(e) => setSelectedDate(e.target.value)}
           />
           {selectedDate && (
-            <button className="clear-filter-btn" onClick={() => setSelectedDate('')}>
+            <button
+              className="clear-filter-btn"
+              onClick={() => setSelectedDate('')}
+            >
               Clear
             </button>
           )}
@@ -153,7 +200,10 @@ function MovieDetailPage2() {
                     {new Date(showing.showing_time).toLocaleTimeString()} |
                     Theater {showing.theater_id}
                   </span>
-                  <Link to={`/book/${showing.showing_id}`} className="book-ticket-btn">
+                  <Link
+                    to={`/book/${showing.showing_id}`}
+                    className="book-ticket-btn"
+                  >
                     Book Ticket
                   </Link>
                 </li>
@@ -161,13 +211,11 @@ function MovieDetailPage2() {
             </ul>
           )}
         </div>
-
       </div>
-        <div className="circle-one"></div>
-        <div className="circle-two"></div>
+      <div className="circle-one"></div>
+      <div className="circle-two"></div>
     </>
   );
 }
 
 export default MovieDetailPage2;
-

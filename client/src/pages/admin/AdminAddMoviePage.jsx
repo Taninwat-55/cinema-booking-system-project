@@ -1,88 +1,89 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Navbar from "../../components/Navbar";
-import "../../styles/AdminAddMoviePage.css";
-import { toast } from "react-hot-toast";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../../components/Navbar';
+import '../../styles/AdminAddMoviePage.css';
+import { toast } from 'react-hot-toast';
 
 const genreOptions = [
-  "Action",
-  "Adventure",
-  "Animation",
-  "Comedy",
-  "Crime",
-  "Drama",
-  "Fantasy",
-  "Horror",
-  "Mystery",
-  "Romance",
-  "Sci-Fi",
-  "Thriller",
-  "War",
-  "Western",
+  'Action',
+  'Adventure',
+  'Animation',
+  'Comedy',
+  'Crime',
+  'Drama',
+  'Fantasy',
+  'Horror',
+  'Mystery',
+  'Romance',
+  'Sci-Fi',
+  'Thriller',
+  'War',
+  'Western',
 ];
 
 const AdminAddMoviePage = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    poster_url: "",
-    trailer_url: "",
-    release_year: "",
-    length_minutes: "",
-    imdb_rating: "",
-    genre: "",
+    title: '',
+    description: '',
+    poster_url: '',
+    trailer_url: '',
+    release_year: '',
+    length_minutes: '',
+    imdb_rating: '',
+    genre: '',
     useOmdb: true,
   });
 
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: type === 'checkbox' ? checked : value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const endpoint = "http://localhost:3001/api/admin/movies";
+    const endpoint = 'http://localhost:3001/api/admin/movies';
 
     // Ensure length_minutes is sent as a number
     const payload = {
       ...formData,
+      trailer_url: formData.trailer_url || null,
       length_minutes: parseInt(formData.length_minutes, 10),
     };
 
     const res = await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     });
 
     const data = await res.json();
 
     if (res.ok) {
-      toast.success("Movie added successfully!");
+      toast.success('Movie added successfully!');
       setFormData({
-        title: "",
-        description: "",
-        poster_url: "",
-        trailer_url: "",
-        release_year: "",
-        length_minutes: "",
-        imdb_rating: "",
-        genre: "",
+        title: '',
+        description: '',
+        poster_url: '',
+        trailer_url: '',
+        release_year: '',
+        length_minutes: '',
+        imdb_rating: '',
+        genre: '',
         useOmdb: true,
       });
-      setMessage("");
-      navigate("/admin/manage-movies");
+      setMessage('');
+      navigate('/admin/manage-movies');
     } else if (res.status === 400) {
-      setMessage(data.message || "Movie already exists.");
+      setMessage(data.message || 'Movie already exists.');
     } else {
-      toast.error(data.error || "Failed to add movie");
+      toast.error(data.error || 'Failed to add movie');
     }
   };
 
@@ -120,7 +121,7 @@ const AdminAddMoviePage = () => {
                 value={formData.description}
                 onChange={(e) => {
                   handleChange(e);
-                  e.target.style.height = "auto";
+                  e.target.style.height = 'auto';
                   e.target.style.height = `${e.target.scrollHeight}px`;
                 }}
                 required
