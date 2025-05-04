@@ -63,7 +63,7 @@ function MovieDetailPage2() {
       // Fallback: Return null if not recognized
       return null;
     } catch (err) {
-      console.error('Invalid trailer URL:', url);
+      console.error('Invalid trailer URL:', url, err);
       return null;
     }
   };

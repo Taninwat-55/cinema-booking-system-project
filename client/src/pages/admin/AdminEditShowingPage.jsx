@@ -62,17 +62,34 @@ const AdminEditShowingPage = () => {
       <Nabar />
       <div className="admin-edit-showing-container">
         <h1 className="admin-edit-title">Edit Showing</h1>
+        {form.movie_id && (
+          <div className="admin-edit-info-box">
+            <h3>Now Editing Showing ID: {id}</h3>
+            <p>
+              Movie:{' '}
+              <strong>
+                {movies.find((m) => m.movie_id === form.movie_id)?.title ||
+                  'Loading...'}
+              </strong>
+            </p>
+            <p>
+              Date & Time:{' '}
+              <strong>{new Date(form.showing_time).toLocaleString()}</strong>
+            </p>
+          </div>
+        )}
         <form className="admin-edit-form" onSubmit={handleSubmit}>
           <div className="admin-edit-form-group">
             <label className="admin-edit-label">Select Movie:</label>
             <select
-              className="admin-edit-select"
               name="movie_id"
               value={form.movie_id}
               onChange={handleChange}
+              disabled // <-- lock selection
+              className="admin-edit-select"
               required
             >
-              <option value="">Select Movie</option>
+              {!form.movie_id && <option value="">Select Movie</option>}
               {movies.map((movie) => (
                 <option key={movie.movie_id} value={movie.movie_id}>
                   {movie.title}
