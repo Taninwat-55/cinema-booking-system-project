@@ -3,6 +3,7 @@ import { UserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import '../styles/LoginPage.css';
+import { toast } from 'react-hot-toast';
 
 const LoginPage = () => {
   const { setUser } = useContext(UserContext);
@@ -34,11 +35,15 @@ const LoginPage = () => {
 
       localStorage.setItem('user', JSON.stringify(userData));
       setUser(userData);
-      navigate('/');
+      toast.success('Login successful!');
+      setMessage('');
+      setTimeout(() => {
+        navigate('/');
+      }, 1500);
     }
 
     if (!res.ok) {
-      setMessage(data.error || 'Login failed. Please try again.');
+      toast.error(data.error || 'Login failed. Please try again.');
       return;
     }
   };

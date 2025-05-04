@@ -12,8 +12,6 @@ const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const location = useLocation();
   const { watchlist } = useContext(WatchlistContext);
-  // const { searchTerm, setSearchTerm, setSearchResults, setHasSearched } =
-  //   useContext(SearchContext);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -33,35 +31,11 @@ const Navbar = () => {
     setUser(null);
   };
 
-  // const handleSearch = async () => {
-  //   if (!searchTerm.trim()) return;
-
-  //   try {
-  //     const response = await fetch(
-  //       `http://localhost:3001/api/movies?search=${encodeURIComponent(
-  //         searchTerm
-  //       )}`
-  //     );
-  //     const data = await response.json();
-  //     setSearchResults(data);
-  //     setHasSearched(true);
-  //   } catch (error) {
-  //     console.error('Error fetching search results:', error);
-  //   }
-  // };
-
   useEffect(() => {
     if (user) {
       setIsMenuOpen(true);
     }
   }, [location.pathname, user]);
-
-  // useEffect(() => {
-  //   if (!searchTerm.trim()) {
-  //     setSearchResults([]);
-  //     setHasSearched(false);
-  //   }
-  // }, [searchTerm]);
 
   return (
     <header className="header-container">
@@ -175,6 +149,9 @@ const Navbar = () => {
               <>
                 <li>
                   <Link to="/">Home</Link>
+                </li>
+                <li>
+                  <Link to="/showtimes">Showtimes</Link>
                 </li>
                 <li>
                   <Link to="/watchlist">Watchlist ({watchlist.length})</Link>
