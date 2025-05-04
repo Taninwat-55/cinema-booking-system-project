@@ -3,6 +3,7 @@ import { UserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import '../styles/UpdateUserInfoPage.css';
+import { toast } from 'react-hot-toast';
 
 const UpdateUserInfoPage = () => {
   const { user, setUser } = useContext(UserContext);
@@ -40,10 +41,10 @@ const UpdateUserInfoPage = () => {
       localStorage.setItem('user', JSON.stringify(updatedUser));
       setUser(updatedUser);
 
-      alert('User updated!');
+      toast.success('User updated!');
       navigate('/profile');
     } else {
-      alert(data.error || 'Failed to update user');
+      toast.error(data.error || 'Failed to update user');
     }
   };
 
