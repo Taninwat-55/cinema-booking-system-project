@@ -15,7 +15,7 @@ function getAllBookingsWithSeats() {
         showings.showing_time,
         showings.theater_id
       FROM bookings
-      JOIN users ON bookings.user_id = users.user_id
+      LEFT JOIN users ON bookings.user_id = users.user_id
       JOIN showings ON bookings.showing_id = showings.showing_id
       JOIN movies ON showings.movie_id = movies.movie_id
       ORDER BY showings.showing_time DESC
@@ -29,7 +29,12 @@ function getAllBookingsWithSeats() {
 
   return bookings.map((b) => {
     const seats = getSeats.all(b.booking_id).map((s) => s.seat_id);
-    return { ...b, seats };
+    return {
+      ...b,
+      user_name: b.user_name || 'Guest',
+      user_email: b.user_email || 'N/A',
+      seats,
+    };
   });
 }
 
@@ -66,5 +71,5 @@ function getDashboardStats() {
 
 module.exports = {
   getAllBookingsWithSeats,
-  getDashboardStats
+  getDashboardStats,
 };
