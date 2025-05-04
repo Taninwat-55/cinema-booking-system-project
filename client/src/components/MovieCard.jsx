@@ -49,21 +49,21 @@ const MovieCard = ({ movie, watchlist, setWatchlist }) => {
   };
 
   return (
-    <div className="movie-card-container">
+    <div className='movie-card-container'>
       <Link
         to={`/movies/${movie.movie_id}`}
         style={{ textDecoration: 'none', color: 'inherit' }}
       >
-        <div className="movie-card">
+        <div className='movie-card'>
           <img src={movie.poster_url} alt={movie.title} />
           <h2>{movie.title}</h2>
 
-          <div className="movie-rating-container-landing-page">
-            <div className="movie-rating-wrapper-landing-page">
-              <div className="imdb-box-landing-page">
+          <div className='movie-rating-container-landing-page'>
+            <div className='movie-rating-wrapper-landing-page'>
+              <div className='imdb-box-landing-page'>
                 <h3>IMDb</h3>
               </div>
-              <div className="movie-rating-span-container">
+              <div className='movie-rating-span-container'>
                 {movie.imdb_rating
                   ? Number(movie.imdb_rating).toFixed(1)
                   : 'N/A'}
@@ -79,13 +79,13 @@ const MovieCard = ({ movie, watchlist, setWatchlist }) => {
           </div>
 
           <div
-            className="add-to-list-container"
+            className='add-to-list-container'
             onClick={handleWatchlistToggle}
           >
             <button
               className={`watchlist-button ${isInWatchlist ? 'active' : ''}`}
             >
-              <CiHeart className="heart-icon" />
+              <CiHeart className='heart-icon' />
               <span>Watchlist</span>
             </button>
           </div>
