@@ -198,11 +198,15 @@
   text-align: center;
 }
 
-.showings-list {
+.showings-list-2 {
   list-style: none;
   padding: 0;
   margin: 0 auto;
-  max-width: 600px; /* Centered list */
+  max-width: 600px; 
+  grid-template-columns: repeat(2, 1fr); 
+  display: grid;
+  gap: 2rem;
+  justify-content: center;
 }
 
 .showing-item {

@@ -192,7 +192,7 @@ function MovieDetailPage2() {
           {showings.length === 0 ? (
             <p className="no-showings">No showings available.</p>
           ) : (
-            <ul className="showings-list">
+            <ul className="showings-list-2">
               {showings.map((showing) => (
                 <li key={showing.showing_id} className="showing-item">
                   <span className="showing-info">
