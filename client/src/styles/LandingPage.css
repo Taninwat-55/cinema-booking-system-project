@@ -28,13 +28,27 @@
   color: white;
 }
 
-/* .filter-inputs {
-  margin: 0;
-  padding: 4px 6px;
-  width: 10rem;
-  font-size: 14px;
+@media (max-width: 768px) {
+  .filters-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
 
-  -webkit-appearance: none;
-  -moz-appearance: textfield;
-  appearance: none;
-}  */
+  .right-wing {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .filter-inputs {
+    width: 10rem;
+    padding: 0.8rem;
+    font-size: 14px;
+  }
+}
+
+
