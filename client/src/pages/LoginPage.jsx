@@ -37,6 +37,35 @@ const LoginPage = () => {
       setUser(userData);
       toast.success('Login successful!');
       setMessage('');
+
+      // Claim guest booking if exists
+      const pendingBooking = localStorage.getItem('pending_booking');
+      if (pendingBooking) {
+        try {
+          const claimRes = await fetch(
+            'http://localhost:3001/api/bookings/claim',
+            {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                booking_number: pendingBooking,
+                user_id: userData.user_id,
+              }),
+            }
+          );
+
+          const result = await claimRes.json();
+          if (claimRes.ok) {
+            console.log(result.message || 'Booking claimed');
+            localStorage.removeItem('pending_booking');
+          } else {
+            console.warn('Booking claim failed:', result.error);
+          }
+        } catch (err) {
+          console.error('Failed to claim booking:', err);
+        }
+      }
+
       setTimeout(() => {
         navigate('/');
       }, 1500);
