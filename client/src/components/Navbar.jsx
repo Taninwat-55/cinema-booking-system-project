@@ -127,6 +127,12 @@ const Navbar = () => {
             )}
           </ul>
         </div>
+       
+        <div className="logo-container-one">
+          <h3 className="logo-text-one">PawnStorm</h3>
+          <img src="/Logo-final.png" alt="Logo" className="PawnStorm-logo" />
+          <h3 className="text-logo-one">Pictures</h3>
+        </div>
 
         {/* BACK SIDE */}
         <div className="navbar-back">
