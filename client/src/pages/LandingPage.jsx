@@ -4,6 +4,7 @@ import HeroMovies from '../components/HeroMovies';
 import { SearchContext } from '../context/SearchContext';
 import '../styles/LandingPage.css';
 import SearchBar from '../components/SearchBar';
+import Slider from '../components/Slider';
 
 function LandingPage() {
   const [movies, setMovies] = useState([]);
@@ -51,7 +52,7 @@ function LandingPage() {
   return (
     <div className="landing-page-container">
       <Navbar />
-
+      <Slider/>
       <div className="filters-container">
         <SearchBar />
 

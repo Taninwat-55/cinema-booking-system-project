@@ -1,0 +1,120 @@
+.slider-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    height: 400px;
+    width: 100%;
+    margin: 40px 0;
+  }
+  
+  .options {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    overflow: hidden;
+    min-width: 600px;
+    max-width: 900px;
+    width: calc(100% - 100px);
+    height: 100%;
+  }
+  
+  .option {
+    position: relative;
+    overflow: hidden;
+    min-width: 60px;
+    margin: 10px;
+    background-color: #e6e9ed;
+    cursor: pointer;
+    transition: 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+    background-size: auto 120%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 30px;
+    flex-grow: 1;
+  }
+  
+  .option.active {
+    flex-grow: 10000;
+    transform: scale(1);
+    max-width: 600px;
+    margin: 0;
+    border-radius: 40px;
+    background-size: auto 100%;
+  }
+  
+  .option.active .shadow {
+    box-shadow: inset 0 -120px 120px -120px black, inset 0 -120px 120px -100px black;
+  }
+  
+  .option:not(.active) .shadow {
+    bottom: -40px;
+    box-shadow: inset 0 -120px 0px -120px black, inset 0 -120px 0px -100px black;
+  }
+  
+  .shadow {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    transition: 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+  }
+  
+  .label {
+    display: flex;
+    position: absolute;
+    right: 0;
+    height: 40px;
+    transition: 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+    bottom: 10px;
+    left: 10px;
+  }
+  
+  .option.active .label {
+    bottom: 20px;
+    left: 20px;
+  }
+  
+  /* .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 40px;
+    max-width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    color: #555;
+  } */
+  
+  .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
+    color: white;
+    white-space: pre;
+  }
+  
+  .info > div {
+    position: relative;
+    left: 20px;
+    opacity: 0;
+    transition: 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95), opacity 0.5s ease-out;
+  }
+  
+  .option.active .info > div {
+    left: 0px;
+    opacity: 1;
+  }
+  
+  .info .main {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  
+  .info .sub {
+    transition-delay: 0.1s;
+  }
+  
