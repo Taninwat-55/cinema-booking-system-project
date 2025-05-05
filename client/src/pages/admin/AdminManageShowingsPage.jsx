@@ -31,12 +31,6 @@ const AdminManageShowingsPage = () => {
     ),
   ];
 
-  const filteredMovies = movies.filter(
-    (movie) =>
-      movie?.title?.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      (selectedGenre ? movie?.genre?.includes(selectedGenre) : true)
-  );
-
   const handleDelete = async (id) => {
     const confirm = window.confirm(
       'Are you sure you want to delete this showing?'
@@ -56,73 +50,91 @@ const AdminManageShowingsPage = () => {
   };
 
   return (
-  <>
-    <Navbar />
-    
+    <>
+      <Navbar />
 
-    {/* Main container */}
-    <div className="admin-manage-showings-container">
-    <div className="admin-search-filter-controls" style={{ marginTop: '10rem' }}>
-      <input
-        type="text"
-        placeholder="Search by title..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
+      {/* Main container */}
+      <div className="admin-manage-showings-container">
+        <div
+          className="admin-search-filter-controls"
+          style={{ marginTop: '10rem' }}
+        >
+          <input
+            type="text"
+            placeholder="Search by title..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
 
-      <select
-        id="genre-select-admin-movies"
-        value={selectedGenre}
-        onChange={(e) => setSelectedGenre(e.target.value)}
-      >
-        <option value="">All Genres</option>
-        {genres.map((genre, idx) => (
-          <option key={idx} value={genre}>
-            {genre}
-          </option>
-        ))}
-      </select>
-    </div>
-      <h1>Manage Showings</h1>
-      <ul className="showings-list">
-        {filteredMovies.map((showing) => (
-          <li key={showing.showing_id} className="showing-item">
-            <div className="showing-info">
-              <img
-                src={showing.poster_url}
-                alt={showing.title}
-                className="showing-poster"
-              />
-              <div>
-                <div>{showing.title}</div>
-                <div>{new Date(showing.showing_time).toLocaleString()}</div>
-                <div>Theater {showing.theater_id}</div>
-              </div>
-            </div>
-            <div className="button-group">
-              <button
-                className="admin-button edit-button"
-                onClick={() =>
-                  navigate(`/admin/edit-showing/${showing.showing_id}`)
-                }
-              >
-                Edit
-              </button>
-              <button
-                className="admin-button delete-button"
-                onClick={() => handleDelete(showing.showing_id)}
-              >
-                Delete
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+          <select
+            id="genre-select-admin-movies"
+            value={selectedGenre}
+            onChange={(e) => setSelectedGenre(e.target.value)}
+          >
+            <option value="">All Genres</option>
+            {genres.map((genre, idx) => (
+              <option key={idx} value={genre}>
+                {genre}
+              </option>
+            ))}
+          </select>
+        </div>
+        <h1>Manage Showings</h1>
+        <ul className="showings-list">
+          {showings
+            .filter((showing) => {
+              const movie = movies.find((m) => m.movie_id === showing.movie_id);
+              const matchesTitle = movie?.title
+                ?.toLowerCase()
+                .includes(searchTerm.toLowerCase());
+              const matchesGenre = selectedGenre
+                ? movie?.genre?.includes(selectedGenre)
+                : true;
+              return matchesTitle && matchesGenre;
+            })
+            .map((showing) => {
+              const movie = movies.find((m) => m.movie_id === showing.movie_id);
+              return (
+                <li key={showing.showing_id} className="showing-item">
+                  <div className="showing-info">
+                    <img
+                      src={movie?.poster_url}
+                      alt={movie?.title}
+                      className="showing-poster"
+                    />
+                    <div>
+                      <div>{movie?.title}</div>
+                      <div>
+                        {new Date(showing.showing_time).toLocaleString()}
+                      </div>
+                      <div>Theater {showing.theater_id}</div>
+                    </div>
+                  </div>
+                  <div className="button-group">
+                    <button
+                      className="admin-button edit-button"
+                      onClick={() =>
+                        navigate(`/admin/edit-showing/${showing.showing_id}`)
+                      }
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="admin-button delete-button"
+                      onClick={() => handleDelete(showing.showing_id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </li>
+              );
+            })}
+        </ul>
+      </div>
 
-    <div className="circle-one"></div>
-    <div className="circle-two"></div>
-  </>
-);
-}
+      <div className="circle-one"></div>
+      <div className="circle-two"></div>
+    </>
+  );
+};
 export default AdminManageShowingsPage;
