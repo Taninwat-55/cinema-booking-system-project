@@ -1,11 +1,12 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import "../styles/RegisterPage.css";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import '../styles/RegisterPage.css';
+import { toast } from 'react-hot-toast';
 
 const RegisterPage = () => {
-  const [form, setForm] = useState({ email: "", password: "", name: "" });
-  const [message, setMessage] = useState("");
+  const [form, setForm] = useState({ email: '', password: '', name: '' });
+  const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -15,18 +16,20 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:3001/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const res = await fetch('http://localhost:3001/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(form),
     });
 
     const data = await res.json();
 
     if (res.ok) {
-      setMessage("Registered successfully! Please login.");
+      setMessage('');
+      toast.success('Registered successfully! Please login.');
+      setTimeout(() => navigate('/login'), 1500);
     } else {
-      setMessage(data.error);
+      toast.error(data.error);
     }
   };
 
@@ -67,7 +70,7 @@ const RegisterPage = () => {
         <button
           type="button"
           className="home-btn"
-          onClick={() => navigate("/")}
+          onClick={() => navigate('/')}
         >
           Home
         </button>
