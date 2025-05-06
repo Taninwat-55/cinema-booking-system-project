@@ -32,8 +32,20 @@ This is a full-stack cinema booking system built with:
 - [x] Admin can create, read, delete movies
 - [x] Admin can add, edit and delete showings for movies
 - [x] Search & Filter by title and genre
-- [x] Admin Dashboard Stats 
+- [x] Admin Dashboard Stats
 - [x] View all user bookings
+
+```
+In order for you to be able to fetch the trailers automatically when adding a movie, you'll need Google Cloud API key. In order to do that, you'll need to:
+
+1. Get a Youtube API key
+- Go to Google Developers Console and enable Youtube Data API v3. Then create a key from Credentials page.
+
+2. Update the .env by adding your Youtube API key.
+- YOUTUBE_API_KEY=your_youtube_api_key
+
+3. It's all set.
+```
 
 ---
 

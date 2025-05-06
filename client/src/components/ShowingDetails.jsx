@@ -1,3 +1,5 @@
+import '../styles/component_styles/ShowingDetails.css';
+
 function ShowingDetails({ movie, showing }) {
   return (
     <div className="booking-details-wrapper" key={showing.showing_id}>
