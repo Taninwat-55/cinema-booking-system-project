@@ -56,12 +56,6 @@ const Navbar = () => {
             </div>
           </div>
 
-          <div className="logo-container-one">
-            <h3 className="logo-text-one">PawnStorm</h3>
-            <img src="/Logo-final.png" alt="Logo" className="PawnStorm-logo" />
-            <h3 className="text-logo-one">Pictures</h3>
-          </div>
-
           <ul className="menu-options">
             {!user ? (
               <>
@@ -132,6 +126,12 @@ const Navbar = () => {
               </li>
             )}
           </ul>
+        </div>
+
+        <div className="logo-container-one">
+          <h3 className="logo-text-one">PawnStorm</h3>
+          <img src="/Logo-final.png" alt="Logo" className="PawnStorm-logo" />
+          <h3 className="text-logo-one">Pictures</h3>
         </div>
 
         {/* BACK SIDE */}
