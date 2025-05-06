@@ -2,20 +2,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
-  max-width: 300px; /* Optional: limits overall width */
+  max-width: 300px;
   margin: 0 auto;
+  gap: 20px;
 }
 
-.showing-poster {
+.showing-details-poster {
   width: 100%;
   max-width: 200px;
   height: auto;
   border-radius: 5px;
-  margin-bottom: 10px; /* ↓ reduces space between poster and info */
 }
 
-.booking-info {
+.booking-details-info {
   text-align: center;
   padding: 0;
   margin: 0;
