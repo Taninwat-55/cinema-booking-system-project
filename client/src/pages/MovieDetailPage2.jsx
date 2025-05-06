@@ -137,16 +137,6 @@ function MovieDetailPage2() {
               </div>
             )}
           </div>
-          {/* <div className="movie-poster">
-            <div className="trailer-overlay">
-              <iframe
-                src={getEmbedUrl(movie.trailer_url)}
-                title={`${movie.title} Trailer`}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </div>
-          </div> */}
 
           <div className="movie-details">
             <h2 className="movie-detail-title">{movie.title}</h2>

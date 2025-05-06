@@ -1,0 +1,27 @@
+.booking-details-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  max-width: 300px; /* Optional: limits overall width */
+  margin: 0 auto;
+}
+
+.showing-poster {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px; /* ↓ reduces space between poster and info */
+}
+
+.booking-info {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.booking-info h3,
+.booking-info p {
+  margin: 5px 0; /* Shrinks spacing between lines */
+}
