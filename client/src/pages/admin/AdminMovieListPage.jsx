@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import Navbar from '../../components/Navbar';
-import '../../styles/AdminMovieListPage.css';
+import '../../styles/admin_styles/AdminMovieListPage.css';
 
 const AdminMovieListPage = () => {
   const [movies, setMovies] = useState([]);
@@ -84,7 +84,9 @@ const AdminMovieListPage = () => {
               />
             )}
             <h3 className="movie-title">{movie.title}</h3>
-            <h4>{parseInt(movie.length_minutes, 10)} min | {movie.genre}</h4>
+            <h4>
+              {parseInt(movie.length_minutes, 10)} min | {movie.genre}
+            </h4>
             <div className="movie-buttons">
               <button
                 onClick={() => navigate(`/admin/edit-movie/${movie.movie_id}`)}

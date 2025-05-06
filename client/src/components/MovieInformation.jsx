@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import '../styles/MovieInformation.css';
+import '../styles/component_styles/MovieInformation.css';
 
 const MovieInformation = ({
   movie,

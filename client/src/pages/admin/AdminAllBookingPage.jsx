@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar';
-import '../../styles/AdminViewAllBookings.css';
+import '../../styles/admin_styles/AdminViewAllBookings.css';
 
 const AdminAllBookingsPage = () => {
   const [bookings, setBookings] = useState([]);
