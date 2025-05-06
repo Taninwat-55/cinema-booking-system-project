@@ -50,7 +50,6 @@ const AdminAddMoviePage = () => {
     e.preventDefault();
     const endpoint = 'http://localhost:3001/api/admin/movies';
 
-    // Ensure length_minutes is sent as a number
     const payload = {
       ...formData,
       trailer_url: formData.trailer_url || null,

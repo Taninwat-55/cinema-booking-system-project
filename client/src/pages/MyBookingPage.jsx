@@ -54,19 +54,19 @@ const MyBookingPage = () => {
   if (loading) return <p>Loading bookings...</p>;
 
   return (
-    <div className="booking-confirmation-container">
+    <div className="my-booking-confirmation-container">
       <Navbar />
       <h1>My Bookings</h1>
       {bookings.length === 0 ? (
         <p>No bookings found.</p>
       ) : (
         bookings.map((booking) => (
-          <div className="booking-details-wrapper" key={booking.booking_id}>
+          <div className="my-booking-details-wrapper" key={booking.booking_id}>
             {booking.poster_url && (
               <img
                 src={booking.poster_url}
                 alt={booking.movie_title}
-                className="booking-poster"
+                className="my-booking-poster"
               />
             )}
 
