@@ -25,7 +25,11 @@
   border-radius: 6px;
   border: 1px solid #ccc;
   background-color: transparent;
-  color: white;
+  color: back;
+}
+
+.filter-inputs option {
+  color: black;
 }
 
 @media (max-width: 768px) {
