@@ -2,23 +2,21 @@
   text-align: center;
 }
 
-.booking-details-wrapper {
+.booking-confirmation-details-wrapper {
   display: flex;
   gap: 20px;
   align-items: flex-start;
   margin-bottom: 20px;
 }
 
-.booking-poster {
+.booking-confirmation-poster {
   width: 250px;
   height: auto;
   border-radius: 8px;
-  margin-bottom: 20px;
 }
 
-.booking-info {
+.booking-confirmation-info {
   flex: 1;
-  margin-top: 4.5rem;
 }
 
 .booking-number {
