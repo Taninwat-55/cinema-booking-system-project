@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
-import { UserContext } from '../context/UserContext';
 import '../styles/component_styles/MovieCard.css';
-import '../styles/WatchlistButton.css';
+import '../styles/component_styles/WatchlistButton.css';
 import WatchlistButton from './WatchlistButton';
 
 const MovieCard = ({ movie, watchlist, setWatchlist }) => {
