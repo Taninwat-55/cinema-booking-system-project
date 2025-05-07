@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
-import '../styles/component_styles/loadingPage.css'; 
+import '../styles/component_styles/loadingPage.css';
 
 const LoadingPage = () => {
   const [loading, setLoading] = useState(true);
@@ -7,7 +8,7 @@ const LoadingPage = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 4800); 
+    }, 4800);
     return () => clearTimeout(timer);
   }, []);
   
@@ -21,8 +22,7 @@ const LoadingPage = () => {
       </div>
     );
   }
-
-  return null; 
+  return null;
 };
 
 export default LoadingPage;
