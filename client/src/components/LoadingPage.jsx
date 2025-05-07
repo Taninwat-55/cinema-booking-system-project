@@ -11,8 +11,6 @@ const LoadingPage = () => {
     }, 4800);
     return () => clearTimeout(timer);
   }, []);
-  
-  
 
   if (loading) {
     return (
