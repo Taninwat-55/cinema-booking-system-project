@@ -36,6 +36,8 @@ This is a full-stack cinema booking system built with:
 - [x] View all user bookings
 
 ```
+⚠️ If you skip the YouTube API setup, you can still add movies — trailers will just not auto-fetch.
+
 In order for you to be able to fetch the trailers automatically when adding a movie, you'll need Google Cloud API key. In order to do that, you'll need to:
 
 1. Get a Youtube API key
@@ -116,7 +118,7 @@ Password: adminpassword
 ### 4. Run the Backend Server
 
 ```bash
-nodemone server.js | node server.js
+nodemon server.js | node server.js
 ```
 
 ### 5. Run the Frontend (React Vite)
