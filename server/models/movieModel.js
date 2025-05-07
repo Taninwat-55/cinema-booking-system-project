@@ -3,11 +3,19 @@ const fetch = require('node-fetch');
 require('dotenv').config();
 
 async function getYoutubeTrailer(title) {
-  const query = `${title} trailer`;
   const apiKey = process.env.YOUTUBE_API_KEY;
+
+  if (!apiKey) {
+    console.warn('YOUTUBE_API_KEY is not set — skipping trailer fetch.');
+    return ''; // ⛔️ fallback to no trailer
+  }
+
+  const query = `${title} trailer`;
   const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(
     query
   )}&key=${apiKey}&type=video&maxResults=1`;
+
+  console.warn(`No trailer found for "${title}"`);
 
   try {
     const res = await fetch(searchUrl);
@@ -24,6 +32,29 @@ async function getYoutubeTrailer(title) {
     return '';
   }
 }
+
+// async function getYoutubeTrailer(title) {
+//   const query = `${title} trailer`;
+//   const apiKey = process.env.YOUTUBE_API_KEY;
+//   const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(
+//     query
+//   )}&key=${apiKey}&type=video&maxResults=1`;
+
+//   try {
+//     const res = await fetch(searchUrl);
+//     const data = await res.json();
+
+//     if (data.items && data.items.length > 0) {
+//       const videoId = data.items[0].id.videoId;
+//       return `https://www.youtube.com/watch?v=${videoId}`;
+//     } else {
+//       return '';
+//     }
+//   } catch (err) {
+//     console.error('YouTube API Error:', err.message);
+//     return '';
+//   }
+// }
 
 function getAllMovies(searchTerm = '', genre = '', year = '') {
   let query = 'SELECT * FROM movies WHERE 1=1';

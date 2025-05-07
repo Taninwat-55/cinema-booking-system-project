@@ -106,7 +106,12 @@ node seeds/setup.js
 node seeds/insertMovies.js
 node seeds/insertSeats.js
 node seeds/insertShowings.js
+node seeds/insertAdmin.js
 ```
+
+After running insertAdmin, here are Admin's email and password:
+Email: admin@email.com
+Password: adminpassword
 
 ### 4. Run the Backend Server
 
