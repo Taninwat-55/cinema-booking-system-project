@@ -5,7 +5,6 @@ import Navbar from '../components/Navbar';
 import ShowingDetails from '../components/ShowingDetails';
 import TicketSelector from '../components/TicketSelector';
 import SeatSelector from '../components/SeatSelector';
-// import '../styles/SalonBookingPage.css';
 import '../styles/BookingPage.css';
 
 function BookingPage() {

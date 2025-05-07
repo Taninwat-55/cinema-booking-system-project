@@ -1,3 +1,5 @@
+import '../styles/component_styles/ShowingDetails.css';
+
 function ShowingDetails({ movie, showing }) {
   return (
     <div className="booking-details-wrapper" key={showing.showing_id}>
@@ -5,10 +7,10 @@ function ShowingDetails({ movie, showing }) {
         <img
           src={movie.poster_url}
           alt={movie.title}
-          className="showing-poster"
+          className="showing-details-poster"
         />
       )}
-      <div className="booking-info">
+      <div className="booking-details-info">
         <h3>{showing.title || 'Title not available'}</h3>
         <p>
           Theater {showing.theater_id || 'N/A'} |{' '}

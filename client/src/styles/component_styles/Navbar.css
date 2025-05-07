@@ -4,14 +4,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem; /* space between elements */
+  gap: 1rem; 
   padding: 1rem 0;
 }
 
 .logo-text,
 .text-logo {
   font-family: var(--font--family);
-  font-size: 1.2rem; /* slightly smaller */
+  font-size: 1.2rem; 
   color: #fff;
   letter-spacing: 2px;
   margin: 0;
@@ -19,20 +19,21 @@
 
 .logo-container-one {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 0.5rem; /* Adjust space between text and logo */
-  flex: 1; /* Take equal width as the left and right sections */
+  pointer-events: auto;
+  cursor: pointer;
+  position: relative;
+  z-index: 3;
 }
 
 .PawnStorm-logo {
-  width: 3rem; /* Adjust logo size */
+  width: 3rem; 
 }
 
 .logo-text-one,
 .text-logo-one {
   font-family: var(--font--family);
-  font-size: 1.2rem; /* Smaller font size */
+  font-size: 1.2rem; 
   color: #fff;
   margin: 0;
   letter-spacing: 2px;
@@ -73,30 +74,36 @@
 .navbar-front,
 .navbar-back {
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  backface-visibility: hidden;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  transition: transform 0.6s ease;
+  backface-visibility: hidden;
   transform-style: preserve-3d;
+  padding: 0 20px;
   border-radius: 16px;
-  padding: 0;
+  transition: transform 0.6s ease;
+}
+
+.left-section,
+.center-logo,
+.right-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .navbar-front {
   transform: rotateX(0deg);
   z-index: 2;
+  background-color: transparent;
 }
 
 .navbar-back {
   transform: rotateX(180deg);
   z-index: 1;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 15px;
+  background-color: transparent;
 }
 
 .navbar-container.flipped .navbar-front {
@@ -110,10 +117,28 @@
 }
 
 .left-section {
+  justify-content: flex-start;
+}
+
+.right-section {
+  justify-content: flex-end;
+  padding-right: 20px;
+  min-width: 0;
+  overflow: visible;
+}
+
+.center-logo {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.navbar-row {
   display: flex;
+  width: 100%;
+  height: 100%;
   align-items: center;
-  gap: 12px;
-  margin-left: 20px;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .menu-icon {
@@ -179,6 +204,8 @@
   gap: 20px;
   width: auto;
   justify-content: flex-end;
+  flex-wrap: nowrap; 
+  align-items: center;
 }
 
 .menu-options li a {
@@ -186,6 +213,7 @@
   color: #fff;
   font-size: 16px;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .menu-options li a:hover {
@@ -201,7 +229,6 @@
   object-fit: cover;
 }
 
-
 /* === FAB Button Animation === */
 .fixed-action-btn.spin-close .btn-large {
   position: relative;
@@ -214,7 +241,8 @@
 
 .fixed-action-btn.spin-close .btn-large i {
   opacity: 1;
-  transition: transform var(--fab-close-animation-time), opacity var(--fab-close-animation-time);
+  transition: transform var(--fab-close-animation-time),
+    opacity var(--fab-close-animation-time);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -222,7 +250,7 @@
 
 .fixed-action-btn.spin-close .btn-large::before,
 .fixed-action-btn.spin-close .btn-large::after {
-  content: " ";
+  content: ' ';
   position: absolute;
   top: 50%;
   left: 50%;
@@ -233,7 +261,8 @@
   margin-left: calc(-1 * var(--fab-close-line-length) / 2);
   transform: rotate(0);
   opacity: 0;
-  transition: transform var(--fab-close-animation-time), opacity var(--fab-close-animation-time);
+  transition: transform var(--fab-close-animation-time),
+    opacity var(--fab-close-animation-time);
 }
 
 .fixed-action-btn.spin-close.active .btn-large i {
@@ -277,7 +306,8 @@
   z-index: 10;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease, transform var(--slide-in-duration, 0.4s) ease-in-out;
+  transition: opacity 0.3s ease,
+    transform var(--slide-in-duration, 0.4s) ease-in-out;
 }
 
 .profile-dropdown .dropdown-menu.show {
@@ -305,7 +335,9 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   opacity: 0;
   transform: translateX(-30px);
-  transition: background 0.2s ease, transform var(--slide-in-duration, 0.4s) ease-in-out, opacity var(--slide-in-duration, 0.4s) ease-in-out;
+  transition: background 0.2s ease,
+    transform var(--slide-in-duration, 0.4s) ease-in-out,
+    opacity var(--slide-in-duration, 0.4s) ease-in-out;
 }
 
 /* === Animate In - Unique Classes for Staggering === */

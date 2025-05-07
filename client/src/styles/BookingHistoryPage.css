@@ -2,14 +2,14 @@
     text-align: center;
   }
   
-  .booking-details-wrapper {
+  .history-booking-details-wrapper {
     display: flex;
     gap: 20px;
     align-items: flex-start;
     margin-bottom: 20px;
   }
   
-  .booking-poster {
+  .history-booking-poster {
     width: 250px;
     height: auto;
     border-radius: 8px;

@@ -42,11 +42,11 @@ function getShowingsByMovieIdAndDate(movieId, date) {
   return db
     .prepare(
       `
-      SELECT showing_id, showing_time, theater_id
-      FROM showings
-      WHERE movie_id = ?
-      AND DATE(showing_time) = ?
-      ORDER BY showing_time
+      SELECT s.showing_id, s.showing_time, s.theater_id, m.poster_url, m.title
+      FROM showings s
+      JOIN movies m ON s.movie_id = m.movie_id
+      WHERE s.movie_id = ? AND DATE(s.showing_time) = ?
+      ORDER BY s.showing_time
     `
     )
     .all(movieId, date);
@@ -115,7 +115,7 @@ function getAllShowingsByDate(date) {
   return db
     .prepare(
       `
-      SELECT s.*, m.title
+      SELECT s.*, m.title, m.poster_url
       FROM showings s
       JOIN movies m ON s.movie_id = m.movie_id
       WHERE DATE(s.showing_time) = ?

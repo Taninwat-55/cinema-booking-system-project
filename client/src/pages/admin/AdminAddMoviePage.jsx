@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
-import '../../styles/AdminAddMoviePage.css';
+import '../../styles/admin_styles/AdminAddMoviePage.css';
 import { toast } from 'react-hot-toast';
 
 const genreOptions = [
@@ -50,7 +50,6 @@ const AdminAddMoviePage = () => {
     e.preventDefault();
     const endpoint = 'http://localhost:3001/api/admin/movies';
 
-    // Ensure length_minutes is sent as a number
     const payload = {
       ...formData,
       trailer_url: formData.trailer_url || null,

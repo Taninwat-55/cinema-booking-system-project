@@ -81,10 +81,34 @@ function cancelBookingById(req, res) {
   }
 }
 
+function claimBooking(req, res) {
+  const { booking_number, user_id } = req.body;
+
+  if (!booking_number || !user_id) {
+    return res.status(400).json({ error: 'Missing booking number or user ID' });
+  }
+
+  const result = db
+    .prepare(
+      'UPDATE bookings SET user_id = ? WHERE booking_number = ? AND user_id IS NULL'
+    )
+    .run(user_id, booking_number);
+
+  if (result.changes === 0) {
+    return res
+      .status(404)
+      .json({ error: 'Booking not found or already claimed' });
+  }
+
+  res.json({ message: 'Booking successfully linked to your account' });
+  console.log('Attempting to claim booking for:', req.body);
+}
+
 module.exports = {
   createBooking,
   getBookingsByUserId,
   getBookingByBookingNumber,
   trackBookingByNumber,
   cancelBookingById,
+  claimBooking,
 };

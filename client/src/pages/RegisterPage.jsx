@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import '../styles/RegisterPage.css';
 import { toast } from 'react-hot-toast';
+import { useContext } from 'react';
+import { UserContext } from '../context/UserContext';
 
 const RegisterPage = () => {
   const [form, setForm] = useState({ email: '', password: '', name: '' });
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -25,11 +28,45 @@ const RegisterPage = () => {
     const data = await res.json();
 
     if (res.ok) {
+      const userData = {
+        ...data.user,
+        token: data.token,
+        expiry: new Date().getTime() + 60 * 60 * 1000,
+      };
+
+      localStorage.setItem('user', JSON.stringify(userData));
+      setUser(userData);
       setMessage('');
-      toast.success('Registered successfully! Please login.');
-      setTimeout(() => navigate('/login'), 1500);
-    } else {
-      toast.error(data.error);
+      toast.success('Registered and logged in successfully!');
+
+      const pendingBooking = localStorage.getItem('pending_booking');
+      if (pendingBooking) {
+        try {
+          const claimRes = await fetch(
+            'http://localhost:3001/api/bookings/claim',
+            {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                booking_number: pendingBooking,
+                user_id: userData.user_id,
+              }),
+            }
+          );
+
+          const result = await claimRes.json();
+          if (claimRes.ok) {
+            console.log(result.message || 'Booking claimed');
+            localStorage.removeItem('pending_booking');
+          } else {
+            console.warn('Booking claim failed:', result.error);
+          }
+        } catch (err) {
+          console.error('Failed to claim booking:', err);
+        }
+      }
+
+      setTimeout(() => navigate('/'), 1500);
     }
   };
 

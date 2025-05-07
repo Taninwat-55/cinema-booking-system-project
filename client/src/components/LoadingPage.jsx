@@ -1,7 +1,6 @@
-// This will both handle the logic and render the UI
 
 import React, { useState, useEffect } from 'react';
-import '../styles/component_styles/loadingPage.css'; // Adjust the path as necessary
+import '../styles/component_styles/loadingPage.css';
 
 const LoadingPage = () => {
   const [loading, setLoading] = useState(true);
@@ -9,7 +8,7 @@ const LoadingPage = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 4800); // Matches animation timing
+    }, 4800);
     return () => clearTimeout(timer);
   }, []);
   
@@ -23,8 +22,7 @@ const LoadingPage = () => {
       </div>
     );
   }
-
-  return null; // or you could redirect/render the app if used inside a wrapper
+  return null;
 };
 
 export default LoadingPage;

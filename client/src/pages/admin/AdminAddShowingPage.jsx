@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
-import '../../styles/AdminAddShowingPage.css';
+import '../../styles/admin_styles/AdminAddShowingPage.css';
 import { toast } from 'react-hot-toast';
 
 const AdminAddShowingPage = () => {

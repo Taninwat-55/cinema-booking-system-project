@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import Navbar from '../../components/Navbar';
-import '../../styles/AdminEditMoviePage.css';
+import '../../styles/admin_styles/AdminEditMoviePage.css';
 
 const AdminEditMoviePage = () => {
   const { id } = useParams();

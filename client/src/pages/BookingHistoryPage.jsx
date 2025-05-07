@@ -55,12 +55,12 @@ const BookingHistoryPage = () => {
         <p>No past bookings.</p>
       ) : (
         bookings.map((booking) => (
-          <div className="booking-details-wrapper" key={booking.booking_id}>
+          <div className="history-booking-details-wrapper" key={booking.booking_id}>
             {booking.poster_url && (
               <img
                 src={booking.poster_url}
                 alt={booking.movie_title}
-                className="booking-poster"
+                className="history-booking-poster"
               />
             )}
             <div className="booking-info">

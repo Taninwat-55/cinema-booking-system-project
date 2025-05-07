@@ -29,18 +29,18 @@ export default function BookingConfirmationPage() {
     <div className="booking-confirmation-container">
       <Navbar />
       <h1>Booking Successful!</h1>
-      <div className="booking-details-wrapper">
+      <div className="booking-confirmation-details-wrapper">
         {booking.poster_url ? (
           <img
             src={booking.poster_url}
             alt={booking.movie_title}
-            className="booking-poster"
+            className="booking-confirmation-poster"
           />
         ) : (
           <p>No Poster Available</p>
         )}
 
-        <div className="booking-info">
+        <div className="booking-confirmation-info">
           <h2>Your Booking Number:</h2>
           <h2 className="booking-number">{bookingNumber}</h2>
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
-import '../../styles/AdminDashboardPage.css';
+import '../../styles/admin_styles/AdminDashboardPage.css';
 
 const AdminDashboardPage = () => {
   const [stats, setStats] = useState({});

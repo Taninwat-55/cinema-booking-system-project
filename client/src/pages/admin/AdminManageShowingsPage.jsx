@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import Navbar from '../../components/Navbar';
-import '../../styles/AdminManageShowingPage.css';
+import '../../styles/admin_styles/AdminManageShowingPage.css';
 
 const AdminManageShowingsPage = () => {
   const [showings, setShowings] = useState([]);
