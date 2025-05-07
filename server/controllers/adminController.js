@@ -27,6 +27,11 @@ async function createMovie(req, res) {
 
   try {
     if (useOmdb) {
+      if (!apiKey) {
+        return res
+          .status(400)
+          .json({ error: 'OMDb API key is missing in server environment.' });
+      }
       const result = await movieModel.createMovieFromOMDb(title, apiKey);
       if (result.error === 'exists') {
         return res.status(400).json({ message: 'Movie already exists.' });
