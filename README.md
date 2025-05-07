@@ -47,6 +47,16 @@ In order for you to be able to fetch the trailers automatically when adding a mo
 3. It's all set.
 ```
 
+# Important Note:
+
+## 🔑 Environment Variables
+
+Before running the backend, create a `.env` file inside the `/server` folder with the following: 
+
+JWT_SECRET=my_super_secret_key_123
+
+You can use any string as the secret. This is required for login/register to work.
+
 ---
 
 ## Tech Stack Overview
@@ -96,7 +106,12 @@ node seeds/setup.js
 node seeds/insertMovies.js
 node seeds/insertSeats.js
 node seeds/insertShowings.js
+node seeds/insertAdmin.js
 ```
+
+After running insertAdmin, here are Admin's email and password:
+Email: admin@email.com
+Password: adminpassword
 
 ### 4. Run the Backend Server
 

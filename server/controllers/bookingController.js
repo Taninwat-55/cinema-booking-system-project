@@ -101,7 +101,6 @@ function claimBooking(req, res) {
   }
 
   res.json({ message: 'Booking successfully linked to your account' });
-  console.log('Attempting to claim booking for:', req.body);
 }
 
 module.exports = {
