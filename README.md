@@ -1,11 +1,6 @@
 # Cinema Booking System Project
 
-This is a full-stack cinema booking system built with:
-
-- Frontend: React (Vite) + React Router + Context API
-- Backend: Express.js + SQLite (better-sqlite3)
-- RESTful API Design
-- Clean Folder Structure for Beginner-Friendly Collaboration
+A full-stack cinema booking system where users can browse movies, view showtimes, select seats, and book tickets. Admins can manage movies and showings with ease.
 
 ---
 
