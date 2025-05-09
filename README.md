@@ -9,58 +9,6 @@ This is a full-stack cinema booking system built with:
 
 ---
 
-## Features Completed ✅
-
-### User Features
-
-- [x] Landing Page — Show all movies
-- [x] Movie Detail Page — Show movie details, trailers, and showings
-- [x] Add movies to a personal Watchlist (for logged-in users)
-- [x] View a list of current movies
-- [x] Booking Page — Select ticket types (Adult, Child, Senior) + calculated total price
-- [x] Seat Selection — Visual seat map with availability
-- [x] Booking Confirmation — Generate unique booking number
-- [x] Book a movie without log-in
-- [x] Auto Delete Old Bookings
-- [x] Create an account and log in
-- [x] Login State Management (Context API)
-- [x] View My Bookings (Upcoming & History)
-- [x] User Profile & User Update
-
-### Admin System
-
-- [x] Admin can create, read, delete movies
-- [x] Admin can add, edit and delete showings for movies
-- [x] Search & Filter by title and genre
-- [x] Admin Dashboard Stats
-- [x] View all user bookings
-
-```
-⚠️ If you skip the YouTube API setup, you can still add movies — trailers will just not auto-fetch.
-
-In order for you to be able to fetch the trailers automatically when adding a movie, you'll need Google Cloud API key. In order to do that, you'll need to:
-
-1. Get a Youtube API key
-- Go to Google Developers Console and enable Youtube Data API v3. Then create a key from Credentials page.
-
-2. Update the .env by adding your Youtube API key.
-- YOUTUBE_API_KEY=your_youtube_api_key
-
-3. It's all set.
-```
-
-# Important Note:
-
-## 🔑 Environment Variables
-
-Before running the backend, create a `.env` file inside the `/server` folder with the following: 
-
-JWT_SECRET=my_super_secret_key_123
-
-You can use any string as the secret. This is required for login/register to work.
-
----
-
 ## Tech Stack Overview
 
 | Tech           | Usage                        |
@@ -75,6 +23,44 @@ You can use any string as the secret. This is required for login/register to wor
 
 ---
 
+## Features Completed ✅
+
+### User Features
+
+- [x] Landing Page — View all movies
+- [x] Movie Detail Page — Trailers, descriptions, and showings
+- [x] Add to Watchlist (logged-in users)
+- [x] Filter movies by title, genre, or year
+- [x] Book Tickets — Adult, Child, Senior
+- [x] Visual Seat Selection
+- [x] Booking Confirmation with Unique Number
+- [x] Book as Guest (no login required)
+- [x] Auto-delete old bookings
+- [x] Register & Login
+- [x] My Bookings — Upcoming & History
+- [x] Profile Page — Update info, delete account
+
+### Admin System
+
+- [x] Add, Edit, Delete Movies
+- [x] Add, Edit, Delete Showings
+- [x] Dashboard Stats (total movies, showings, bookings, popular movie)
+- [x] View all bookings
+- [x] Filter bookings by user, movie, or date
+
+## 🔑 Environment Variables
+
+Create a `.env` file inside the `/server` folder with the following:
+
+```bash
+OMDB_API_KEY=your_omdb_api_key_here
+YOUTUBE_API_KEY=your_youtube_api_key_here
+JWT_SECRET=your_super_secret_key
+```
+You can use .env.example as a reference.
+
+---
+
 ## Getting Started (Clone & Run)
 
 ### 1. Clone the Repository
@@ -85,8 +71,6 @@ cd cinema-booking-system-project
 ```
 
 ### 2. Install Dependencies
-
-Install both frontend and backend dependencies:
 
 ```bash
 # For Backend
@@ -111,7 +95,7 @@ node seeds/insertShowings.js
 node seeds/insertAdmin.js
 ```
 
-After running insertAdmin, here are Admin's email and password:
+🔐 Admin Credentials:
 Email: admin@email.com
 Password: adminpassword
 
@@ -135,7 +119,16 @@ npm run dev
 Open in your browser:
 
 ```
-http://localhost:5173 or http://localhost:5174
+http://localhost:5173
 ```
 
 ---
+
+## 🎞️ Optional: YouTube Trailer Auto-Fetch Setup
+
+You can skip this if you’re okay with adding trailers manually.
+
+1.	Go to Google Cloud Console
+2.	Enable YouTube Data API v3
+3.	Create an API key under Credentials
+4.	Add it to your .env as YOUTUBE_API_KEY
