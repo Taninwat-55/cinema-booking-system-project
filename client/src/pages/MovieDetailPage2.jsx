@@ -6,6 +6,8 @@ import '../styles/MovieDetailPage2.css';
 import Navbar from '../components/Navbar';
 import MovieDetail from '../components/MovieDetails';
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+
 function MovieDetailPage2() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
@@ -16,12 +18,12 @@ function MovieDetailPage2() {
   const { fetchWatchlist } = useContext(WatchlistContext);
 
   useEffect(() => {
-    fetch(`http://localhost:3001/api/movies/${id}`)
+    fetch(`${BASE_URL}/api/movies/${id}`)
       .then((res) => res.json())
       .then((data) => setMovie(data));
 
     if (user) {
-      fetch(`http://localhost:3001/api/users/${user.user_id}/watchlist`, {
+      fetch(`${BASE_URL}/api/users/${user.user_id}/watchlist`, {
         headers: { Authorization: `Bearer ${user.token}` },
       })
         .then((res) => res.json())
@@ -34,8 +36,8 @@ function MovieDetailPage2() {
 
   useEffect(() => {
     const url = selectedDate
-      ? `http://localhost:3001/api/showings/movie/${id}?date=${selectedDate}`
-      : `http://localhost:3001/api/showings/movie/${id}`;
+      ? `${BASE_URL}/api/showings/movie/${id}?date=${selectedDate}`
+      : `${BASE_URL}/api/showings/movie/${id}`;
 
     fetch(url)
       .then((res) => res.json())
@@ -72,7 +74,7 @@ function MovieDetailPage2() {
   const embedUrl = getEmbedUrl(movie?.trailer_url);
 
   const handleAddWatchlist = () => {
-    fetch('http://localhost:3001/api/watchlist', {
+    fetch(`${BASE_URL}/api/watchlist`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -89,7 +91,7 @@ function MovieDetailPage2() {
   };
 
   const handleRemoveWatchlist = () => {
-    fetch('http://localhost:3001/api/watchlist', {
+    fetch(`${BASE_URL}/api/watchlist`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

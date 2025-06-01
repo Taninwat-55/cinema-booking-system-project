@@ -17,7 +17,6 @@ async function registerUser(req, res) {
   const hashedPassword = await bcrypt.hash(password, 10);
   userModel.createUser(email, hashedPassword, name);
 
-  // 🔍 Get newly created user
   const newUser = userModel.getUserByEmail(email);
 
   // 🔑 Generate token

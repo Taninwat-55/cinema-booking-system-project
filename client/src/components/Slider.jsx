@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import '../styles/component_styles/Slider.css';
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+
 export default function Slider() {
   const [movies, setMovies] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/movies')
+    fetch(`${BASE_URL}/api/movies`)
       .then((res) => {
         if (!res.ok) throw new Error('Error fetching movies');
         return res.json();
@@ -28,8 +30,8 @@ export default function Slider() {
   if (!movies.length) return null;
 
   return (
-    <div className="slider-container">
-      <div className="options">
+    <div className='slider-container'>
+      <div className='options'>
         {movies.map((movie, index) => (
           <div
             key={movie._id || index}
@@ -41,14 +43,14 @@ export default function Slider() {
             }}
             onClick={() => setActiveIndex(index)}
           >
-            <div className="shadow"></div>
-            <div className="label">
+            <div className='shadow'></div>
+            <div className='label'>
               {/* <div className="icon">
                 <i className="fas fa-film"></i>
               </div> */}
-              <div className="info">
-                <div className="main">{movie.title}</div>
-                <div className="sub">{movie.release_year}</div>
+              <div className='info'>
+                <div className='main'>{movie.title}</div>
+                <div className='sub'>{movie.release_year}</div>
               </div>
             </div>
           </div>

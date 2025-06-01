@@ -4,6 +4,8 @@ import Navbar from '../../components/Navbar';
 import '../../styles/admin_styles/AdminAddMoviePage.css';
 import { toast } from 'react-hot-toast';
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+
 const genreOptions = [
   'Action',
   'Adventure',
@@ -48,8 +50,7 @@ const AdminAddMoviePage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const endpoint = 'http://localhost:3001/api/admin/movies';
-
+    const endpoint = `${BASE_URL}/api/admin/movies`;
     const payload = {
       ...formData,
       trailer_url: formData.trailer_url || null,
@@ -89,34 +90,34 @@ const AdminAddMoviePage = () => {
   return (
     <>
       <Navbar />
-      <div className="add-movie-page">
-        <h1 className="add-movie-heading">Add New Movie</h1>
-        <form onSubmit={handleSubmit} className="movie-form">
-          <label className="omdb-checkbox">
+      <div className='add-movie-page'>
+        <h1 className='add-movie-heading'>Add New Movie</h1>
+        <form onSubmit={handleSubmit} className='movie-form'>
+          <label className='omdb-checkbox'>
             <input
-              type="checkbox"
-              name="useOmdb"
+              type='checkbox'
+              name='useOmdb'
               checked={formData.useOmdb}
               onChange={handleChange}
             />
-            <span className="checkbox-icon"></span>
+            <span className='checkbox-icon'></span>
             Fetch from OMDb
           </label>
 
           <input
-            type="text"
-            name="title"
-            placeholder="Movie Title"
+            type='text'
+            name='title'
+            placeholder='Movie Title'
             value={formData.title}
             onChange={handleChange}
             required
           />
 
           {!formData.useOmdb && (
-            <div className="manual-entry-fields">
+            <div className='manual-entry-fields'>
               <textarea
-                name="description"
-                placeholder="Description"
+                name='description'
+                placeholder='Description'
                 value={formData.description}
                 onChange={(e) => {
                   handleChange(e);
@@ -127,52 +128,52 @@ const AdminAddMoviePage = () => {
               />
 
               <input
-                type="text"
-                name="poster_url"
-                placeholder="Poster URL"
+                type='text'
+                name='poster_url'
+                placeholder='Poster URL'
                 value={formData.poster_url}
                 onChange={handleChange}
                 required
               />
               <input
-                type="text"
-                name="trailer_url"
-                placeholder="Trailer URL"
+                type='text'
+                name='trailer_url'
+                placeholder='Trailer URL'
                 value={formData.trailer_url}
                 onChange={handleChange}
               />
               <input
-                type="number"
-                name="release_year"
-                placeholder="Release Year"
+                type='number'
+                name='release_year'
+                placeholder='Release Year'
                 value={formData.release_year}
                 onChange={handleChange}
                 required
               />
               <input
-                type="number"
-                name="length_minutes"
-                placeholder="Length (minutes)"
+                type='number'
+                name='length_minutes'
+                placeholder='Length (minutes)'
                 value={formData.length_minutes}
                 onChange={handleChange}
                 required
               />
               <input
-                type="number"
-                step="0.1"
-                name="imdb_rating"
-                placeholder="IMDb Rating"
+                type='number'
+                step='0.1'
+                name='imdb_rating'
+                placeholder='IMDb Rating'
                 value={formData.imdb_rating}
                 onChange={handleChange}
                 required
               />
               <select
-                name="genre"
+                name='genre'
                 value={formData.genre}
                 onChange={handleChange}
                 required
               >
-                <option value="">Select Genre</option>
+                <option value=''>Select Genre</option>
                 {genreOptions.map((g, idx) => (
                   <option key={idx} value={g}>
                     {g}
@@ -182,13 +183,13 @@ const AdminAddMoviePage = () => {
             </div>
           )}
 
-          <button type="submit">Add Movie</button>
+          <button type='submit'>Add Movie</button>
         </form>
 
-        {message && <div className="form-response">{message}</div>}
+        {message && <div className='form-response'>{message}</div>}
       </div>
-      <div className="circle-one"></div>
-      <div className="circle-two"></div>
+      <div className='circle-one'></div>
+      <div className='circle-two'></div>
     </>
   );
 };

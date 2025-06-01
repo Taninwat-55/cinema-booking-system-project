@@ -5,6 +5,8 @@ import Navbar from '../components/Navbar';
 import '../styles/UpdateUserInfoPage.css';
 import { toast } from 'react-hot-toast';
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+
 const UpdateUserInfoPage = () => {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
@@ -21,7 +23,7 @@ const UpdateUserInfoPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch(`http://localhost:3001/api/users/${user.user_id}`, {
+    const res = await fetch(`${BASE_URL}/api/users/${user.user_id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

@@ -5,6 +5,8 @@ import Navbar from '../components/Navbar';
 import MovieCard from '../components/MovieCard';
 import '../styles/WatchlistPage.css';
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+
 function WatchlistPage() {
   const [watchlist, setWatchlist] = useState([]);
   const { user, setUser } = useContext(UserContext);
@@ -13,7 +15,7 @@ function WatchlistPage() {
   useEffect(() => {
     const fetchWatchlist = () => {
       if (user) {
-        fetch(`http://localhost:3001/api/users/${user.user_id}/watchlist`, {
+        fetch(`${BASE_URL}/api/users/${user.user_id}/watchlist`, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
@@ -31,17 +33,14 @@ function WatchlistPage() {
       }
     };
 
-    // Fetch initially
     fetchWatchlist();
 
-    // Listen to the custom event
     const handleWatchlistUpdated = () => {
       fetchWatchlist();
     };
 
     window.addEventListener('watchlistUpdated', handleWatchlistUpdated);
 
-    // Cleanup
     return () => {
       window.removeEventListener('watchlistUpdated', handleWatchlistUpdated);
     };
@@ -49,7 +48,7 @@ function WatchlistPage() {
 
   if (!user) {
     return (
-      <p className="watchlist-page">
+      <p className='watchlist-page'>
         You need to log in to see your watchlist.
       </p>
     );
@@ -60,15 +59,15 @@ function WatchlistPage() {
   return (
     <>
       <Navbar />
-      <div className="watchlist-page">
+      <div className='watchlist-page'>
         {!Array.isArray(watchlist) ? (
           <p>Loading or something went wrong...</p>
         ) : watchlist.length === 0 ? (
-          <div className="empty-watchlist">
+          <div className='empty-watchlist'>
             <p>Your watchlist is empty.</p>
           </div>
         ) : (
-          <div className="movie-list">
+          <div className='movie-list'>
             {watchlist.map((movie) => (
               <MovieCard
                 key={movie.movie_id}
@@ -82,8 +81,8 @@ function WatchlistPage() {
           </div>
         )}
       </div>
-      <div className="circle-one"></div>
-      <div className="circle-two"></div>
+      <div className='circle-one'></div>
+      <div className='circle-two'></div>
     </>
   );
 }

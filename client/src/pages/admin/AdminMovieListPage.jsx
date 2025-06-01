@@ -4,6 +4,8 @@ import { toast } from 'react-hot-toast';
 import Navbar from '../../components/Navbar';
 import '../../styles/admin_styles/AdminMovieListPage.css';
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+
 const AdminMovieListPage = () => {
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -11,7 +13,7 @@ const AdminMovieListPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/admin/movies')
+    fetch(`${BASE_URL}/api/admin/movies`)
       .then((res) => res.json())
       .then((data) => setMovies(data));
   }, []);
@@ -37,7 +39,7 @@ const AdminMovieListPage = () => {
 
     if (!confirmDelete) return;
 
-    const res = await fetch(`http://localhost:3001/api/admin/movies/${id}`, {
+    const res = await fetch(`${BASE_URL}/api/admin/movies/${id}`, {
       method: 'DELETE',
     });
 
@@ -54,18 +56,18 @@ const AdminMovieListPage = () => {
       <Navbar />
       <h1>Manage Movies</h1>
       <input
-        type="text"
-        placeholder="Search by title..."
+        type='text'
+        placeholder='Search by title...'
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
 
       <select
-        id="genre-select-admin-movies"
+        id='genre-select-admin-movies'
         value={selectedGenre}
         onChange={(e) => setSelectedGenre(e.target.value)}
       >
-        <option value="">All Genres</option>
+        <option value=''>All Genres</option>
         {genres.map((genre, idx) => (
           <option key={idx} value={genre}>
             {genre}
@@ -73,21 +75,21 @@ const AdminMovieListPage = () => {
         ))}
       </select>
 
-      <ul className="movie-list">
+      <ul className='movie-list'>
         {filteredMovies.map((movie) => (
-          <li key={movie.movie_id} className="movie-card">
+          <li key={movie.movie_id} className='movie-card'>
             {movie.poster_url && (
               <img
                 src={movie.poster_url}
                 alt={movie.title}
-                className="movie-poster"
+                className='movie-poster'
               />
             )}
-            <h3 className="movie-title">{movie.title}</h3>
+            <h3 className='movie-title'>{movie.title}</h3>
             <h4>
               {parseInt(movie.length_minutes, 10)} min | {movie.genre}
             </h4>
-            <div className="movie-buttons">
+            <div className='movie-buttons'>
               <button
                 onClick={() => navigate(`/admin/edit-movie/${movie.movie_id}`)}
               >
@@ -100,8 +102,8 @@ const AdminMovieListPage = () => {
           </li>
         ))}
       </ul>
-      <div className="circle-one"></div>
-      <div className="circle-two"></div>
+      <div className='circle-one'></div>
+      <div className='circle-two'></div>
     </div>
   );
 };

@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/MyBookingPage.css';
 import Navbar from '../components/Navbar';
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+
 const MyBookingPage = () => {
   const { user } = useContext(UserContext);
   const [bookings, setBookings] = useState([]);
@@ -19,7 +21,7 @@ const MyBookingPage = () => {
     const fetchBookings = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3001/api/bookings/user/${user.user_id}`,
+          `${BASE_URL}/api/bookings/user/${user.user_id}`,
           {
             headers: {
               Authorization: `Bearer ${user.token}`,
@@ -54,25 +56,25 @@ const MyBookingPage = () => {
   if (loading) return <p>Loading bookings...</p>;
 
   return (
-    <div className="my-booking-confirmation-container">
+    <div className='my-booking-confirmation-container'>
       <Navbar />
       <h1>My Bookings</h1>
       {bookings.length === 0 ? (
         <p>No bookings found.</p>
       ) : (
         bookings.map((booking) => (
-          <div className="my-booking-details-wrapper" key={booking.booking_id}>
+          <div className='my-booking-details-wrapper' key={booking.booking_id}>
             {booking.poster_url && (
               <img
                 src={booking.poster_url}
                 alt={booking.movie_title}
-                className="my-booking-poster"
+                className='my-booking-poster'
               />
             )}
 
-            <div className="booking-info">
+            <div className='booking-info'>
               <h2>Booking Number:</h2>
-              <h2 className="booking-number">{booking.booking_number}</h2>
+              <h2 className='booking-number'>{booking.booking_number}</h2>
 
               <h2>{booking.movie_title}</h2>
               <p>Time: {new Date(booking.showing_time).toLocaleString()}</p>
@@ -81,7 +83,7 @@ const MyBookingPage = () => {
               </p>
               <p>Total Price: {booking.total_price} kr</p>
               <button
-                className="booking-btn"
+                className='booking-btn'
                 onClick={async () => {
                   const confirmCancel = window.confirm(
                     'Are you sure you want to cancel this booking?'
@@ -89,7 +91,7 @@ const MyBookingPage = () => {
                   if (!confirmCancel) return;
 
                   const res = await fetch(
-                    `http://localhost:3001/api/bookings/cancel/${booking.booking_id}`,
+                    `${BASE_URL}/api/bookings/cancel/${booking.booking_id}`,
                     {
                       method: 'PUT',
                       headers: {
@@ -101,7 +103,6 @@ const MyBookingPage = () => {
                   const data = await res.json();
                   if (res.ok) {
                     alert('Booking cancelled!');
-                    // Refresh list
                     setBookings((prev) =>
                       prev.filter((b) => b.booking_id !== booking.booking_id)
                     );

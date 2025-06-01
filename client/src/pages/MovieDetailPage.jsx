@@ -58,8 +58,8 @@ function MovieDetailPage() {
       }),
     }).then((res) => {
       if (res.ok) {
-        setIsInWatchlist(true); // or false if removed
-        fetchWatchlist(); // 🔄 auto-refresh
+        setIsInWatchlist(true); 
+        fetchWatchlist();
         window.dispatchEvent(new Event('watchlistUpdated'));
       }
     });
@@ -78,8 +78,8 @@ function MovieDetailPage() {
       }),
     }).then((res) => {
       if (res.ok) {
-        setIsInWatchlist(true); // or false if removed
-        fetchWatchlist(); // 🔄 auto-refresh
+        setIsInWatchlist(true);
+        fetchWatchlist();
         window.dispatchEvent(new Event('watchlistUpdated'));
       }
     });

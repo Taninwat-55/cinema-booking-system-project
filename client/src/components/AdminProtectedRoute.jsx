@@ -10,7 +10,7 @@ const AdminProtectedRoute = ({ children }) => {
   }
 
   if (user.is_admin !== 1) {
-    return <Navigate to="/" />; // or create a 403 page
+    return <Navigate to="/" />; 
   }
 
   return children;

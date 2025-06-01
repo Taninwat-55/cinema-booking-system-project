@@ -3,13 +3,15 @@ import '../styles/component_styles/HeroMovies.css';
 import { UserContext } from '../context/UserContext';
 import MovieCard from '../components/MovieCard';
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+
 const HeroMovies = ({ movies }) => {
   const { user } = useContext(UserContext);
   const [watchlist, setWatchlist] = useState([]);
 
   useEffect(() => {
     if (user) {
-      fetch(`http://localhost:3001/api/users/${user.user_id}/watchlist`, {
+      fetch(`${BASE_URL}/api/users/${user.user_id}/watchlist`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -21,10 +23,10 @@ const HeroMovies = ({ movies }) => {
   }, [user]);
 
   return (
-    <main className="hero-movies-section-container">
-      <div className="movies-container">
+    <main className='hero-movies-section-container'>
+      <div className='movies-container'>
         {movies.length === 0 ? (
-          <p className="no-movies-message">No movies found</p>
+          <p className='no-movies-message'>No movies found</p>
         ) : (
           movies.map((movie) => (
             <MovieCard
@@ -39,11 +41,11 @@ const HeroMovies = ({ movies }) => {
         )}
       </div>
 
-      <div className="circle-one-container">
-        <div className="circle-one"></div>
+      <div className='circle-one-container'>
+        <div className='circle-one'></div>
       </div>
-      <div className="circle-two-container">
-        <div className="circle-two"></div>
+      <div className='circle-two-container'>
+        <div className='circle-two'></div>
       </div>
     </main>
   );

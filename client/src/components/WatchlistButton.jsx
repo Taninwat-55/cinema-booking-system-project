@@ -3,6 +3,8 @@ import { CiHeart } from 'react-icons/ci';
 import { UserContext } from '../context/UserContext';
 import '../styles/component_styles/WatchlistButton.css';
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+
 const WatchlistButton = ({ movieId, isInWatchlist, setWatchlist }) => {
   const { user } = useContext(UserContext);
 
@@ -18,7 +20,7 @@ const WatchlistButton = ({ movieId, isInWatchlist, setWatchlist }) => {
     const method = isInWatchlist ? 'DELETE' : 'POST';
 
     try {
-      const res = await fetch('http://localhost:3001/api/watchlist', {
+      const res = await fetch(`${BASE_URL}/api/watchlist`, {
         method,
         headers: {
           'Content-Type': 'application/json',
@@ -44,9 +46,9 @@ const WatchlistButton = ({ movieId, isInWatchlist, setWatchlist }) => {
   };
 
   return (
-    <div className="add-to-list-container" onClick={handleToggle}>
+    <div className='add-to-list-container' onClick={handleToggle}>
       <button className={`watchlist-button ${isInWatchlist ? 'active' : ''}`}>
-        <CiHeart className="heart-icon" />
+        <CiHeart className='heart-icon' />
         <span>Watchlist</span>
       </button>
     </div>

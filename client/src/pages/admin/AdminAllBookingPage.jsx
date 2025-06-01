@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar';
 import '../../styles/admin_styles/AdminViewAllBookings.css';
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+
 const AdminAllBookingsPage = () => {
   const [bookings, setBookings] = useState([]);
   const [filtered, setFiltered] = useState([]);
@@ -12,7 +14,7 @@ const AdminAllBookingsPage = () => {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
 
-    fetch('http://localhost:3001/api/admin/bookings', {
+    fetch(`${BASE_URL}/api/admin/bookings`, {
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
@@ -47,28 +49,28 @@ const AdminAllBookingsPage = () => {
     <div>
       <Navbar />
 
-      <div className="admin-bookings-container">
-        <h1 className="admin-bookings-title">All Bookings</h1>
+      <div className='admin-bookings-container'>
+        <h1 className='admin-bookings-title'>All Bookings</h1>
 
-        <div className="admin-bookings-inputs">
+        <div className='admin-bookings-inputs'>
           <input
-            placeholder="Search by user..."
+            placeholder='Search by user...'
             value={searchUser}
             onChange={(e) => setSearchUser(e.target.value)}
           />
           <input
-            placeholder="Search by movie..."
+            placeholder='Search by movie...'
             value={searchMovie}
             onChange={(e) => setSearchMovie(e.target.value)}
           />
           <input
-            type="date"
+            type='date'
             value={searchDate}
             onChange={(e) => setSearchDate(e.target.value)}
           />
         </div>
 
-        <table className="admin-bookings-table" border="1" cellPadding="8">
+        <table className='admin-bookings-table' border='1' cellPadding='8'>
           <thead>
             <tr>
               <th>Booking #</th>
@@ -103,11 +105,11 @@ const AdminAllBookingsPage = () => {
         </table>
 
         {filtered.length === 0 && (
-          <p className="admin-no-results">No bookings found.</p>
+          <p className='admin-no-results'>No bookings found.</p>
         )}
       </div>
-      <div className="circle-one"></div>
-      <div className="circle-two"></div>
+      <div className='circle-one'></div>
+      <div className='circle-two'></div>
     </div>
   );
 };

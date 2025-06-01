@@ -4,6 +4,8 @@ import Navbar from '../../components/Navbar';
 import '../../styles/admin_styles/AdminAddShowingPage.css';
 import { toast } from 'react-hot-toast';
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+
 const AdminAddShowingPage = () => {
   const navigate = useNavigate();
 
@@ -18,7 +20,7 @@ const AdminAddShowingPage = () => {
   });
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/movies')
+    fetch(`${BASE_URL}/api/movies`)
       .then((res) => res.json())
       .then((data) => setMovies(data));
   }, []);
@@ -41,7 +43,7 @@ const AdminAddShowingPage = () => {
       return;
     }
 
-    const res = await fetch('http://localhost:3001/api/admin/showings', {
+    const res = await fetch(`${BASE_URL}/api/admin/showings`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(showing),
@@ -58,19 +60,19 @@ const AdminAddShowingPage = () => {
   return (
     <>
       <Navbar />
-      <div className="showing-container">
-        <h1 className="showing-heading">Add New Showing</h1>
-        <form className="showing-form" onSubmit={handleSubmit}>
-          <div className="form-block">
-            <label className="form-label">Select Movie</label>
+      <div className='showing-container'>
+        <h1 className='showing-heading'>Add New Showing</h1>
+        <form className='showing-form' onSubmit={handleSubmit}>
+          <div className='form-block'>
+            <label className='form-label'>Select Movie</label>
             <select
-              name="movie_id"
+              name='movie_id'
               value={showing.movie_id}
               onChange={handleChange}
-              className="form-select"
+              className='form-select'
               required
             >
-              <option value="">Select Movie</option>
+              <option value=''>Select Movie</option>
               {movies.map((movie) => (
                 <option key={movie.movie_id} value={movie.movie_id}>
                   {movie.title}
@@ -79,13 +81,13 @@ const AdminAddShowingPage = () => {
             </select>
           </div>
 
-          <div className="form-block">
-            <label className="form-label">Select Theater</label>
+          <div className='form-block'>
+            <label className='form-label'>Select Theater</label>
             <select
-              name="theater_id"
+              name='theater_id'
               value={showing.theater_id}
               onChange={handleChange}
-              className="form-select"
+              className='form-select'
               required
             >
               <option value={1}>Theater 1</option>
@@ -93,64 +95,64 @@ const AdminAddShowingPage = () => {
             </select>
           </div>
 
-          <div className="form-block">
-            <label className="form-label">Date & Time</label>
+          <div className='form-block'>
+            <label className='form-label'>Date & Time</label>
             <input
-              type="datetime-local"
-              name="showing_time"
+              type='datetime-local'
+              name='showing_time'
               value={showing.showing_time}
               onChange={handleChange}
-              className="form-input"
+              className='form-input'
               required
             />
           </div>
 
-          <div className="form-block">
-            <label className="form-label">Adult Price</label>
+          <div className='form-block'>
+            <label className='form-label'>Adult Price</label>
             <input
-              type="number"
-              name="price_adult"
-              placeholder="Adult Price"
+              type='number'
+              name='price_adult'
+              placeholder='Adult Price'
               value={showing.price_adult}
               onChange={handleChange}
-              className="form-input"
+              className='form-input'
               required
             />
           </div>
 
-          <div className="form-block">
-            <label className="form-label">Child Price</label>
+          <div className='form-block'>
+            <label className='form-label'>Child Price</label>
             <input
-              type="number"
-              name="price_child"
-              placeholder="Child Price"
+              type='number'
+              name='price_child'
+              placeholder='Child Price'
               value={showing.price_child}
               onChange={handleChange}
-              className="form-input"
+              className='form-input'
               required
             />
           </div>
 
-          <div className="form-block">
-            <label className="form-label">Senior Price</label>
+          <div className='form-block'>
+            <label className='form-label'>Senior Price</label>
             <input
-              type="number"
-              name="price_senior"
-              placeholder="Senior Price"
+              type='number'
+              name='price_senior'
+              placeholder='Senior Price'
               value={showing.price_senior}
               onChange={handleChange}
-              className="form-input"
+              className='form-input'
               required
             />
           </div>
 
-          <button type="submit" className="submit-button">
+          <button type='submit' className='submit-button'>
             Add Showing
           </button>
         </form>
       </div>
-      <div className="circle-one"></div>
-      <div className="circle-two"></div>
+      <div className='circle-one'></div>
+      <div className='circle-two'></div>
     </>
   );
 };

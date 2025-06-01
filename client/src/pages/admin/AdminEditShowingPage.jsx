@@ -4,6 +4,8 @@ import { toast } from 'react-hot-toast';
 import Nabar from '../../components/Navbar';
 import '../../styles/admin_styles/AdminEditShowingPage.css';
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+
 const AdminEditShowingPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -19,7 +21,7 @@ const AdminEditShowingPage = () => {
   });
 
   useEffect(() => {
-    fetch(`http://localhost:3001/api/showings/${id}`)
+    fetch(`${BASE_URL}/api/showings/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setForm({
@@ -32,7 +34,7 @@ const AdminEditShowingPage = () => {
         });
       });
 
-    fetch('http://localhost:3001/api/movies')
+    fetch(`${BASE_URL}/api/movies`)
       .then((res) => res.json())
       .then((data) => setMovies(data));
   }, [id]);
@@ -43,7 +45,7 @@ const AdminEditShowingPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch(`http://localhost:3001/api/admin/showings/${id}`, {
+    const res = await fetch(`${BASE_URL}/api/admin/showings/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(form),
@@ -60,10 +62,10 @@ const AdminEditShowingPage = () => {
   return (
     <>
       <Nabar />
-      <div className="admin-edit-showing-container">
-        <h1 className="admin-edit-title">Edit Showing</h1>
+      <div className='admin-edit-showing-container'>
+        <h1 className='admin-edit-title'>Edit Showing</h1>
         {form.movie_id && (
-          <div className="admin-edit-info-box">
+          <div className='admin-edit-info-box'>
             <h3>Now Editing Showing ID: {id}</h3>
             <p>
               Movie:{' '}
@@ -78,18 +80,18 @@ const AdminEditShowingPage = () => {
             </p>
           </div>
         )}
-        <form className="admin-edit-form" onSubmit={handleSubmit}>
-          <div className="admin-edit-form-group">
-            <label className="admin-edit-label">Select Movie:</label>
+        <form className='admin-edit-form' onSubmit={handleSubmit}>
+          <div className='admin-edit-form-group'>
+            <label className='admin-edit-label'>Select Movie:</label>
             <select
-              name="movie_id"
+              name='movie_id'
               value={form.movie_id}
               onChange={handleChange}
               disabled // <-- lock selection
-              className="admin-edit-select"
+              className='admin-edit-select'
               required
             >
-              {!form.movie_id && <option value="">Select Movie</option>}
+              {!form.movie_id && <option value=''>Select Movie</option>}
               {movies.map((movie) => (
                 <option key={movie.movie_id} value={movie.movie_id}>
                   {movie.title}
@@ -98,11 +100,11 @@ const AdminEditShowingPage = () => {
             </select>
           </div>
 
-          <div className="admin-edit-form-group">
-            <label className="admin-edit-label">Select Theater:</label>
+          <div className='admin-edit-form-group'>
+            <label className='admin-edit-label'>Select Theater:</label>
             <select
-              className="admin-edit-select"
-              name="theater_id"
+              className='admin-edit-select'
+              name='theater_id'
               value={form.theater_id}
               onChange={handleChange}
               required
@@ -112,58 +114,58 @@ const AdminEditShowingPage = () => {
             </select>
           </div>
 
-          <div className="admin-edit-form-group">
-            <label className="admin-edit-label">Showing Time:</label>
+          <div className='admin-edit-form-group'>
+            <label className='admin-edit-label'>Showing Time:</label>
             <input
-              className="admin-edit-input"
-              type="datetime-local"
-              name="showing_time"
+              className='admin-edit-input'
+              type='datetime-local'
+              name='showing_time'
               value={form.showing_time}
               onChange={handleChange}
               required
             />
           </div>
 
-          <div className="admin-edit-form-group">
-            <label className="admin-edit-label">Adult Price:</label>
+          <div className='admin-edit-form-group'>
+            <label className='admin-edit-label'>Adult Price:</label>
             <input
-              className="admin-edit-input"
-              type="number"
-              name="price_adult"
+              className='admin-edit-input'
+              type='number'
+              name='price_adult'
               value={form.price_adult}
               onChange={handleChange}
             />
           </div>
 
-          <div className="admin-edit-form-group">
-            <label className="admin-edit-label">Child Price:</label>
+          <div className='admin-edit-form-group'>
+            <label className='admin-edit-label'>Child Price:</label>
             <input
-              className="admin-edit-input"
-              type="number"
-              name="price_child"
+              className='admin-edit-input'
+              type='number'
+              name='price_child'
               value={form.price_child}
               onChange={handleChange}
             />
           </div>
 
-          <div className="admin-edit-form-group">
-            <label className="admin-edit-label">Senior Price:</label>
+          <div className='admin-edit-form-group'>
+            <label className='admin-edit-label'>Senior Price:</label>
             <input
-              className="admin-edit-input"
-              type="number"
-              name="price_senior"
+              className='admin-edit-input'
+              type='number'
+              name='price_senior'
               value={form.price_senior}
               onChange={handleChange}
             />
           </div>
 
-          <button className="admin-edit-button" type="submit">
+          <button className='admin-edit-button' type='submit'>
             Update Showing
           </button>
         </form>
       </div>
-      <div className="circle-one"></div>
-      <div className="circle-two"></div>
+      <div className='circle-one'></div>
+      <div className='circle-two'></div>
     </>
   );
 };

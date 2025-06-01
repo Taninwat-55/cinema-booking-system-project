@@ -6,6 +6,8 @@ import { toast } from 'react-hot-toast';
 import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+
 const RegisterPage = () => {
   const [form, setForm] = useState({ email: '', password: '', name: '' });
   const [message, setMessage] = useState('');
@@ -19,8 +21,7 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch('http://localhost:3001/api/auth/register', {
-      method: 'POST',
+    const res = await fetch(`${BASE_URL}/api/auth/register`, {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(form),
     });
@@ -42,17 +43,14 @@ const RegisterPage = () => {
       const pendingBooking = localStorage.getItem('pending_booking');
       if (pendingBooking) {
         try {
-          const claimRes = await fetch(
-            'http://localhost:3001/api/bookings/claim',
-            {
-              method: 'PATCH',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                booking_number: pendingBooking,
-                user_id: userData.user_id,
-              }),
-            }
-          );
+          const claimRes = await fetch(`${BASE_URL}/api/bookings/claim`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              booking_number: pendingBooking,
+              user_id: userData.user_id,
+            }),
+          });
 
           const result = await claimRes.json();
           if (claimRes.ok) {
@@ -71,51 +69,51 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-form">
+    <div className='auth-container'>
+      <div className='auth-form'>
         <h1>Sign Up</h1>
-        <form onSubmit={handleSubmit} className="form-inputs">
+        <form onSubmit={handleSubmit} className='form-inputs'>
           <input
-            name="name"
-            placeholder="Name"
+            name='name'
+            placeholder='Name'
             onChange={handleChange}
-            className="input-field"
+            className='input-field'
           />
           <input
-            name="email"
-            placeholder="Email"
+            name='email'
+            placeholder='Email'
             onChange={handleChange}
-            className="input-field"
+            className='input-field'
           />
           <input
-            name="password"
-            type="password"
-            placeholder="Password"
+            name='password'
+            type='password'
+            placeholder='Password'
             onChange={handleChange}
-            className="input-field"
+            className='input-field'
           />
-          <button type="submit" className="submit-btn">
+          <button type='submit' className='submit-btn'>
             Register
           </button>
         </form>
 
-        <div className="login-link-container">
-          <p className="register-link-text">
-            Already have an account? <Link to="/login">Log In</Link>
+        <div className='login-link-container'>
+          <p className='register-link-text'>
+            Already have an account? <Link to='/login'>Log In</Link>
           </p>
         </div>
         <button
-          type="button"
-          className="home-btn"
+          type='button'
+          className='home-btn'
           onClick={() => navigate('/')}
         >
           Home
         </button>
-        {message && <p className="form-message">{message}</p>}
+        {message && <p className='form-message'>{message}</p>}
       </div>
 
-      <div className="circle-one"></div>
-      <div className="circle-two"></div>
+      <div className='circle-one'></div>
+      <div className='circle-two'></div>
     </div>
   );
 };

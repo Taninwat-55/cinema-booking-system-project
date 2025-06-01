@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import '../styles/UserProfilePage.css';
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+
 const UserProfilePage = () => {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
@@ -49,7 +51,7 @@ const UserProfilePage = () => {
                   return;
 
                 const res = await fetch(
-                  `http://localhost:3001/api/users/${user.user_id}`,
+                  `${BASE_URL}/api/users/${user.user_id}`,
                   {
                     method: 'DELETE',
                     headers: {

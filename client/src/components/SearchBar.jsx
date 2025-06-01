@@ -2,6 +2,8 @@ import { useContext } from 'react';
 import { SearchContext } from '../context/SearchContext';
 import '../styles/component_styles/SearchBar.css';
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+
 const SearchBar = () => {
   const { searchTerm, setSearchTerm, setSearchResults, setHasSearched } =
     useContext(SearchContext);
@@ -11,7 +13,7 @@ const SearchBar = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/api/movies?search=${encodeURIComponent(value)}`
+        `${BASE_URL}/api/movies?search=${encodeURIComponent(value)}`
       );
       const data = await response.json();
       setSearchResults(data);
@@ -34,11 +36,11 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="search-wrapper">
+    <div className='search-wrapper'>
       <input
-        type="text"
-        className="search-input"
-        placeholder="Search..."
+        type='text'
+        className='search-input'
+        placeholder='Search...'
         value={searchTerm}
         onChange={handleChange}
       />

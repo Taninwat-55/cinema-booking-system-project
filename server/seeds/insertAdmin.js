@@ -1,5 +1,5 @@
 const db = require('../db/database');
-const bcrypt = require('bcrypt'); // if you hash passwords
+const bcrypt = require('bcrypt'); 
 
 const hashedPassword = bcrypt.hashSync('adminpassword', 10);
 

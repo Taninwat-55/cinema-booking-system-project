@@ -3,6 +3,8 @@ import { UserContext } from './UserContext';
 
 export const WatchlistContext = createContext();
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+
 export const WatchlistProvider = ({ children }) => {
   const { user } = useContext(UserContext);
   const [watchlist, setWatchlist] = useState([]);
@@ -12,7 +14,7 @@ export const WatchlistProvider = ({ children }) => {
 
     try {
       const res = await fetch(
-        `http://localhost:3001/api/users/${user.user_id}/watchlist`,
+        `${BASE_URL}/api/users/${user.user_id}/watchlist`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,

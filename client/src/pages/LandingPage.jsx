@@ -6,6 +6,8 @@ import '../styles/LandingPage.css';
 import SearchBar from '../components/SearchBar';
 import Slider from '../components/Slider';
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+
 function LandingPage() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -30,7 +32,7 @@ function LandingPage() {
     if (selectedGenre) queryParams.append('genre', selectedGenre);
     if (selectedYear) queryParams.append('year', selectedYear);
 
-    fetch(`http://localhost:3001/api/movies?${queryParams.toString()}`)
+    fetch(`${BASE_URL}/api/movies?${queryParams.toString()}`)
       .then((res) => {
         if (!res.ok) throw new Error('Error fetching movies');
         return res.json();
@@ -50,19 +52,19 @@ function LandingPage() {
   }, [searchTerm, selectedGenre, selectedYear]);
 
   return (
-    <div className="landing-page-container">
+    <div className='landing-page-container'>
       <Navbar />
-      <Slider/>
-      <div className="filters-container">
+      <Slider />
+      <div className='filters-container'>
         <SearchBar />
 
-        <div className="right-wing">
+        <div className='right-wing'>
           <select
-            className="filter-inputs"
+            className='filter-inputs'
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}
           >
-            <option value="">Genre</option>
+            <option value=''>Genre</option>
             {uniqueGenres.map((genre, idx) => (
               <option key={idx} value={genre}>
                 {genre}
@@ -71,11 +73,11 @@ function LandingPage() {
           </select>
 
           <select
-            className="filter-inputs"
+            className='filter-inputs'
             value={selectedYear}
             onChange={(e) => setSelectedYear(e.target.value)}
           >
-            <option value="">Year</option>
+            <option value=''>Year</option>
             {uniqueYears.map((year, idx) => (
               <option key={idx} value={year}>
                 {year}

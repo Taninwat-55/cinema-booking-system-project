@@ -4,6 +4,8 @@ import { toast } from 'react-hot-toast';
 import Navbar from '../../components/Navbar';
 import '../../styles/admin_styles/AdminManageShowingPage.css';
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+
 const AdminManageShowingsPage = () => {
   const [showings, setShowings] = useState([]);
   const navigate = useNavigate();
@@ -12,13 +14,13 @@ const AdminManageShowingsPage = () => {
   const [selectedGenre, setSelectedGenre] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/showings')
+    fetch(`${BASE_URL}/api/showings`)
       .then((res) => res.json())
       .then((data) => setShowings(data));
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/movies')
+    fetch(`${BASE_URL}/api/movies`)
       .then((res) => res.json())
       .then((data) => setMovies(data));
   }, []);
@@ -37,7 +39,7 @@ const AdminManageShowingsPage = () => {
     );
     if (!confirm) return;
 
-    const res = await fetch(`http://localhost:3001/api/admin/showings/${id}`, {
+    const res = await fetch(`${BASE_URL}/api/admin/showings/${id}`, {
       method: 'DELETE',
     });
 
@@ -54,24 +56,24 @@ const AdminManageShowingsPage = () => {
       <Navbar />
 
       {/* Main container */}
-      <div className="admin-manage-showings-container">
+      <div className='admin-manage-showings-container'>
         <div
-          className="admin-search-filter-controls"
+          className='admin-search-filter-controls'
           style={{ marginTop: '10rem' }}
         >
           <input
-            type="text"
-            placeholder="Search by title..."
+            type='text'
+            placeholder='Search by title...'
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
 
           <select
-            id="genre-select-admin-movies"
+            id='genre-select-admin-movies'
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}
           >
-            <option value="">All Genres</option>
+            <option value=''>All Genres</option>
             {genres.map((genre, idx) => (
               <option key={idx} value={genre}>
                 {genre}
@@ -80,7 +82,7 @@ const AdminManageShowingsPage = () => {
           </select>
         </div>
         <h1>Manage Showings</h1>
-        <ul className="showings-list">
+        <ul className='showings-list'>
           {showings
             .filter((showing) => {
               const movie = movies.find((m) => m.movie_id === showing.movie_id);
@@ -95,12 +97,12 @@ const AdminManageShowingsPage = () => {
             .map((showing) => {
               const movie = movies.find((m) => m.movie_id === showing.movie_id);
               return (
-                <li key={showing.showing_id} className="showing-item">
-                  <div className="showing-info">
+                <li key={showing.showing_id} className='showing-item'>
+                  <div className='showing-info'>
                     <img
                       src={movie?.poster_url}
                       alt={movie?.title}
-                      className="showing-poster"
+                      className='showing-poster'
                     />
                     <div>
                       <div>{movie?.title}</div>
@@ -110,9 +112,9 @@ const AdminManageShowingsPage = () => {
                       <div>Theater {showing.theater_id}</div>
                     </div>
                   </div>
-                  <div className="button-group">
+                  <div className='button-group'>
                     <button
-                      className="admin-button edit-button"
+                      className='admin-button edit-button'
                       onClick={() =>
                         navigate(`/admin/edit-showing/${showing.showing_id}`)
                       }
@@ -120,7 +122,7 @@ const AdminManageShowingsPage = () => {
                       Edit
                     </button>
                     <button
-                      className="admin-button delete-button"
+                      className='admin-button delete-button'
                       onClick={() => handleDelete(showing.showing_id)}
                     >
                       Delete
@@ -132,8 +134,8 @@ const AdminManageShowingsPage = () => {
         </ul>
       </div>
 
-      <div className="circle-one"></div>
-      <div className="circle-two"></div>
+      <div className='circle-one'></div>
+      <div className='circle-two'></div>
     </>
   );
 };

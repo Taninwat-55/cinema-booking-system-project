@@ -7,6 +7,8 @@ import TicketSelector from '../components/TicketSelector';
 import SeatSelector from '../components/SeatSelector';
 import '../styles/BookingPage.css';
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+
 function BookingPage() {
   const { id } = useParams();
   const [showing, setShowing] = useState(null);
@@ -23,7 +25,7 @@ function BookingPage() {
     tickets.adult * 120 + tickets.child * 80 + tickets.senior * 100;
 
   useEffect(() => {
-    fetch(`http://localhost:3001/api/showings/${id}`)
+    fetch(`${BASE_URL}/api/showings/${id}`)
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch showing');
         return res.json();
@@ -32,13 +34,13 @@ function BookingPage() {
         setShowing(data);
         const showingDate = new Date(data.showing_time);
         if (showingDate < new Date()) setIsOutdated(true);
-        return fetch(`http://localhost:3001/api/movies/${data.movie_id}`);
+        return fetch(`${BASE_URL}/api/movies/${data.movie_id}`);
       })
       .then((res) => res.json())
       .then((movieData) => setMovie(movieData))
       .catch((error) => console.error(error));
 
-    fetch(`http://localhost:3001/api/seats/${id}`)
+    fetch(`${BASE_URL}/api/seats/${id}`)
       .then((res) => res.json())
       .then((data) => setSeats(data))
       .catch((error) => console.error(error));
@@ -100,7 +102,7 @@ function BookingPage() {
       },
     ].filter((ticket) => ticket.quantity > 0);
 
-    const res = await fetch('http://localhost:3001/api/bookings', {
+    const res = await fetch(`${BASE_URL}/api/bookings`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -121,16 +123,16 @@ function BookingPage() {
   return (
     <div>
       <Navbar />
-      <div className="booking-grid-wrapper">
-        <div className="left-side">
-          <div className="left-content">
+      <div className='booking-grid-wrapper'>
+        <div className='left-side'>
+          <div className='left-content'>
             <ShowingDetails movie={movie} showing={showing} />
           </div>
         </div>
 
-        <div className="right-side">
+        <div className='right-side'>
           {isOutdated ? (
-            <div className="outdated-message">
+            <div className='outdated-message'>
               <p>This showing is outdated and cannot be booked.</p>
             </div>
           ) : (

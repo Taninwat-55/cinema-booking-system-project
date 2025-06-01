@@ -3,13 +3,15 @@ import { Link } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import '../../styles/admin_styles/AdminDashboardPage.css';
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+
 const AdminDashboardPage = () => {
   const [stats, setStats] = useState({});
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
 
-    fetch('http://localhost:3001/api/admin/dashboard/stats', {
+    fetch(`${BASE_URL}/api/admin/dashboard/stats`, {
       headers: {
         Authorization: `Bearer ${user?.token}`,
       },
@@ -22,40 +24,51 @@ const AdminDashboardPage = () => {
   return (
     <>
       <Navbar />
-      <div className="admin-dashboard-container">
-        <h1 className="dashboard-title">Admin Dashboard</h1>
+      <div className='admin-dashboard-container'>
+        <h1 className='dashboard-title'>Admin Dashboard</h1>
 
-        <div className="dashboard-stats">
-          <h3 className="stats-title">Dashboard Stats</h3>
-          <p className="stat-item">Total Movies: {stats.total_movies}</p>
-          <p className="stat-item">Total Showings: {stats.total_showings}</p>
-          <p className="stat-item">Total Bookings: {stats.total_bookings}</p>
-          <p className="stat-item">Most Popular Movie: {stats.popular_movie}</p>
+        <div className='dashboard-stats'>
+          <h3 className='stats-title'>Dashboard Stats</h3>
+          <p className='stat-item'>Total Movies: {stats.total_movies}</p>
+          <p className='stat-item'>Total Showings: {stats.total_showings}</p>
+          <p className='stat-item'>Total Bookings: {stats.total_bookings}</p>
+          <p className='stat-item'>Most Popular Movie: {stats.popular_movie}</p>
         </div>
 
-        <div className="dashboard-links">
-          <ul className="links-list">
-          <h3 className="links-title">Control Nexus</h3>
-            <li className="link-item">
-              <Link to="/admin/bookings" className="dashboard-link">View All Bookings</Link>
+        <div className='dashboard-links'>
+          <ul className='links-list'>
+            <h3 className='links-title'>Control Nexus</h3>
+            <li className='link-item'>
+              <Link to='/admin/bookings' className='dashboard-link'>
+                View All Bookings
+              </Link>
             </li>
-            <li className="link-item">
-              <Link to="/admin/add-movie" className="dashboard-link">Add New Movie</Link>
+            <li className='link-item'>
+              <Link to='/admin/add-movie' className='dashboard-link'>
+                Add New Movie
+              </Link>
             </li>
-            <li className="link-item">
-              <Link to="/admin/add-showing" className="dashboard-link"> Add New Showing</Link>
+            <li className='link-item'>
+              <Link to='/admin/add-showing' className='dashboard-link'>
+                {' '}
+                Add New Showing
+              </Link>
             </li>
-            <li className="link-item">
-              <Link to="/admin/manage-movies" className="dashboard-link">Manage Movies</Link>
+            <li className='link-item'>
+              <Link to='/admin/manage-movies' className='dashboard-link'>
+                Manage Movies
+              </Link>
             </li>
-            <li className="link-item">
-              <Link to="/admin/manage-showings" className="dashboard-link">Manage Showings</Link>
+            <li className='link-item'>
+              <Link to='/admin/manage-showings' className='dashboard-link'>
+                Manage Showings
+              </Link>
             </li>
           </ul>
         </div>
       </div>
-      <div className="circle-one"></div>
-      <div className="circle-two"></div>
+      <div className='circle-one'></div>
+      <div className='circle-two'></div>
     </>
   );
 };
