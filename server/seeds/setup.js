@@ -1,10 +1,13 @@
 const db = require('../db/database');
 
+db.pragma('foreign_keys = ON');
+
 // Drop tables if they exist
 db.exec(`
   DROP TABLE IF EXISTS booked_seats;
   DROP TABLE IF EXISTS booking_details;
   DROP TABLE IF EXISTS bookings;
+  DROP TABLE IF EXISTS watchlist;
   DROP TABLE IF EXISTS users;
   DROP TABLE IF EXISTS seats;
   DROP TABLE IF EXISTS showings;

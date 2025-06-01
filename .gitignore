@@ -1,4 +1,4 @@
 node_modules
 .env
-cinema.db
+# cinema.db
 .DS_Store.env
