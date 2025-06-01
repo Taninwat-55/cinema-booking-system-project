@@ -8,7 +8,7 @@ import './styles/index.css';
 import { SearchProvider } from './context/SearchContext.jsx';
 import { Toaster } from 'react-hot-toast';
 import { WatchlistProvider } from './context/WatchlistContext.jsx';
-import LoadingPage from './components/LoadingPage'; // ✅ Import only this
+import LoadingPage from './components/LoadingPage'; 
 
 const Root = () => {
   const [loading, setLoading] = useState(true);
@@ -16,13 +16,12 @@ const Root = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2500); // ⏳ Duration of loading screen
+    }, 2500); 
     return () => clearTimeout(timer);
   }, []);
 
-  if (loading) return <LoadingPage />; // ✅ Your loading screen (only once)
+  if (loading) return <LoadingPage />; 
 
-  // ✅ Your original return, untouched
   return (
     <StrictMode>
       <UserProvider>
