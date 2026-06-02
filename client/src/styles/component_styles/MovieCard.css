@@ -1,130 +1,111 @@
-.movie-card-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
+.movie-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
-.movie-card {
-  height: 33rem;
-  width: 350px;
+.movie-card-new {
   display: flex;
   flex-direction: column;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 16px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
-  padding: 10px;
-  box-sizing: border-box;
+  cursor: pointer;
 }
 
-.movie-card img {
-  width: 60%;
-  height: auto;
+.movie-card-poster {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
   border-radius: 10px;
-  margin: 0 auto 10px;
-}
-
-.movie-card h2 {
-  font-size: 18px;
-  color: white;
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  text-align: center;
-  margin-bottom: 2%;
-}
-
-.movie-rating-container-landing-page {
-  height: 14%;
-  width: 100%;
+  overflow: hidden;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-bottom: 2%;
-}
-
-.movie-rating-wrapper-landing-page {
-  height: 100%;
-  width: 35%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
-.imdb-box-landing-page {
-  height: 23px;
-  width: 43px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgb(227, 185, 35);
-}
-
-.imdb-box-landing-page h3 {
-  color: black;
-  font-size: 13px;
-  font-family: 'Anton', sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.movie-rating-span-container {
-  display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: flex-end;
-  height: 100%;
-  width: 34%;
-  color: white;
-  font-size: 17px;
-  font-family: 'Roboto', sans-serif;
+  padding: 1rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.movie-card p {
-  color: white;
-  font-family: 'Inter', sans-serif;
-  font-size: 15px;
-  font-weight: 400;
-  text-align: center;
-  margin: 0 auto;
-  width: 80%;
-}
-
-.about-movie-information-landing-page {
-  height: 20%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 15%;
-}
-
-.about-movie-information-landing-page-wrapper {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-}
-
-.watch-list-container {
-  height: 100%;
-  width: 60%;
-  display: flex;
-  align-items: center;
-}
-
-.add-to-list h3 {
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  color: orange;
-  transition: color 0.3s ease;
-  margin-left: 5px;
-}
-
-.movie-card:hover {
+.movie-card-new:hover .movie-card-poster {
   transform: translateY(-5px);
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+}
+
+.card-badge-coming {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  background-color: #c9a84c;
+  color: #000;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-family: 'Inter', sans-serif;
+}
+
+.card-genre-label {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  color: #c9a84c;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  font-family: 'Inter', sans-serif;
+}
+
+.card-rating {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background-color: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  font-size: 0.72rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  padding: 4px 9px;
+  border-radius: 20px;
+}
+
+.card-title-block {
+  position: relative;
+  z-index: 2;
+}
+
+.card-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1rem, 1.5vw, 1.35rem);
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.45rem;
+  line-height: 1.3;
+}
+
+.card-title-line {
+  width: 1.75rem;
+  height: 2px;
+  background-color: #c9a84c;
+  border-radius: 1px;
+}
+
+.card-meta {
+  padding: 0.6rem 0.1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.card-meta-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-meta-info {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.45);
 }

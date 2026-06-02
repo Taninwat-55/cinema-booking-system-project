@@ -1,10 +1,8 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
+import HeroSection from '../components/Slider';
 import HeroMovies from '../components/HeroMovies';
-import { SearchContext } from '../context/SearchContext';
 import '../styles/LandingPage.css';
-import SearchBar from '../components/SearchBar';
-import Slider from '../components/Slider';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
 
@@ -13,86 +11,120 @@ function LandingPage() {
   const [loading, setLoading] = useState(true);
   const [selectedGenre, setSelectedGenre] = useState('');
   const [selectedYear, setSelectedYear] = useState('');
-  const { searchTerm, searchResults, hasSearched } = useContext(SearchContext);
+  const [searchInput, setSearchInput] = useState('');
 
-  const uniqueGenres = [
-    ...new Set(movies.flatMap((movie) => movie.genre?.split(', ') || [])),
-  ].filter(Boolean);
+  const currentYear = new Date().getFullYear();
 
-  const uniqueYears = [...new Set(movies.map((movie) => movie.release_year))]
-    .filter(Boolean)
-    .sort((a, b) => b - a);
-
-  const fetchMovies = () => {
+  useEffect(() => {
     setLoading(true);
+    const params = new URLSearchParams();
+    if (selectedGenre) params.append('genre', selectedGenre);
+    if (selectedYear) params.append('year', selectedYear);
+    if (searchInput) params.append('search', searchInput);
 
-    const queryParams = new URLSearchParams();
-
-    if (searchTerm) queryParams.append('search', searchTerm);
-    if (selectedGenre) queryParams.append('genre', selectedGenre);
-    if (selectedYear) queryParams.append('year', selectedYear);
-
-    fetch(`${BASE_URL}/api/movies?${queryParams.toString()}`)
-      .then((res) => {
-        if (!res.ok) throw new Error('Error fetching movies');
-        return res.json();
-      })
+    fetch(`${BASE_URL}/api/movies?${params.toString()}`)
+      .then((res) => res.json())
       .then((data) => {
         setMovies(data);
         setLoading(false);
       })
-      .catch((err) => {
-        console.error('❌ Failed to fetch movies:', err.message);
-        setLoading(false);
-      });
-  };
+      .catch(() => setLoading(false));
+  }, [selectedGenre, selectedYear, searchInput]);
 
-  useEffect(() => {
-    fetchMovies();
-  }, [searchTerm, selectedGenre, selectedYear]);
+  const nowShowing = movies.filter((m) => !m.release_year || m.release_year < currentYear);
+  const comingSoon = movies.filter((m) => m.release_year && m.release_year >= currentYear);
+
+  const uniqueGenres = [
+    ...new Set(movies.flatMap((m) => m.genre?.split(', ') || [])),
+  ].filter(Boolean);
+
+  const uniqueYears = [...new Set(movies.map((m) => m.release_year))]
+    .filter(Boolean)
+    .sort((a, b) => b - a);
+
+  const toggleGenre = (genre) => setSelectedGenre((prev) => (prev === genre ? '' : genre));
+  const toggleYear = (year) => setSelectedYear((prev) => (prev === String(year) ? '' : String(year)));
 
   return (
-    <div className='landing-page-container'>
+    <div className="landing-page">
       <Navbar />
-      <Slider />
-      <div className='filters-container'>
-        <SearchBar />
+      <HeroSection />
 
-        <div className='right-wing'>
-          <select
-            className='filter-inputs'
-            value={selectedGenre}
-            onChange={(e) => setSelectedGenre(e.target.value)}
-          >
-            <option value=''>Genre</option>
-            {uniqueGenres.map((genre, idx) => (
-              <option key={idx} value={genre}>
-                {genre}
-              </option>
-            ))}
-          </select>
-
-          <select
-            className='filter-inputs'
-            value={selectedYear}
-            onChange={(e) => setSelectedYear(e.target.value)}
-          >
-            <option value=''>Year</option>
-            {uniqueYears.map((year, idx) => (
-              <option key={idx} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
+      <section className="movies-section">
+        <div className="section-header">
+          <div>
+            <h2 className="section-title">Now Showing</h2>
+            <p className="section-subtitle">Curated selections for the discerning viewer.</p>
+          </div>
+          <input
+            className="search-input"
+            type="text"
+            placeholder="Search by title..."
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
         </div>
-      </div>
 
-      {loading ? (
-        <p>Loading movies...</p>
-      ) : (
-        <HeroMovies
-          movies={hasSearched && searchTerm ? searchResults : movies}
-        />
+        <div className="filter-row">
+          <div className="filter-group">
+            <span className="filter-label">GENRE</span>
+            <button
+              className={`filter-pill ${selectedGenre === '' ? 'active' : ''}`}
+              onClick={() => setSelectedGenre('')}
+            >
+              All
+            </button>
+            {uniqueGenres.map((genre) => (
+              <button
+                key={genre}
+                className={`filter-pill ${selectedGenre === genre ? 'active' : ''}`}
+                onClick={() => toggleGenre(genre)}
+              >
+                {genre}
+              </button>
+            ))}
+          </div>
+
+          <div className="filter-group">
+            <span className="filter-label">YEAR</span>
+            <button
+              className={`filter-pill ${selectedYear === '' ? 'active' : ''}`}
+              onClick={() => setSelectedYear('')}
+            >
+              All
+            </button>
+            {uniqueYears.map((year) => (
+              <button
+                key={year}
+                className={`filter-pill ${selectedYear === String(year) ? 'active' : ''}`}
+                onClick={() => toggleYear(year)}
+              >
+                {year}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <hr className="section-divider" />
+
+        {loading ? (
+          <p className="loading-text">Loading...</p>
+        ) : (
+          <HeroMovies movies={nowShowing.length ? nowShowing : movies} />
+        )}
+      </section>
+
+      {!loading && comingSoon.length > 0 && (
+        <section className="movies-section coming-soon-section">
+          <div className="section-header">
+            <div>
+              <h2 className="section-title">Coming Soon</h2>
+              <p className="section-subtitle">Reserve your seat the day tickets drop.</p>
+            </div>
+          </div>
+          <hr className="section-divider" />
+          <HeroMovies movies={comingSoon} comingSoon />
+        </section>
       )}
     </div>
   );
