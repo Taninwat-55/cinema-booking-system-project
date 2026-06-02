@@ -1,16 +1,12 @@
-const db = require('../db/database');
+const pool = require('../db/database');
 const bookingModel = require('../models/bookingModel');
 
-function createBooking(req, res) {
-  const { showing_id, total_price, selected_seats, user_id, ticket_details } =
-    req.body;
+async function createBooking(req, res) {
+  const { showing_id, total_price, selected_seats, user_id, ticket_details } = req.body;
 
-  const booking_number = Math.random()
-    .toString(36)
-    .substring(2, 8)
-    .toUpperCase();
+  const booking_number = Math.random().toString(36).substring(2, 8).toUpperCase();
 
-  const result = bookingModel.createBooking(
+  const booking = await bookingModel.createBooking(
     booking_number,
     user_id,
     showing_id,
@@ -18,46 +14,48 @@ function createBooking(req, res) {
     total_price
   );
 
-  const bookingId = result.lastInsertRowid;
+  const bookingId = booking.booking_id;
 
-  bookingModel.insertBookedSeats(bookingId, selected_seats);
-  bookingModel.insertBookingDetails(bookingId, ticket_details);
+  await bookingModel.insertBookedSeats(bookingId, selected_seats);
+  await bookingModel.insertBookingDetails(bookingId, ticket_details);
 
   res.json({ message: 'Booking successfully!', booking_number });
 }
 
-function getBookingsByUserId(req, res) {
+async function getBookingsByUserId(req, res) {
   const userId = req.params.id;
 
-  bookingModel.deletePastBookings();
+  await bookingModel.deletePastBookings();
 
-  const bookings = bookingModel.getBookingsByUserId(userId);
+  const bookings = await bookingModel.getBookingsByUserId(userId);
 
-  const bookingsWithSeats = bookings.map((booking) => {
-    const seats = bookingModel.getSeatsByBookingId(booking.booking_id);
-    return { ...booking, seats: seats.map((s) => s.seat_label) };
-  });
+  const bookingsWithSeats = await Promise.all(
+    bookings.map(async (booking) => {
+      const seats = await bookingModel.getSeatsByBookingId(booking.booking_id);
+      return { ...booking, seats: seats.map((s) => s.seat_label) };
+    })
+  );
 
   res.json(bookingsWithSeats);
 }
 
-function getBookingByBookingNumber(req, res) {
+async function getBookingByBookingNumber(req, res) {
   const bookingNumber = req.params.bookingNumber;
 
-  const booking = bookingModel.getBookingByNumber(bookingNumber);
+  const booking = await bookingModel.getBookingByNumber(bookingNumber);
 
   if (!booking) return res.status(404).json({ error: 'Booking not found' });
 
-  const seats = bookingModel.getSeatsByBookingId(booking.booking_id);
+  const seats = await bookingModel.getSeatsByBookingId(booking.booking_id);
 
   res.json({ ...booking, seats: seats.map((s) => s.seat_label) });
 }
 
-function trackBookingByNumber(req, res) {
+async function trackBookingByNumber(req, res) {
   const { booking_number } = req.params;
 
   try {
-    const booking = bookingModel.trackBookingByNumber(booking_number);
+    const booking = await bookingModel.trackBookingByNumber(booking_number);
 
     if (!booking) {
       return res.status(404).json({ error: 'Booking not found.' });
@@ -70,34 +68,31 @@ function trackBookingByNumber(req, res) {
   }
 }
 
-function cancelBookingById(req, res) {
+async function cancelBookingById(req, res) {
   const bookingId = req.params.id;
-  const result = bookingModel.cancelBooking(bookingId);
+  const result = await bookingModel.cancelBooking(bookingId);
 
-  if (result.changes > 0) {
+  if (result.rowCount > 0) {
     res.json({ message: 'Booking cancelled successfully' });
   } else {
     res.status(400).json({ error: 'Could not cancel booking' });
   }
 }
 
-function claimBooking(req, res) {
+async function claimBooking(req, res) {
   const { booking_number, user_id } = req.body;
 
   if (!booking_number || !user_id) {
     return res.status(400).json({ error: 'Missing booking number or user ID' });
   }
 
-  const result = db
-    .prepare(
-      'UPDATE bookings SET user_id = ? WHERE booking_number = ? AND user_id IS NULL'
-    )
-    .run(user_id, booking_number);
+  const result = await pool.query(
+    'UPDATE bookings SET user_id = $1 WHERE booking_number = $2 AND user_id IS NULL',
+    [user_id, booking_number]
+  );
 
-  if (result.changes === 0) {
-    return res
-      .status(404)
-      .json({ error: 'Booking not found or already claimed' });
+  if (result.rowCount === 0) {
+    return res.status(404).json({ error: 'Booking not found or already claimed' });
   }
 
   res.json({ message: 'Booking successfully linked to your account' });

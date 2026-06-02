@@ -1,9 +1,7 @@
 const fetch = require('node-fetch');
-const db = require('../db/database');
+const pool = require('../db/database');
 const movieModel = require('../models/movieModel');
 require('dotenv').config();
-
-const apiKey = process.env.OMDB_API_KEY;
 
 const imdbIds = process.argv.slice(2);
 
@@ -22,9 +20,8 @@ async function fetchAndInsertMovie(id) {
       if (data.items && data.items.length > 0) {
         const videoId = data.items[0].id.videoId;
         return `https://www.youtube.com/watch?v=${videoId}`;
-      } else {
-        return ''; // fallback if no video found
       }
+      return '';
     } catch (err) {
       console.error('YouTube API Error:', err.message);
       return '';
@@ -42,28 +39,20 @@ async function fetchAndInsertMovie(id) {
       return;
     }
 
-    const title = data.Title;
-    const description = data.Plot;
-    const poster_url = data.Poster;
-    const imdb_rating = parseFloat(data.imdbRating) || null;
-    const release_year = parseInt(data.Year);
-    const length_minutes = parseInt(data.Runtime);
-    const genre = data.Genre;
+    const trailer_url = await getYoutubeTrailer(data.Title);
 
-    const trailer_url = await getYoutubeTrailer(title);
-
-    movieModel.createMovie(
-      title,
-      description,
-      poster_url,
+    await movieModel.createMovie(
+      data.Title,
+      data.Plot,
+      data.Poster,
       trailer_url,
-      imdb_rating,
-      release_year,
-      length_minutes,
-      genre
+      parseFloat(data.imdbRating) || null,
+      parseInt(data.Year),
+      parseInt(data.Runtime),
+      data.Genre
     );
 
-    console.log(`✅ Movie inserted: ${title}`);
+    console.log(`✅ Movie inserted: ${data.Title}`);
   } catch (err) {
     console.error(`❌ Error fetching movie ${id}: ${err.message}`);
   }
@@ -80,6 +69,7 @@ async function main() {
   }
 
   console.log('Done fetching and inserting movies.');
+  await pool.end();
 }
 
 main();

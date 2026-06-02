@@ -1,41 +1,27 @@
-const db = require('../db/database');
+const pool = require('../db/database');
 
-function getWatchlistByUserId(user_id) {
-  return db
-    .prepare(
-      `
-    SELECT movies.* FROM watchlist
-    JOIN movies ON watchlist.movie_id = movies.movie_id
-    WHERE watchlist.user_id = ?
-  `
-    )
-    .all(user_id);
+async function getWatchlistByUserId(user_id) {
+  const result = await pool.query(
+    `SELECT movies.* FROM watchlist
+     JOIN movies ON watchlist.movie_id = movies.movie_id
+     WHERE watchlist.user_id = $1`,
+    [user_id]
+  );
+  return result.rows;
 }
 
-function addToWatchlist(user_id, movie_id) {
-  return db
-    .prepare(
-      `
-    INSERT INTO watchlist (user_id, movie_id)
-    VALUES (?, ?)
-  `
-    )
-    .run(user_id, movie_id);
+async function addToWatchlist(user_id, movie_id) {
+  return pool.query(
+    `INSERT INTO watchlist (user_id, movie_id) VALUES ($1, $2)`,
+    [user_id, movie_id]
+  );
 }
 
-function removeFromWatchlist(user_id, movie_id) {
-  return db
-    .prepare(
-      `
-    DELETE FROM watchlist
-    WHERE user_id = ? AND movie_id = ?
-  `
-    )
-    .run(user_id, movie_id);
+async function removeFromWatchlist(user_id, movie_id) {
+  return pool.query(
+    `DELETE FROM watchlist WHERE user_id = $1 AND movie_id = $2`,
+    [user_id, movie_id]
+  );
 }
 
-module.exports = {
-  getWatchlistByUserId,
-  addToWatchlist,
-  removeFromWatchlist,
-};
+module.exports = { getWatchlistByUserId, addToWatchlist, removeFromWatchlist };

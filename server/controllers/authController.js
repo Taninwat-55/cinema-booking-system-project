@@ -9,17 +9,14 @@ async function registerUser(req, res) {
     return res.status(400).json({ error: 'All fields are required.' });
   }
 
-  const existingUser = userModel.getUserByEmail(email);
+  const existingUser = await userModel.getUserByEmail(email);
   if (existingUser) {
     return res.status(400).json({ error: 'Email already exists' });
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
-  userModel.createUser(email, hashedPassword, name);
+  const newUser = await userModel.createUser(email, hashedPassword, name);
 
-  const newUser = userModel.getUserByEmail(email);
-
-  // 🔑 Generate token
   const token = jwt.sign(
     {
       user_id: newUser.user_id,
@@ -44,7 +41,7 @@ async function registerUser(req, res) {
 
 async function loginUser(req, res) {
   const { email, password } = req.body;
-  const user = userModel.getUserByEmail(email);
+  const user = await userModel.getUserByEmail(email);
 
   if (!user) {
     return res.status(400).json({ error: 'Invalid email or password' });

@@ -1,14 +1,19 @@
-const db = require('../db/database');
-const bcrypt = require('bcrypt'); 
+const pool = require('../db/database');
+const bcrypt = require('bcrypt');
 
-const hashedPassword = bcrypt.hashSync('adminpassword', 10);
+async function main() {
+  const hashedPassword = await bcrypt.hash('adminpassword', 10);
 
-db.prepare(`
-  INSERT INTO users (email, password, name, is_admin)
-  VALUES (?, ?, ?, ?)
-`).run(
-  'admin@email.com',
-  hashedPassword,
-  'Admin User',
-  1 // is_admin = true
-);
+  await pool.query(
+    `INSERT INTO users (email, password, name, is_admin) VALUES ($1, $2, $3, $4)`,
+    ['admin@email.com', hashedPassword, 'Admin User', 1]
+  );
+
+  console.log('✅ Admin user inserted!');
+  await pool.end();
+}
+
+main().catch((err) => {
+  console.error('❌ Failed to insert admin:', err.message);
+  process.exit(1);
+});

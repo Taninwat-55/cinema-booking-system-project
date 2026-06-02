@@ -1,4 +1,4 @@
-const db = require('../db/database');
+const pool = require('../db/database');
 const fetch = require('node-fetch');
 require('dotenv').config();
 
@@ -7,15 +7,13 @@ async function getYoutubeTrailer(title) {
 
   if (!apiKey) {
     console.warn('YOUTUBE_API_KEY is not set — skipping trailer fetch.');
-    return ''; // ⛔️ fallback to no trailer
+    return '';
   }
 
   const query = `${title} trailer`;
   const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(
     query
   )}&key=${apiKey}&type=video&maxResults=1`;
-
-  console.warn(`No trailer found for "${title}"`);
 
   try {
     const res = await fetch(searchUrl);
@@ -25,6 +23,7 @@ async function getYoutubeTrailer(title) {
       const videoId = data.items[0].id.videoId;
       return `https://www.youtube.com/watch?v=${videoId}`;
     } else {
+      console.warn(`No trailer found for "${title}"`);
       return '';
     }
   } catch (err) {
@@ -33,33 +32,36 @@ async function getYoutubeTrailer(title) {
   }
 }
 
-function getAllMovies(searchTerm = '', genre = '', year = '') {
+async function getAllMovies(searchTerm = '', genre = '', year = '') {
   let query = 'SELECT * FROM movies WHERE 1=1';
   const params = [];
+  let i = 1;
 
   if (searchTerm) {
-    query += ' AND LOWER(title) LIKE ?';
+    query += ` AND LOWER(title) LIKE $${i++}`;
     params.push(`%${searchTerm.toLowerCase()}%`);
   }
 
   if (genre) {
-    query += ' AND genre LIKE ?';
+    query += ` AND genre ILIKE $${i++}`;
     params.push(`%${genre}%`);
   }
 
   if (year) {
-    query += ' AND release_year = ?';
+    query += ` AND release_year = $${i++}`;
     params.push(year);
   }
 
-  return db.prepare(query).all(...params);
+  const result = await pool.query(query, params);
+  return result.rows;
 }
 
-function getMovieById(movieId) {
-  return db.prepare('SELECT * FROM movies WHERE movie_id = ?').get(movieId);
+async function getMovieById(movieId) {
+  const result = await pool.query('SELECT * FROM movies WHERE movie_id = $1', [movieId]);
+  return result.rows[0];
 }
 
-function createMovie(
+async function createMovie(
   title,
   description,
   poster_url,
@@ -70,53 +72,36 @@ function createMovie(
   genre
 ) {
   const imdb_id = Math.random().toString(36).substring(2, 9);
-
-  return db
-    .prepare(
-      `INSERT INTO movies (imdb_id, title, description, poster_url, trailer_url, imdb_rating, release_year, length_minutes, genre)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
-    )
-    .run(
-      imdb_id,
-      title,
-      description,
-      poster_url,
-      trailer_url,
-      imdb_rating,
-      release_year,
-      length_minutes,
-      genre
-    );
+  const result = await pool.query(
+    `INSERT INTO movies (imdb_id, title, description, poster_url, trailer_url, imdb_rating, release_year, length_minutes, genre)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING movie_id`,
+    [imdb_id, title, description, poster_url, trailer_url, imdb_rating, release_year, length_minutes, genre]
+  );
+  return result.rows[0];
 }
 
-function deleteMovie(movieId) {
-  // Step 1: Delete all showings linked to this movie
-  db.prepare('DELETE FROM showings WHERE movie_id = ?').run(movieId);
-
-  // Step 2: Delete the movie
-  return db.prepare('DELETE FROM movies WHERE movie_id = ?').run(movieId);
+async function deleteMovie(movieId) {
+  await pool.query('DELETE FROM showings WHERE movie_id = $1', [movieId]);
+  return pool.query('DELETE FROM movies WHERE movie_id = $1', [movieId]);
 }
 
-function getMovieByTitle(title) {
-  return db
-    .prepare('SELECT * FROM movies WHERE LOWER(title) = LOWER(?)')
-    .get(title);
+async function getMovieByTitle(title) {
+  const result = await pool.query(
+    'SELECT * FROM movies WHERE LOWER(title) = LOWER($1)',
+    [title]
+  );
+  return result.rows[0];
 }
 
-function updateMovie(id, title, description, poster_url, trailer_url) {
-  return db
-    .prepare(
-      `
-        UPDATE movies
-        SET title = ?, description = ?, poster_url = ?, trailer_url = ?
-        WHERE movie_id = ?
-      `
-    )
-    .run(title, description, poster_url, trailer_url, id);
+async function updateMovie(id, title, description, poster_url, trailer_url) {
+  return pool.query(
+    `UPDATE movies SET title = $1, description = $2, poster_url = $3, trailer_url = $4 WHERE movie_id = $5`,
+    [title, description, poster_url, trailer_url, id]
+  );
 }
 
 async function createMovieFromOMDb(title, apiKey) {
-  const existing = getMovieByTitle(title);
+  const existing = await getMovieByTitle(title);
   if (existing) return { error: 'exists' };
 
   const response = await fetch(
@@ -128,11 +113,11 @@ async function createMovieFromOMDb(title, apiKey) {
 
   const trailer_url = await getYoutubeTrailer(title);
 
-  createMovie(
+  await createMovie(
     data.Title,
     data.Plot,
     data.Poster,
-    trailer_url, 
+    trailer_url,
     parseFloat(data.imdbRating),
     parseInt(data.Year),
     parseInt(data.Runtime),

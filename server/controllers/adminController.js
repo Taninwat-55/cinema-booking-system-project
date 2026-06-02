@@ -1,12 +1,10 @@
-const db = require('../db/database');
 const movieModel = require('../models/movieModel');
 const showingModel = require('../models/showingModel');
 const adminModel = require('../models/adminModel');
-const fetch = require('node-fetch');
 require('dotenv').config();
 
-function getAllMovies(req, res) {
-  const movies = movieModel.getAllMovies();
+async function getAllMovies(req, res) {
+  const movies = await movieModel.getAllMovies();
   res.json(movies);
 }
 
@@ -20,7 +18,7 @@ async function createMovie(req, res) {
     release_year,
     length_minutes,
     genre,
-    useOmdb = true, // optional flag
+    useOmdb = true,
   } = req.body;
 
   const apiKey = process.env.OMDB_API_KEY;
@@ -28,9 +26,7 @@ async function createMovie(req, res) {
   try {
     if (useOmdb) {
       if (!apiKey) {
-        return res
-          .status(400)
-          .json({ error: 'OMDb API key is missing in server environment.' });
+        return res.status(400).json({ error: 'OMDb API key is missing in server environment.' });
       }
       const result = await movieModel.createMovieFromOMDb(title, apiKey);
       if (result.error === 'exists') {
@@ -39,11 +35,9 @@ async function createMovie(req, res) {
       if (result.error === 'not_found') {
         return res.status(404).json({ error: 'Movie not found in OMDb API' });
       }
-      return res
-        .status(201)
-        .json({ message: 'Movie created successfully with OMDb data' });
+      return res.status(201).json({ message: 'Movie created successfully with OMDb data' });
     } else {
-      movieModel.createMovie(
+      await movieModel.createMovie(
         title,
         description,
         poster_url,
@@ -53,9 +47,7 @@ async function createMovie(req, res) {
         length_minutes,
         genre
       );
-      return res
-        .status(201)
-        .json({ message: 'Movie created manually and saved successfully' });
+      return res.status(201).json({ message: 'Movie created manually and saved successfully' });
     }
   } catch (err) {
     console.error('Create Movie Error:', err.message);
@@ -63,31 +55,16 @@ async function createMovie(req, res) {
   }
 }
 
-function deleteMovie(req, res) {
+async function deleteMovie(req, res) {
   const movieId = req.params.id;
-
-  movieModel.deleteMovie(movieId);
+  await movieModel.deleteMovie(movieId);
   res.json({ message: 'Movie deleted successfully' });
 }
 
-function createShowing(req, res) {
-  const {
-    movie_id,
-    theater_id,
-    showing_time,
-    price_adult,
-    price_child,
-    price_senior,
-  } = req.body;
+async function createShowing(req, res) {
+  const { movie_id, theater_id, showing_time, price_adult, price_child, price_senior } = req.body;
 
-  if (
-    !movie_id ||
-    !theater_id ||
-    !showing_time ||
-    !price_adult ||
-    !price_child ||
-    !price_senior
-  ) {
+  if (!movie_id || !theater_id || !showing_time || !price_adult || !price_child || !price_senior) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
@@ -98,29 +75,22 @@ function createShowing(req, res) {
     return res.status(400).json({ error: 'Cannot add a showing in the past' });
   }
 
-  showingModel.createShowing(
-    movie_id,
-    theater_id,
-    showing_time,
-    price_adult,
-    price_child,
-    price_senior
-  );
+  await showingModel.createShowing(movie_id, theater_id, showing_time, price_adult, price_child, price_senior);
 
   res.status(201).json({ message: 'Showing created successfully' });
 }
 
-function updateMovie(req, res) {
+async function updateMovie(req, res) {
   const id = req.params.id;
   const { title, description, poster_url, trailer_url } = req.body;
 
-  movieModel.updateMovie(id, title, description, poster_url, trailer_url);
+  await movieModel.updateMovie(id, title, description, poster_url, trailer_url);
   res.json({ message: 'Movie updated successfully' });
 }
 
-function getDashboardStats(req, res) {
+async function getDashboardStats(req, res) {
   try {
-    const stats = adminModel.getDashboardStats();
+    const stats = await adminModel.getDashboardStats();
     res.json(stats);
   } catch (error) {
     console.error('Dashboard Stats Error:', error.message);
@@ -128,9 +98,9 @@ function getDashboardStats(req, res) {
   }
 }
 
-function getAllBookings(req, res) {
+async function getAllBookings(req, res) {
   try {
-    const allBookings = adminModel.getAllBookingsWithSeats();
+    const allBookings = await adminModel.getAllBookingsWithSeats();
     res.json(allBookings);
   } catch (err) {
     console.error('Error fetching all bookings:', err.message);
@@ -138,44 +108,22 @@ function getAllBookings(req, res) {
   }
 }
 
-function updateShowing(req, res) {
+async function updateShowing(req, res) {
   const showingId = req.params.id;
-  const {
-    movie_id,
-    theater_id,
-    showing_time,
-    price_adult,
-    price_child,
-    price_senior,
-  } = req.body;
+  const { movie_id, theater_id, showing_time, price_adult, price_child, price_senior } = req.body;
 
-  if (
-    !movie_id ||
-    !theater_id ||
-    !showing_time ||
-    !price_adult ||
-    !price_child ||
-    !price_senior
-  ) {
+  if (!movie_id || !theater_id || !showing_time || !price_adult || !price_child || !price_senior) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
-  showingModel.updateShowing(
-    showingId,
-    movie_id,
-    theater_id,
-    showing_time,
-    price_adult,
-    price_child,
-    price_senior
-  );
+  await showingModel.updateShowing(showingId, movie_id, theater_id, showing_time, price_adult, price_child, price_senior);
 
   res.json({ message: 'Showing updated successfully' });
 }
 
-function deleteShowing(req, res) {
+async function deleteShowing(req, res) {
   const showingId = req.params.id;
-  showingModel.deleteShowing(showingId);
+  await showingModel.deleteShowing(showingId);
   res.json({ message: 'Showing deleted successfully' });
 }
 
